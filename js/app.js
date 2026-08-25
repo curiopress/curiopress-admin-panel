@@ -1,36 +1,74 @@
-/* =====================================================
-   CURIOPRESS ADMIN APP CONTROLLER
-   Main controller for the admin panel
-===================================================== */
-
-(function () {
+(() => {
 
     "use strict";
 
 
-    /* =================================================
-       STATE
-    ================================================= */
+    /* =====================================================
+       CURIOPRESS ADMIN APP
+    ===================================================== */
+
 
     let currentPath = "";
-
     let currentFile = null;
 
 
-    /* =================================================
-       ELEMENTS
-    ================================================= */
+    /* =====================================================
+       HELPERS
+    ===================================================== */
 
-    const fileList =
-        document.getElementById("fileList");
+    function $id(id) {
 
-    const globalSearch =
-        document.getElementById("globalSearch");
+        return document.getElementById(id);
+
+    }
 
 
-    /* =================================================
+    function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    function showToast(message) {
+
+        const toast = $id("toast");
+
+        if (!toast) {
+
+            return;
+
+        }
+
+
+        toast.textContent = message;
+
+        toast.classList.add("show");
+
+
+        clearTimeout(
+            window.__curioPressToastTimer
+        );
+
+
+        window.__curioPressToastTimer =
+            setTimeout(() => {
+
+                toast.classList.remove("show");
+
+            }, 2800);
+
+    }
+
+
+    /* =====================================================
        LOAD REPOSITORY
-    ================================================= */
+    ===================================================== */
 
     async function loadRepository() {
 
@@ -45,27 +83,23 @@
                 data.repository
             ) {
 
-                CurioPressUI.showToast(
+                showToast(
                     `Connected to ${data.repository.full_name}`
                 );
 
             }
 
 
-            await loadFiles(
-                currentPath
-            );
+            await loadFiles("");
 
-
-            updateRepositoryStats();
+            await loadCommits();
 
 
         } catch (error) {
 
-            CurioPressUI.showToast(
-                CurioPressAPI.getApiErrorMessage(
-                    error
-                )
+            showToast(
+                error.message ||
+                "Unable to connect to repository."
             );
 
         }
@@ -73,13 +107,15 @@
     }
 
 
-    /* =================================================
+    /* =====================================================
        LOAD FILES
-    ================================================= */
+    ===================================================== */
 
-    async function loadFiles(
-        path = ""
-    ) {
+    async function loadFiles(path = "") {
+
+        const fileList =
+            $id("fileList");
+
 
         if (!fileList) {
 
@@ -88,22 +124,24 @@
         }
 
 
-        fileList.innerHTML =
-            CurioPressUI.loading(
-                "Loading repository..."
-            );
+        fileList.innerHTML = `
+            <div style="
+                padding:30px;
+                text-align:center;
+                color:#8995a8;
+            ">
+                Loading repository...
+            </div>
+        `;
 
 
         try {
 
             const data =
-                await CurioPressAPI.getFiles(
-                    path
-                );
+                await CurioPressAPI.getFiles(path);
 
 
-            currentPath =
-                path;
+            currentPath = path;
 
 
             if (
@@ -111,52 +149,45 @@
                 !data.files.length
             ) {
 
-                fileList.innerHTML =
-                    CurioPressUI.emptyState(
-                        "No files found."
-                    );
+                fileList.innerHTML = `
+                    <div style="
+                        padding:30px;
+                        text-align:center;
+                        color:#8995a8;
+                    ">
+                        No files found.
+                    </div>
+                `;
+
+                updateFileCount(0);
 
                 return;
 
             }
 
 
-            fileList.innerHTML =
-                "";
+            fileList.innerHTML = "";
 
-
-            /* =========================================
-               PARENT DIRECTORY
-            ========================================= */
 
             if (path) {
 
                 const parent =
                     path
                         .split("/")
-                        .slice(
-                            0,
-                            -1
-                        )
+                        .slice(0, -1)
                         .join("/");
 
 
                 const back =
-                    document.createElement(
-                        "div"
-                    );
+                    document.createElement("div");
 
 
-                back.className =
-                    "file";
+                back.className = "file";
 
-
-                back.style.cursor =
-                    "pointer";
+                back.style.cursor = "pointer";
 
 
                 back.innerHTML = `
-
                     <div class="file-info">
 
                         <div class="file-icon">
@@ -165,9 +196,7 @@
 
                         <div class="file-name">
 
-                            <strong>
-                                ..
-                            </strong>
+                            <strong>..</strong>
 
                             <span>
                                 Parent folder
@@ -176,298 +205,230 @@
                         </div>
 
                     </div>
-
                 `;
 
 
                 back.addEventListener(
                     "click",
-                    function () {
-
-                        loadFiles(
-                            parent
-                        );
-
-                    }
+                    () => loadFiles(parent)
                 );
 
 
-                fileList.appendChild(
-                    back
-                );
+                fileList.appendChild(back);
 
             }
 
 
-            /* =========================================
-               FILES
-            ========================================= */
-
-            data.files.forEach(
-                function (item) {
-
-                    const row =
-                        document.createElement(
-                            "div"
-                        );
+            let filesCount = 0;
 
 
-                    row.className =
-                        "file";
+            data.files.forEach(item => {
+
+                filesCount++;
 
 
-                    const isDirectory =
-                        item.type ===
-                        "dir";
+                const row =
+                    document.createElement("div");
 
 
-                    const icon =
-                        isDirectory
-                            ? "▱"
-                            : "◇";
+                row.className = "file";
 
 
-                    row.innerHTML = `
+                const isDirectory =
+                    item.type === "dir";
 
-                        <div class="file-info">
 
-                            <div class="file-icon">
-                                ${icon}
-                            </div>
+                const icon =
+                    isDirectory
+                        ? "▱"
+                        : "◇";
 
-                            <div class="file-name">
 
-                                <strong>
-                                    ${CurioPressUI.escapeHtml(
-                                        item.name
-                                    )}
-                                </strong>
+                row.innerHTML = `
 
-                                <span>
-                                    ${
-                                        isDirectory
-                                            ? "Folder"
-                                            : `${item.size || 0} bytes`
-                                    }
-                                </span>
+                    <div class="file-info">
 
-                            </div>
+                        <div class="file-icon">
+                            ${icon}
+                        </div>
+
+                        <div class="file-name">
+
+                            <strong>
+                                ${escapeHtml(item.name)}
+                            </strong>
+
+                            <span>
+                                ${
+                                    isDirectory
+                                        ? "Folder"
+                                        : `${item.size || 0} bytes`
+                                }
+                            </span>
 
                         </div>
 
-
-                        <div class="file-actions">
-
-                            <button
-                                class="mini-button"
-                                data-open
-                            >
-                                Open
-                            </button>
-
-                            <button
-                                class="mini-button"
-                                data-edit
-                            >
-                                Edit
-                            </button>
-
-                            <button
-                                class="mini-button"
-                                data-preview
-                            >
-                                Preview
-                            </button>
-
-                            <button
-                                class="mini-button"
-                                data-commit
-                            >
-                                Commit
-                            </button>
-
-                            <button
-                                class="mini-button"
-                                data-deploy
-                            >
-                                Deploy
-                            </button>
-
-                        </div>
-
-                    `;
+                    </div>
 
 
-                    const open =
-                        row.querySelector(
-                            "[data-open]"
-                        );
+                    <div class="file-actions">
 
-                    const edit =
-                        row.querySelector(
-                            "[data-edit]"
-                        );
+                        <button
+                            class="mini-button"
+                            data-open
+                        >
+                            Open
+                        </button>
 
-                    const preview =
-                        row.querySelector(
-                            "[data-preview]"
-                        );
+                        <button
+                            class="mini-button"
+                            data-edit
+                        >
+                            Edit
+                        </button>
 
-                    const commit =
-                        row.querySelector(
-                            "[data-commit]"
-                        );
+                        <button
+                            class="mini-button"
+                            data-preview
+                        >
+                            Preview
+                        </button>
 
-                    const deploy =
-                        row.querySelector(
-                            "[data-deploy]"
-                        );
+                        <button
+                            class="mini-button"
+                            data-commit
+                        >
+                            Commit
+                        </button>
 
+                    </div>
 
-                    /* =====================================
-                       DIRECTORY
-                    ===================================== */
-
-                    if (isDirectory) {
-
-                        edit.disabled =
-                            true;
-
-                        preview.disabled =
-                            true;
-
-                        commit.disabled =
-                            true;
-
-                        deploy.disabled =
-                            true;
+                `;
 
 
-                        open.addEventListener(
-                            "click",
-                            function () {
-
-                                loadFiles(
-                                    item.path
-                                );
-
-                            }
-                        );
+                const open =
+                    row.querySelector(
+                        "[data-open]"
+                    );
 
 
-                    } else {
+                const edit =
+                    row.querySelector(
+                        "[data-edit]"
+                    );
 
 
-                        /* =================================
-                           OPEN
-                        ================================= */
-
-                        open.addEventListener(
-                            "click",
-                            function () {
-
-                                openFile(
-                                    item.path,
-                                    "open"
-                                );
-
-                            }
-                        );
+                const preview =
+                    row.querySelector(
+                        "[data-preview]"
+                    );
 
 
-                        /* =================================
-                           EDIT
-                        ================================= */
-
-                        edit.addEventListener(
-                            "click",
-                            function () {
-
-                                openFile(
-                                    item.path,
-                                    "edit"
-                                );
-
-                            }
-                        );
+                const commit =
+                    row.querySelector(
+                        "[data-commit]"
+                    );
 
 
-                        /* =================================
-                           PREVIEW
-                        ================================= */
+                if (isDirectory) {
 
-                        preview.addEventListener(
-                            "click",
-                            function () {
+                    edit.disabled = true;
 
-                                previewFile(
-                                    item.path
-                                );
+                    preview.disabled = true;
 
-                            }
-                        );
+                    commit.disabled = true;
 
 
-                        /* =================================
-                           COMMIT
-                        ================================= */
-
-                        commit.addEventListener(
-                            "click",
-                            function () {
-
-                                openFile(
-                                    item.path,
-                                    "edit"
-                                );
-
-                            }
-                        );
+                    open.addEventListener(
+                        "click",
+                        () => loadFiles(item.path)
+                    );
 
 
-                        /* =================================
-                           DEPLOY
-                        ================================= */
+                } else {
 
-                        deploy.addEventListener(
-                            "click",
-                            function () {
-
-                                CurioPressUI.showToast(
-                                    "Deploy will use the approved GitHub workflow."
-                                );
-
-                            }
-                        );
-
-                    }
+                    open.addEventListener(
+                        "click",
+                        () =>
+                            openFile(
+                                item.path,
+                                "open"
+                            )
+                    );
 
 
-                    fileList.appendChild(
-                        row
+                    edit.addEventListener(
+                        "click",
+                        () =>
+                            openFile(
+                                item.path,
+                                "edit"
+                            )
+                    );
+
+
+                    preview.addEventListener(
+                        "click",
+                        () =>
+                            previewFile(item.path)
+                    );
+
+
+                    commit.addEventListener(
+                        "click",
+                        () =>
+                            openFile(
+                                item.path,
+                                "edit"
+                            )
                     );
 
                 }
-            );
+
+
+                fileList.appendChild(row);
+
+            });
+
+
+            updateFileCount(filesCount);
 
 
         } catch (error) {
 
-            fileList.innerHTML =
-                CurioPressUI.errorState(
-                    CurioPressAPI.getApiErrorMessage(
-                        error
-                    )
-                );
+            fileList.innerHTML = `
+                <div style="
+                    padding:30px;
+                    text-align:center;
+                    color:#fb7185;
+                ">
+                    ${escapeHtml(error.message)}
+                </div>
+            `;
 
         }
 
     }
 
 
-    /* =================================================
+    function updateFileCount(count) {
+
+        const element =
+            $id("totalFiles");
+
+
+        if (element) {
+
+            element.textContent = count;
+
+        }
+
+    }
+
+
+    /* =====================================================
        OPEN FILE
-    ================================================= */
+    ===================================================== */
 
     async function openFile(
         path,
@@ -477,16 +438,26 @@
         try {
 
             const data =
-                await CurioPressAPI.getFile(
-                    path
+                await CurioPressAPI.getFile(path);
+
+
+            if (
+                !data.success ||
+                !data.file
+            ) {
+
+                throw new Error(
+                    "File could not be loaded."
                 );
+
+            }
 
 
             currentFile =
                 data.file;
 
 
-            showFileModal(
+            showFileEditor(
                 data.file,
                 mode
             );
@@ -494,10 +465,8 @@
 
         } catch (error) {
 
-            CurioPressUI.showToast(
-                CurioPressAPI.getApiErrorMessage(
-                    error
-                )
+            showToast(
+                error.message
             );
 
         }
@@ -505,36 +474,31 @@
     }
 
 
-    /* =================================================
-       FILE MODAL
-    ================================================= */
+    /* =====================================================
+       FILE EDITOR
+    ===================================================== */
 
-    function showFileModal(
+    function showFileEditor(
         file,
         mode
     ) {
 
-        const existing =
-            document.getElementById(
-                "fileModal"
-            );
+        const old =
+            $id("fileModal");
 
 
-        if (existing) {
+        if (old) {
 
-            existing.remove();
+            old.remove();
 
         }
 
 
         const modal =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
 
-        modal.id =
-            "fileModal";
+        modal.id = "fileModal";
 
 
         modal.style.cssText = `
@@ -549,7 +513,7 @@
         `;
 
 
-        const editorMode =
+        const editable =
             mode === "edit";
 
 
@@ -567,6 +531,7 @@
                 box-shadow:0 30px 100px rgba(0,0,0,.6);
             ">
 
+
                 <div style="
                     display:flex;
                     align-items:center;
@@ -579,9 +544,7 @@
                     <div>
 
                         <strong>
-                            ${CurioPressUI.escapeHtml(
-                                file.name
-                            )}
+                            ${escapeHtml(file.name)}
                         </strong>
 
                         <div style="
@@ -589,9 +552,7 @@
                             color:#8995a8;
                             font-size:11px;
                         ">
-                            ${CurioPressUI.escapeHtml(
-                                file.path
-                            )}
+                            ${escapeHtml(file.path)}
                         </div>
 
                     </div>
@@ -606,35 +567,28 @@
 
                         <button
                             class="mini-button"
-                            id="modalEdit"
+                            data-modal-edit
                         >
                             Edit
                         </button>
 
                         <button
                             class="mini-button"
-                            id="modalPreview"
+                            data-modal-preview
                         >
                             Preview
                         </button>
 
                         <button
                             class="mini-button"
-                            id="modalCommit"
+                            data-modal-save
                         >
                             Commit
                         </button>
 
                         <button
                             class="mini-button"
-                            id="modalDeploy"
-                        >
-                            Deploy
-                        </button>
-
-                        <button
-                            class="mini-button"
-                            id="modalClose"
+                            data-modal-close
                         >
                             Close
                         </button>
@@ -645,7 +599,7 @@
 
 
                 <textarea
-                    id="fileEditor"
+                    data-file-editor
                     spellcheck="false"
                     style="
                         flex:1;
@@ -665,7 +619,7 @@
                         font-size:13px;
                         line-height:1.65;
                     "
-                    ${editorMode ? "" : "readonly"}
+                    ${editable ? "" : "readonly"}
                 ></textarea>
 
 
@@ -682,14 +636,12 @@
 
                     <span>
                         SHA:
-                        ${CurioPressUI.escapeHtml(
-                            file.sha || "—"
-                        )}
+                        ${escapeHtml(file.sha || "—")}
                     </span>
 
                     <button
                         class="button button-primary"
-                        id="saveFileButton"
+                        data-save-file
                     >
                         Save Changes
                     </button>
@@ -697,17 +649,16 @@
                 </div>
 
             </div>
+
         `;
 
 
-        document.body.appendChild(
-            modal
-        );
+        document.body.appendChild(modal);
 
 
         const editor =
             modal.querySelector(
-                "#fileEditor"
+                "[data-file-editor]"
             );
 
 
@@ -715,128 +666,80 @@
             file.content || "";
 
 
-        /* =============================================
-           CLOSE
-        ============================================= */
-
-        modal.querySelector(
-            "#modalClose"
-        ).addEventListener(
-            "click",
-            function () {
-
-                modal.remove();
-
-            }
-        );
+        modal
+            .querySelector("[data-modal-close]")
+            .addEventListener(
+                "click",
+                () => modal.remove()
+            );
 
 
-        /* =============================================
-           EDIT
-        ============================================= */
+        modal
+            .querySelector("[data-modal-edit]")
+            .addEventListener(
+                "click",
+                () => {
 
-        modal.querySelector(
-            "#modalEdit"
-        ).addEventListener(
-            "click",
-            function () {
+                    editor.removeAttribute(
+                        "readonly"
+                    );
 
-                editor.removeAttribute(
-                    "readonly"
-                );
+                    editor.focus();
 
-                editor.focus();
+                    showToast(
+                        "Edit mode enabled."
+                    );
 
-                CurioPressUI.showToast(
-                    "Edit mode enabled."
-                );
-
-            }
-        );
+                }
+            );
 
 
-        /* =============================================
-           PREVIEW
-        ============================================= */
+        modal
+            .querySelector("[data-modal-preview]")
+            .addEventListener(
+                "click",
+                () => {
 
-        modal.querySelector(
-            "#modalPreview"
-        ).addEventListener(
-            "click",
-            function () {
+                    previewContent(
+                        file.name,
+                        editor.value
+                    );
 
-                previewContent(
-                    file.name,
-                    editor.value
-                );
-
-            }
-        );
+                }
+            );
 
 
-        /* =============================================
-           COMMIT
-        ============================================= */
-
-        modal.querySelector(
-            "#modalCommit"
-        ).addEventListener(
-            "click",
-            async function () {
-
-                await saveFile(
-                    file,
-                    editor.value,
-                    modal
-                );
-
-            }
-        );
+        modal
+            .querySelector("[data-modal-save]")
+            .addEventListener(
+                "click",
+                () =>
+                    saveFile(
+                        file,
+                        editor.value,
+                        modal
+                    )
+            );
 
 
-        /* =============================================
-           DEPLOY
-        ============================================= */
-
-        modal.querySelector(
-            "#modalDeploy"
-        ).addEventListener(
-            "click",
-            function () {
-
-                CurioPressUI.showToast(
-                    "Deploy will use the approved GitHub workflow."
-                );
-
-            }
-        );
-
-
-        /* =============================================
-           SAVE
-        ============================================= */
-
-        modal.querySelector(
-            "#saveFileButton"
-        ).addEventListener(
-            "click",
-            async function () {
-
-                await saveFile(
-                    file,
-                    editor.value,
-                    modal
-                );
-
-            }
-        );
+        modal
+            .querySelector("[data-save-file]")
+            .addEventListener(
+                "click",
+                () =>
+                    saveFile(
+                        file,
+                        editor.value,
+                        modal
+                    )
+            );
 
     }
 
 
-    /* =================================================
+    /* =====================================================
        SAVE FILE
-    ================================================= */
+    ===================================================== */
 
     async function saveFile(
         file,
@@ -845,7 +748,7 @@
     ) {
 
         const confirmed =
-            CurioPressUI.confirmAction(
+            window.confirm(
                 `Commit changes to ${file.path}?`
             );
 
@@ -859,7 +762,7 @@
 
         try {
 
-            CurioPressUI.showToast(
+            showToast(
                 "Committing changes..."
             );
 
@@ -875,7 +778,7 @@
 
             if (data.success) {
 
-                CurioPressUI.showToast(
+                showToast(
                     "Changes committed successfully."
                 );
 
@@ -883,21 +786,23 @@
                 modal.remove();
 
 
+                currentFile = null;
+
+
                 await loadFiles(
                     currentPath
                 );
+
+
+                await loadCommits();
 
             }
 
 
         } catch (error) {
 
-            CurioPressUI.showToast(
-                `Commit failed: ${
-                    CurioPressAPI.getApiErrorMessage(
-                        error
-                    )
-                }`
+            showToast(
+                `Commit failed: ${error.message}`
             );
 
         }
@@ -905,20 +810,16 @@
     }
 
 
-    /* =================================================
-       PREVIEW FILE
-    ================================================= */
+    /* =====================================================
+       PREVIEW
+    ===================================================== */
 
-    async function previewFile(
-        path
-    ) {
+    async function previewFile(path) {
 
         try {
 
             const data =
-                await CurioPressAPI.getFile(
-                    path
-                );
+                await CurioPressAPI.getFile(path);
 
 
             previewContent(
@@ -929,20 +830,14 @@
 
         } catch (error) {
 
-            CurioPressUI.showToast(
-                CurioPressAPI.getApiErrorMessage(
-                    error
-                )
+            showToast(
+                error.message
             );
 
         }
 
     }
 
-
-    /* =================================================
-       HTML PREVIEW
-    ================================================= */
 
     function previewContent(
         filename,
@@ -970,7 +865,7 @@
 
             if (!preview) {
 
-                CurioPressUI.showToast(
+                showToast(
                     "Allow pop-ups to preview this file."
                 );
 
@@ -981,27 +876,136 @@
 
             preview.document.open();
 
-            preview.document.write(
-                content
-            );
+            preview.document.write(content);
 
             preview.document.close();
+
 
             return;
 
         }
 
 
-        CurioPressUI.showToast(
+        showToast(
             "Visual preview is currently available for HTML files."
         );
 
     }
 
 
-    /* =================================================
+    /* =====================================================
+       COMMITS
+    ===================================================== */
+
+    async function loadCommits() {
+
+        try {
+
+            const data =
+                await CurioPressAPI.getCommits();
+
+
+            const container =
+                $id("recentChanges");
+
+
+            if (
+                !container ||
+                !data.commits
+            ) {
+
+                return;
+
+            }
+
+
+            container.innerHTML = "";
+
+
+            data.commits
+                .slice(0, 8)
+                .forEach(commit => {
+
+                    const item =
+                        document.createElement("div");
+
+
+                    item.className =
+                        "change";
+
+
+                    item.innerHTML = `
+
+                        <div class="change-icon">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                ${escapeHtml(
+                                    commit.message
+                                )}
+                            </strong>
+
+                            <span>
+                                ${escapeHtml(
+                                    commit.author
+                                )}
+                                ·
+                                ${formatDate(
+                                    commit.date
+                                )}
+                            </span>
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(item);
+
+                });
+
+
+        } catch (error) {
+
+            console.error(
+                "Commit history error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    function formatDate(value) {
+
+        if (!value) {
+
+            return "Unknown date";
+
+        }
+
+
+        try {
+
+            return new Date(value)
+                .toLocaleString();
+
+        } catch {
+
+            return value;
+
+        }
+
+    }
+
+
+    /* =====================================================
        SEARCH
-    ================================================= */
+    ===================================================== */
 
     async function searchRepository(
         query
@@ -1017,22 +1021,19 @@
         try {
 
             const data =
-                await CurioPressAPI.searchRepository(
-                    query
-                );
+                await CurioPressAPI
+                    .searchRepository(query);
 
 
-            CurioPressUI.showToast(
+            showToast(
                 `${data.total_count || 0} result(s) found for "${query}".`
             );
 
 
         } catch (error) {
 
-            CurioPressUI.showToast(
-                CurioPressAPI.getApiErrorMessage(
-                    error
-                )
+            showToast(
+                error.message
             );
 
         }
@@ -1040,114 +1041,106 @@
     }
 
 
-    /* =================================================
-       REPOSITORY STATS
-    ================================================= */
-
-    async function updateRepositoryStats() {
-
-        try {
-
-            const data =
-                await CurioPressAPI.getFiles(
-                    ""
-                );
-
-
-            const files =
-                data.files || [];
-
-
-            const totalFiles =
-                document.getElementById(
-                    "totalFiles"
-                );
-
-
-            if (totalFiles) {
-
-                totalFiles.textContent =
-                    files.length;
-
-            }
-
-
-        } catch {
-
-            /* Stats are optional. */
-
-        }
-
-    }
-
-
-    /* =================================================
+    /* =====================================================
        NAVIGATION
-    ================================================= */
+    ===================================================== */
 
-    function handleNavigation(
-        page,
-        label
-    ) {
+    function setupNavigation() {
 
-        CurioPressUI.setActiveNav(
-            page
-        );
-
-
-        if (page === "repository") {
-
-            loadFiles();
-
-            return;
-
-        }
-
-
-        CurioPressUI.showToast(
-            `${label} module will be connected in the next phase.`
-        );
-
-    }
-
-
-    document
-        .querySelectorAll(
-            ".nav-item[data-page]"
-        )
-        .forEach(
-            function (item) {
+        document
+            .querySelectorAll(
+                ".nav-item[data-page]"
+            )
+            .forEach(item => {
 
                 item.addEventListener(
                     "click",
-                    function () {
+                    () => {
 
-                        handleNavigation(
-                            item.dataset.page,
-                            item.textContent.trim()
+                        document
+                            .querySelectorAll(
+                                ".nav-item"
+                            )
+                            .forEach(nav =>
+                                nav.classList.remove(
+                                    "active"
+                                )
+                            );
+
+
+                        item.classList.add(
+                            "active"
                         );
+
+
+                        const page =
+                            item.dataset.page;
+
+
+                        if (
+                            page ===
+                            "repository"
+                        ) {
+
+                            loadFiles(
+                                currentPath
+                            );
+
+                        }
+
+                        else if (
+                            page ===
+                            "commits"
+                        ) {
+
+                            loadCommits();
+
+                        }
+
+                        else {
+
+                            showToast(
+                                `${item.textContent.trim()} module will be connected in the next phase.`
+                            );
+
+                        }
+
+
+                        const sidebar =
+                            $id("sidebar");
+
+
+                        if (sidebar) {
+
+                            sidebar.classList.remove(
+                                "open"
+                            );
+
+                        }
 
                     }
                 );
 
-            }
-        );
+            });
+
+    }
 
 
-    /* =================================================
+    /* =====================================================
        QUICK ACTIONS
-    ================================================= */
+    ===================================================== */
 
-    document
-        .querySelectorAll(
-            ".quick[data-action]"
-        )
-        .forEach(
-            function (button) {
+    function setupQuickActions() {
+
+        document
+            .querySelectorAll(
+                ".quick[data-action]"
+            )
+            .forEach(button => {
 
                 button.addEventListener(
                     "click",
-                    function () {
+                    () => {
 
                         const action =
                             button.dataset.action;
@@ -1158,79 +1151,59 @@
                             "repository"
                         ) {
 
-                            loadFiles();
-
-                            return;
+                            loadFiles(
+                                currentPath
+                            );
 
                         }
 
+                        else if (
+                            action ===
+                            "health"
+                        ) {
 
-                        CurioPressUI.showToast(
-                            `${action} module will be connected in the next phase.`
-                        );
+                            showToast(
+                                "Health scan is ready for the next module."
+                            );
+
+                        }
+
+                        else {
+
+                            showToast(
+                                `${action} module is ready for the next development phase.`
+                            );
+
+                        }
 
                     }
                 );
 
-            }
-        );
-
-
-    /* =================================================
-       LOAD REPOSITORY BUTTON
-    ================================================= */
-
-    const loadRepositoryButton =
-        document.getElementById(
-            "loadRepository"
-        );
-
-
-    if (loadRepositoryButton) {
-
-        loadRepositoryButton.addEventListener(
-            "click",
-            loadRepository
-        );
+            });
 
     }
 
 
-    /* =================================================
-       LOAD FILES BUTTON
-    ================================================= */
-
-    const loadFilesButton =
-        document.getElementById(
-            "loadFiles"
-        );
-
-
-    if (loadFilesButton) {
-
-        loadFilesButton.addEventListener(
-            "click",
-            function () {
-
-                loadFiles(
-                    currentPath
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
+    /* =====================================================
        GLOBAL SEARCH
-    ================================================= */
+    ===================================================== */
 
-    if (globalSearch) {
+    function setupSearch() {
 
-        globalSearch.addEventListener(
+        const search =
+            $id("globalSearch");
+
+
+        if (!search) {
+
+            return;
+
+        }
+
+
+        search.addEventListener(
             "keydown",
-            function (event) {
+            event => {
 
                 if (
                     event.key !==
@@ -1242,12 +1215,8 @@
                 }
 
 
-                const query =
-                    globalSearch.value.trim();
-
-
                 searchRepository(
-                    query
+                    search.value.trim()
                 );
 
             }
@@ -1256,134 +1225,36 @@
     }
 
 
-    /* =================================================
-       EDIT BUTTON
-    ================================================= */
+    /* =====================================================
+       MOBILE MENU
+    ===================================================== */
 
-    const editButton =
-        document.getElementById(
-            "editButton"
-        );
+    function setupMobileMenu() {
+
+        const button =
+            $id("mobileMenu");
 
 
-    if (editButton) {
+        const sidebar =
+            $id("sidebar");
 
-        editButton.addEventListener(
+
+        if (
+            !button ||
+            !sidebar
+        ) {
+
+            return;
+
+        }
+
+
+        button.addEventListener(
             "click",
-            function () {
+            () => {
 
-                if (currentFile) {
-
-                    openFile(
-                        currentFile.path,
-                        "edit"
-                    );
-
-                } else {
-
-                    CurioPressUI.showToast(
-                        "Open a file first."
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       PREVIEW BUTTON
-    ================================================= */
-
-    const previewButton =
-        document.getElementById(
-            "previewButton"
-        );
-
-
-    if (previewButton) {
-
-        previewButton.addEventListener(
-            "click",
-            function () {
-
-                if (currentFile) {
-
-                    previewFile(
-                        currentFile.path
-                    );
-
-                } else {
-
-                    CurioPressUI.showToast(
-                        "Open a file first."
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       COMMIT BUTTON
-    ================================================= */
-
-    const commitButton =
-        document.getElementById(
-            "commitButton"
-        );
-
-
-    if (commitButton) {
-
-        commitButton.addEventListener(
-            "click",
-            function () {
-
-                if (currentFile) {
-
-                    openFile(
-                        currentFile.path,
-                        "edit"
-                    );
-
-                } else {
-
-                    CurioPressUI.showToast(
-                        "Open a file first."
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       DEPLOY BUTTON
-    ================================================= */
-
-    const deployButton =
-        document.getElementById(
-            "deployButton"
-        );
-
-
-    if (deployButton) {
-
-        deployButton.addEventListener(
-            "click",
-            function () {
-
-                CurioPressUI.showToast(
-                    "Deploy will use the approved GitHub workflow."
+                sidebar.classList.toggle(
+                    "open"
                 );
 
             }
@@ -1392,119 +1263,258 @@
     }
 
 
-    /* =================================================
-       HEALTH BUTTON
-    ================================================= */
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
 
-    const healthButton =
-        document.getElementById(
-            "healthButton"
-        );
+    function setupButtons() {
 
-
-    if (healthButton) {
-
-        healthButton.addEventListener(
-            "click",
-            async function () {
-
-                const button =
-                    healthButton;
+        const loadRepositoryButton =
+            $id("loadRepository");
 
 
-                CurioPressUI.setButtonLoading(
-                    button,
-                    true,
-                    "Checking..."
-                );
+        if (loadRepositoryButton) {
+
+            loadRepositoryButton.addEventListener(
+                "click",
+                loadRepository
+            );
+
+        }
 
 
-                try {
-
-                    const result =
-                        await CurioPressAPI.checkApiStatus();
+        const loadFilesButton =
+            $id("loadFiles");
 
 
-                    if (result.online) {
+        if (loadFilesButton) {
 
-                        CurioPressUI.showToast(
-                            "Admin API is online."
+            loadFilesButton.addEventListener(
+                "click",
+                () =>
+                    loadFiles(
+                        currentPath
+                    )
+            );
+
+        }
+
+
+        const refreshButton =
+            $id("refreshButton");
+
+
+        if (refreshButton) {
+
+            refreshButton.addEventListener(
+                "click",
+                async () => {
+
+                    await loadRepository();
+
+                    showToast(
+                        "Repository refreshed."
+                    );
+
+                }
+            );
+
+        }
+
+
+        const healthButton =
+            $id("healthButton");
+
+
+        if (healthButton) {
+
+            healthButton.addEventListener(
+                "click",
+                () => {
+
+                    showToast(
+                        "Health scan will be connected in the next module."
+                    );
+
+                }
+            );
+
+        }
+
+
+        const editButton =
+            $id("editButton");
+
+
+        if (editButton) {
+
+            editButton.addEventListener(
+                "click",
+                () => {
+
+                    if (currentFile) {
+
+                        openFile(
+                            currentFile.path,
+                            "edit"
                         );
 
                     } else {
 
-                        CurioPressUI.showToast(
-                            "Admin API is offline."
+                        showToast(
+                            "Open a file first."
                         );
 
                     }
 
-                } finally {
+                }
+            );
 
-                    CurioPressUI.setButtonLoading(
-                        button,
-                        false
+        }
+
+
+        const previewButton =
+            $id("previewButton");
+
+
+        if (previewButton) {
+
+            previewButton.addEventListener(
+                "click",
+                () => {
+
+                    if (currentFile) {
+
+                        previewFile(
+                            currentFile.path
+                        );
+
+                    } else {
+
+                        showToast(
+                            "Open a file first."
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        const commitButton =
+            $id("commitButton");
+
+
+        if (commitButton) {
+
+            commitButton.addEventListener(
+                "click",
+                () => {
+
+                    if (currentFile) {
+
+                        openFile(
+                            currentFile.path,
+                            "edit"
+                        );
+
+                    } else {
+
+                        showToast(
+                            "Open a file first."
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        const deployButton =
+            $id("deployButton");
+
+
+        if (deployButton) {
+
+            deployButton.addEventListener(
+                "click",
+                () => {
+
+                    showToast(
+                        "Deployment workflow will be connected in the next module."
                     );
 
                 }
+            );
 
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       REFRESH BUTTON
-    ================================================= */
-
-    const refreshButton =
-        document.getElementById(
-            "refreshButton"
-        );
-
-
-    if (refreshButton) {
-
-        refreshButton.addEventListener(
-            "click",
-            async function () {
-
-                await loadRepository();
-
-                CurioPressUI.showToast(
-                    "Repository refreshed."
-                );
-
-            }
-        );
+        }
 
     }
 
 
-    /* =================================================
-       PUBLIC FUNCTIONS
-    ================================================= */
+    /* =====================================================
+       DASHBOARD INITIALIZATION
+    ===================================================== */
 
-    window.loadRepository =
-        loadRepository;
+    async function initializeApp() {
 
+        setupNavigation();
 
-    window.loadFiles =
-        loadFiles;
+        setupQuickActions();
 
+        setupSearch();
 
-    window.openFile =
-        openFile;
+        setupMobileMenu();
 
-
-    window.previewFile =
-        previewFile;
+        setupButtons();
 
 
-    window.saveFile =
-        saveFile;
+        const key =
+            CurioPressAPI.getAdminKey();
 
+
+        if (!key) {
+
+            return;
+
+        }
+
+
+        try {
+
+            const valid =
+                await CurioPressAPI
+                    .verifyAdminKey(key);
+
+
+            if (!valid) {
+
+                return;
+
+            }
+
+
+            await loadRepository();
+
+        } catch (error) {
+
+            console.error(
+                "Admin initialization error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       PUBLIC APP API
+    ===================================================== */
 
     window.CurioPressApp = {
 
@@ -1516,23 +1526,33 @@
 
         previewFile,
 
+        loadCommits,
+
         searchRepository,
 
-        getCurrentPath:
-            function () {
-
-                return currentPath;
-
-            },
-
-        getCurrentFile:
-            function () {
-
-                return currentFile;
-
-            }
+        showToast
 
     };
 
+
+    /* =====================================================
+       START
+    ===================================================== */
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeApp
+        );
+
+    } else {
+
+        initializeApp();
+
+    }
 
 })();
