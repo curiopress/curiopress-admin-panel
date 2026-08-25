@@ -1,26 +1,6 @@
-/* =====================================================
-   CURIOPRESS ADMIN API
-   Central API communication layer
-===================================================== */
-
-const CURIOPRESS_API_URL =
+const API_URL =
     "https://curiopress-admin-api.curiopress31.workers.dev";
 
-
-/* =====================================================
-   API URL
-===================================================== */
-
-function getApiUrl() {
-
-    return CURIOPRESS_API_URL;
-
-}
-
-
-/* =====================================================
-   ADMIN KEY
-===================================================== */
 
 function getAdminKey() {
 
@@ -31,77 +11,39 @@ function getAdminKey() {
 }
 
 
-function setAdminKey(key) {
+function apiHeaders(extra = {}) {
 
-    sessionStorage.setItem(
-        "curiopress_admin_key",
-        key
-    );
-
-}
-
-
-function clearAdminKey() {
-
-    sessionStorage.removeItem(
-        "curiopress_admin_key"
-    );
-
-}
-
-
-/* =====================================================
-   AUTH HEADERS
-===================================================== */
-
-function getAuthHeaders() {
-
-    const key =
-        getAdminKey();
+    const key = getAdminKey();
 
     return {
-
-        "Authorization":
-            `Bearer ${key}`,
-
-        "Content-Type":
-            "application/json"
-
+        "Authorization": `Bearer ${key}`,
+        "Content-Type": "application/json",
+        ...extra
     };
 
 }
 
-
-/* =====================================================
-   MAIN API REQUEST
-===================================================== */
 
 async function apiRequest(
     endpoint,
     options = {}
 ) {
 
-    const headers = {
-
-        ...getAuthHeaders(),
-
-        ...(options.headers || {})
-
-    };
-
-
     const response =
         await fetch(
-            `${CURIOPRESS_API_URL}${endpoint}`,
+            `${API_URL}${endpoint}`,
             {
                 ...options,
-                headers
+
+                headers:
+                    apiHeaders(
+                        options.headers || {}
+                    )
             }
         );
 
 
     let data;
-
 
     try {
 
@@ -110,14 +52,9 @@ async function apiRequest(
 
     } catch {
 
-        data = {
-
-            success: false,
-
-            error:
-                "Invalid response from API"
-
-        };
+        throw new Error(
+            `API returned an invalid response (${response.status})`
+        );
 
     }
 
@@ -137,109 +74,27 @@ async function apiRequest(
 
 }
 
-
-/* =====================================================
-   PUBLIC API REQUEST
-   Used only when authentication is not required
-===================================================== */
-
-async function publicApiRequest(
-    endpoint,
-    options = {}
-) {
-
-    const response =
-        await fetch(
-            `${CURIOPRESS_API_URL}${endpoint}`,
-            {
-                ...options
-            }
-        );
-
-
-    let data;
-
-
-    try {
-
-        data =
-            await response.json();
-
-    } catch {
-
-        data = {
-
-            success: false,
-
-            error:
-                "Invalid response from API"
-
-        };
-
-    }
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            data.error ||
-            data.message ||
-            `API request failed (${response.status})`
-        );
-
-    }
-
-
-    return data;
-
-}
-
-
-/* =====================================================
-   VERIFY ADMIN KEY
-===================================================== */
 
 async function verifyAdminKey(key) {
 
-    if (!key) {
+    const response =
+        await fetch(
+            `${API_URL}/api/repository`,
+            {
+                method: "GET",
 
-        return false;
-
-    }
-
-
-    try {
-
-        const response =
-            await fetch(
-                `${CURIOPRESS_API_URL}/api/repository`,
-                {
-                    method: "GET",
-
-                    headers: {
-
-                        "Authorization":
-                            `Bearer ${key}`
-
-                    }
+                headers: {
+                    "Authorization":
+                        `Bearer ${key}`
                 }
-            );
+            }
+        );
 
 
-        return response.ok;
-
-    } catch {
-
-        return false;
-
-    }
+    return response.ok;
 
 }
 
-
-/* =====================================================
-   REPOSITORY
-===================================================== */
 
 async function getRepository() {
 
@@ -249,10 +104,6 @@ async function getRepository() {
 
 }
 
-
-/* =====================================================
-   FILES
-===================================================== */
 
 async function getFiles(
     path = ""
@@ -265,22 +116,7 @@ async function getFiles(
 }
 
 
-/* =====================================================
-   SINGLE FILE
-===================================================== */
-
-async function getFile(
-    path
-) {
-
-    if (!path) {
-
-        throw new Error(
-            "File path is required"
-        );
-
-    }
-
+async function getFile(path) {
 
     return await apiRequest(
         `/api/file?path=${encodeURIComponent(path)}`
@@ -289,175 +125,86 @@ async function getFile(
 }
 
 
-/* =====================================================
-   CREATE FILE
-===================================================== */
-
 async function createFile(
     path,
     content,
-    message = ""
+    message
 ) {
-
-    if (!path) {
-
-        throw new Error(
-            "File path is required"
-        );
-
-    }
-
-
-    if (typeof content !== "string") {
-
-        throw new Error(
-            "File content must be text"
-        );
-
-    }
-
 
     return await apiRequest(
         "/api/file",
         {
-
             method: "POST",
 
             body:
                 JSON.stringify({
-
                     path,
-
                     content,
-
                     message:
                         message ||
                         `Create ${path}`
-
                 })
-
         }
     );
 
 }
 
-
-/* =====================================================
-   UPDATE FILE
-===================================================== */
 
 async function updateFile(
     path,
     content,
-    sha = "",
-    message = ""
+    sha,
+    message
 ) {
-
-    if (!path) {
-
-        throw new Error(
-            "File path is required"
-        );
-
-    }
-
-
-    if (typeof content !== "string") {
-
-        throw new Error(
-            "File content must be text"
-        );
-
-    }
-
 
     return await apiRequest(
         "/api/file",
         {
-
             method: "PUT",
 
             body:
                 JSON.stringify({
-
                     path,
-
                     content,
-
                     sha,
-
                     message:
                         message ||
                         `Update ${path}`
-
                 })
-
         }
     );
 
 }
 
 
-/* =====================================================
-   DELETE FILE
-===================================================== */
-
 async function deleteFile(
     path,
-    sha = "",
-    message = ""
+    sha,
+    message
 ) {
-
-    if (!path) {
-
-        throw new Error(
-            "File path is required"
-        );
-
-    }
-
 
     return await apiRequest(
         "/api/file",
         {
-
             method: "DELETE",
 
             body:
                 JSON.stringify({
-
                     path,
-
                     sha,
-
                     message:
                         message ||
                         `Delete ${path}`
-
                 })
-
         }
     );
 
 }
 
 
-/* =====================================================
-   SEARCH
-===================================================== */
-
 async function searchRepository(
     query
 ) {
-
-    if (!query) {
-
-        throw new Error(
-            "Search query is required"
-        );
-
-    }
-
 
     return await apiRequest(
         `/api/search?q=${encodeURIComponent(query)}`
@@ -465,10 +212,6 @@ async function searchRepository(
 
 }
 
-
-/* =====================================================
-   COMMITS
-===================================================== */
 
 async function getCommits() {
 
@@ -479,89 +222,15 @@ async function getCommits() {
 }
 
 
-/* =====================================================
-   API HEALTH
-===================================================== */
-
-async function checkApiStatus() {
-
-    try {
-
-        const data =
-            await publicApiRequest(
-                "/"
-            );
-
-
-        return {
-
-            online:
-                data.success === true,
-
-            data
-
-        };
-
-    } catch (error) {
-
-        return {
-
-            online: false,
-
-            error:
-                error.message
-
-        };
-
-    }
-
-}
-
-
-/* =====================================================
-   SAFE API ERROR
-===================================================== */
-
-function getApiErrorMessage(
-    error
-) {
-
-    if (
-        error &&
-        error.message
-    ) {
-
-        return error.message;
-
-    }
-
-
-    return "Something went wrong while contacting the API.";
-
-}
-
-
-/* =====================================================
-   EXPORT GLOBAL API OBJECT
-===================================================== */
-
 window.CurioPressAPI = {
 
-    getApiUrl,
+    API_URL,
 
     getAdminKey,
 
-    setAdminKey,
-
-    clearAdminKey,
-
-    getAuthHeaders,
+    verifyAdminKey,
 
     apiRequest,
-
-    publicApiRequest,
-
-    verifyAdminKey,
 
     getRepository,
 
@@ -577,10 +246,6 @@ window.CurioPressAPI = {
 
     searchRepository,
 
-    getCommits,
-
-    checkApiStatus,
-
-    getApiErrorMessage
+    getCommits
 
 };
