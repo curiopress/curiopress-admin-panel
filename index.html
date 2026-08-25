@@ -1,0 +1,4224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#080d18"
+    >
+
+    <title>
+        CurioPress Admin
+    </title>
+
+    <style>
+
+        :root {
+            --bg: #070b13;
+            --bg-soft: #0b111d;
+            --panel: #101827;
+            --panel-2: #131d2d;
+            --border: rgba(255,255,255,.08);
+
+            --text: #f5f7fb;
+            --muted: #8995a8;
+
+            --accent: #5eead4;
+            --accent-2: #38bdf8;
+
+            --green: #34d399;
+            --yellow: #fbbf24;
+            --red: #fb7185;
+
+            --radius: 18px;
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            margin: 0;
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(56,189,248,.08),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(94,234,212,.06),
+                    transparent 30%
+                ),
+                var(--bg);
+
+            color: var(--text);
+
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+        }
+
+
+        button,
+        input {
+            font: inherit;
+        }
+
+
+        button {
+            cursor: pointer;
+        }
+
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        /* =========================================
+           LOGIN
+        ========================================= */
+
+        #loginScreen {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 24px;
+        }
+
+
+        .login-box {
+
+            width: 100%;
+
+            max-width: 440px;
+
+            padding: 34px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.055),
+                    rgba(255,255,255,.018)
+                );
+
+            border: 1px solid var(--border);
+
+            border-radius: 28px;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,.45);
+
+            backdrop-filter: blur(20px);
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .logo-mark {
+
+            width: 46px;
+
+            height: 46px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--accent),
+                    var(--accent-2)
+                );
+
+            color: #061018;
+
+            font-weight: 900;
+
+            font-size: 20px;
+        }
+
+
+        .logo-text strong {
+
+            display: block;
+
+            font-size: 18px;
+        }
+
+
+        .logo-text span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .login-box h1 {
+
+            margin: 0 0 10px;
+
+            font-size: 30px;
+
+            letter-spacing: -.8px;
+        }
+
+
+        .login-box > p {
+
+            margin: 0 0 28px;
+
+            color: var(--muted);
+
+            line-height: 1.6;
+        }
+
+
+        .field {
+
+            margin-bottom: 18px;
+        }
+
+
+        .field label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #b8c2d1;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .field input {
+
+            width: 100%;
+
+            height: 50px;
+
+            padding: 0 15px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 13px;
+
+            outline: none;
+
+            background: #080e19;
+
+            color: var(--text);
+        }
+
+
+        .field input:focus {
+
+            border-color: rgba(94,234,212,.65);
+
+            box-shadow:
+                0 0 0 3px rgba(94,234,212,.08);
+        }
+
+
+        .primary-button {
+
+            width: 100%;
+
+            height: 50px;
+
+            border: 0;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--accent),
+                    var(--accent-2)
+                );
+
+            color: #061018;
+
+            font-weight: 900;
+
+            transition:
+                transform .2s ease,
+                opacity .2s ease;
+        }
+
+
+        .primary-button:hover {
+
+            transform: translateY(-2px);
+
+            opacity: .94;
+        }
+
+
+        .login-error {
+
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 12px 14px;
+
+            border-radius: 12px;
+
+            background: rgba(251,113,133,.1);
+
+            border: 1px solid rgba(251,113,133,.2);
+
+            color: #fda4af;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================================
+           APP
+        ========================================= */
+
+        #app {
+
+            display: none;
+
+            min-height: 100vh;
+        }
+
+
+        .app-layout {
+
+            display: flex;
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+
+            top: 0;
+
+            bottom: 0;
+
+            width: 260px;
+
+            padding: 22px 15px;
+
+            background:
+                rgba(8,13,23,.96);
+
+            border-right: 1px solid var(--border);
+
+            overflow-y: auto;
+
+            z-index: 100;
+        }
+
+
+        .sidebar-logo {
+
+            padding: 4px 10px 25px;
+        }
+
+
+        .nav-label {
+
+            padding: 18px 11px 8px;
+
+            color: #596579;
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            letter-spacing: 1.2px;
+
+            text-transform: uppercase;
+        }
+
+
+        .nav-item {
+
+            width: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 11px 12px;
+
+            margin: 3px 0;
+
+            border: 0;
+
+            border-radius: 12px;
+
+            background: transparent;
+
+            color: #9ba7b8;
+
+            text-align: left;
+
+            transition:
+                background .2s ease,
+                color .2s ease;
+        }
+
+
+        .nav-item:hover {
+
+            background: rgba(255,255,255,.045);
+
+            color: white;
+        }
+
+
+        .nav-item.active {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(94,234,212,.13),
+                    rgba(56,189,248,.07)
+                );
+
+            color: var(--accent);
+
+            box-shadow:
+                inset 2px 0 0 var(--accent);
+        }
+
+
+        .nav-icon {
+
+            width: 23px;
+
+            text-align: center;
+
+            font-size: 16px;
+        }
+
+
+        .logout-button {
+
+            margin-top: 18px;
+
+            color: #fb7185;
+        }
+
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .main {
+
+            width: calc(100% - 260px);
+
+            margin-left: 260px;
+
+            min-width: 0;
+        }
+
+
+        .topbar {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 50;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            min-height: 74px;
+
+            padding: 15px 28px;
+
+            background:
+                rgba(7,11,19,.82);
+
+            border-bottom: 1px solid var(--border);
+
+            backdrop-filter: blur(18px);
+        }
+
+
+        .mobile-menu {
+
+            display: none;
+
+            width: 42px;
+
+            height: 42px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            background: var(--panel);
+
+            color: white;
+        }
+
+
+        .search {
+
+            width: min(500px, 100%);
+
+            position: relative;
+        }
+
+
+        .search input {
+
+            width: 100%;
+
+            height: 43px;
+
+            padding: 0 15px 0 42px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            background: #0c1320;
+
+            color: white;
+
+            outline: none;
+        }
+
+
+        .search-icon {
+
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: var(--muted);
+        }
+
+
+        .topbar-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+
+        .online {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #a7f3d0;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .online-dot {
+
+            width: 8px;
+
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 12px var(--green);
+        }
+
+
+        .admin-avatar {
+
+            width: 38px;
+
+            height: 38px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 12px;
+
+            background: #172235;
+
+            color: var(--accent);
+
+            font-weight: 900;
+        }
+
+
+        /* =========================================
+           CONTENT
+        ========================================= */
+
+        .content {
+
+            padding: 30px;
+
+            max-width: 1600px;
+
+            margin: 0 auto;
+        }
+
+
+        .page-title {
+
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .page-title h1 {
+
+            margin: 0;
+
+            font-size: clamp(26px, 4vw, 36px);
+
+            letter-spacing: -1px;
+        }
+
+
+        .page-title p {
+
+            margin: 8px 0 0;
+
+            color: var(--muted);
+        }
+
+
+        .status {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 9px 12px;
+
+            border-radius: 999px;
+
+            background: rgba(52,211,153,.08);
+
+            border: 1px solid rgba(52,211,153,.15);
+
+            color: #86efac;
+
+            font-size: 12px;
+
+            font-weight: 800;
+        }
+
+
+        /* =========================================
+           STAT CARDS
+        ========================================= */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 16px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .stat-card {
+
+            padding: 20px;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.045),
+                    rgba(255,255,255,.018)
+                );
+        }
+
+
+        .stat-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .stat-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 11px;
+
+            background: rgba(94,234,212,.08);
+
+            color: var(--accent);
+        }
+
+
+        .stat-card small {
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .stat-card strong {
+
+            display: block;
+
+            margin-top: 14px;
+
+            font-size: 27px;
+        }
+
+
+        /* =========================================
+           GRID
+        ========================================= */
+
+        .dashboard-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1.5fr 1fr;
+
+            gap: 20px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .panel {
+
+            min-width: 0;
+
+            padding: 22px;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.04),
+                    rgba(255,255,255,.015)
+                );
+        }
+
+
+        .panel-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .panel-header h2 {
+
+            margin: 0;
+
+            font-size: 17px;
+        }
+
+
+        .panel-header span {
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================
+           HEALTH
+        ========================================= */
+
+        .health-score {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 24px;
+        }
+
+
+        .score-circle {
+
+            width: 115px;
+
+            height: 115px;
+
+            flex: 0 0 auto;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 50%;
+
+            background:
+                conic-gradient(
+                    var(--accent) 0deg 331deg,
+                    #1a2535 331deg 360deg
+                );
+
+            position: relative;
+        }
+
+
+        .score-circle::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 9px;
+
+            border-radius: 50%;
+
+            background: var(--panel);
+        }
+
+
+        .score-number {
+
+            position: relative;
+
+            z-index: 1;
+
+            font-size: 25px;
+
+            font-weight: 900;
+        }
+
+
+        .health-list {
+
+            flex: 1;
+        }
+
+
+        .health-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 9px 0;
+
+            border-bottom: 1px solid rgba(255,255,255,.05);
+
+            font-size: 13px;
+        }
+
+
+        .health-row:last-child {
+
+            border-bottom: 0;
+        }
+
+
+        .good {
+
+            color: var(--green);
+
+            font-weight: 800;
+        }
+
+
+        .warning {
+
+            color: var(--yellow);
+
+            font-weight: 800;
+        }
+
+
+        .error {
+
+            color: var(--red);
+
+            font-weight: 800;
+        }
+
+
+        /* =========================================
+           RECENT CHANGES
+        ========================================= */
+
+        .change {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 13px;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid rgba(255,255,255,.05);
+        }
+
+
+        .change:last-child {
+
+            border-bottom: 0;
+        }
+
+
+        .change-icon {
+
+            width: 34px;
+
+            height: 34px;
+
+            flex: 0 0 auto;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 10px;
+
+            background: #162133;
+
+            color: var(--accent);
+        }
+
+
+        .change strong {
+
+            display: block;
+
+            font-size: 13px;
+        }
+
+
+        .change span {
+
+            display: block;
+
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+
+        /* =========================================
+           REPOSITORY
+        ========================================= */
+
+        .repo-toolbar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 16px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .repo-path {
+
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+
+        .repo-path strong {
+
+            color: var(--text);
+        }
+
+
+        .button {
+
+            min-height: 40px;
+
+            padding: 0 15px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 11px;
+
+            background: #111b2a;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 800;
+        }
+
+
+        .button:hover {
+
+            border-color: rgba(94,234,212,.4);
+
+            background: #152235;
+        }
+
+
+        .button-primary {
+
+            border: 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--accent),
+                    var(--accent-2)
+                );
+
+            color: #061018;
+        }
+
+
+        .file-list {
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        .file {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 13px 8px;
+
+            border-bottom: 1px solid rgba(255,255,255,.05);
+
+            transition: background .2s ease;
+        }
+
+
+        .file:hover {
+
+            background: rgba(255,255,255,.025);
+        }
+
+
+        .file-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            min-width: 0;
+        }
+
+
+        .file-icon {
+
+            width: 35px;
+
+            height: 35px;
+
+            display: grid;
+
+            place-items: center;
+
+            flex: 0 0 auto;
+
+            border-radius: 10px;
+
+            background: #172235;
+
+            color: var(--accent-2);
+        }
+
+
+        .file-name {
+
+            min-width: 0;
+        }
+
+
+        .file-name strong {
+
+            display: block;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+            font-size: 13px;
+        }
+
+
+        .file-name span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+
+        .file-actions {
+
+            display: flex;
+
+            gap: 6px;
+        }
+
+
+        .mini-button {
+
+            min-height: 34px;
+
+            padding: 0 10px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 9px;
+
+            background: #101927;
+
+            color: #b7c2d3;
+
+            font-size: 10px;
+
+            font-weight: 800;
+        }
+
+
+        .mini-button:hover {
+
+            color: white;
+
+            border-color: rgba(94,234,212,.35);
+        }
+
+
+        /* =========================================
+           QUICK ACTIONS
+        ========================================= */
+
+        .quick-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 10px;
+        }
+
+
+        .quick {
+
+            padding: 16px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            background: #0d1522;
+
+            color: white;
+
+            text-align: left;
+        }
+
+
+        .quick:hover {
+
+            border-color: rgba(94,234,212,.3);
+
+            transform: translateY(-1px);
+        }
+
+
+        .quick-icon {
+
+            color: var(--accent);
+
+            font-size: 18px;
+        }
+
+
+        .quick strong {
+
+            display: block;
+
+            margin-top: 10px;
+
+            font-size: 12px;
+        }
+
+
+        .quick span {
+
+            display: block;
+
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================================
+           ACTION BAR
+        ========================================= */
+
+        .global-actions {
+
+            position: fixed;
+
+            left: 260px;
+
+            right: 0;
+
+            bottom: 0;
+
+            z-index: 80;
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 9px;
+
+            padding: 12px 25px;
+
+            background:
+                rgba(7,11,19,.94);
+
+            border-top: 1px solid var(--border);
+
+            backdrop-filter: blur(15px);
+        }
+
+
+        /* =========================================
+           TOAST
+        ========================================= */
+
+        .toast {
+
+            position: fixed;
+
+            right: 22px;
+
+            bottom: 78px;
+
+            z-index: 300;
+
+            max-width: 350px;
+
+            padding: 13px 16px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 13px;
+
+            background: #101927;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.4);
+
+            color: white;
+
+            font-size: 12px;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transform: translateY(10px);
+
+            transition: .25s ease;
+        }
+
+
+        .toast.show {
+
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 1100px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+            .dashboard-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+
+                transform: translateX(-100%);
+
+                transition: transform .25s ease;
+            }
+
+
+            .sidebar.open {
+
+                transform: translateX(0);
+            }
+
+
+            .main {
+
+                width: 100%;
+
+                margin-left: 0;
+            }
+
+
+            .mobile-menu {
+
+                display: block;
+            }
+
+
+            .topbar {
+
+                padding: 12px 16px;
+            }
+
+
+            .search {
+
+                display: none;
+            }
+
+
+            .content {
+
+                padding: 20px 16px 90px;
+            }
+
+
+            .global-actions {
+
+                left: 0;
+
+                padding: 10px;
+
+                overflow-x: auto;
+
+                justify-content: flex-start;
+            }
+
+
+            .global-actions .button {
+
+                flex: 0 0 auto;
+            }
+
+        }
+
+
+        @media (max-width: 560px) {
+
+            .stats {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .page-title {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .health-score {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .file-actions .mini-button {
+
+                padding: 0 8px;
+
+                font-size: 9px;
+            }
+
+
+            .file {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .file-actions {
+
+                width: 100%;
+
+            }
+
+
+            .file-actions button {
+
+                flex: 1;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN SCREEN
+===================================================== -->
+
+<section id="loginScreen">
+
+
+    <div class="login-box">
+
+
+        <div class="logo">
+
+            <div class="logo-mark">
+                C
+            </div>
+
+            <div class="logo-text">
+
+                <strong>
+                    CurioPress Admin
+                </strong>
+
+                <span>
+                    Private Control Panel
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <h1>
+            Welcome back.
+        </h1>
+
+
+        <p>
+            Sign in to manage your CurioPress website,
+            repository, content and SEO.
+        </p>
+
+
+        <form id="loginForm">
+
+
+            <div class="field">
+
+                <label for="adminKey">
+                    Admin Key
+                </label>
+
+                <input
+                    id="adminKey"
+                    type="password"
+                    autocomplete="current-password"
+                    placeholder="Enter your admin key"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                class="primary-button"
+                type="submit"
+            >
+                Enter Admin Panel
+            </button>
+
+
+        </form>
+
+
+        <div
+            id="loginError"
+            class="login-error"
+        >
+            Invalid Admin Key.
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ADMIN APPLICATION
+===================================================== -->
+
+<section id="app">
+
+
+    <div class="app-layout">
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside
+            class="sidebar"
+            id="sidebar"
+        >
+
+
+            <div class="sidebar-logo">
+
+                <div class="logo">
+
+                    <div class="logo-mark">
+                        C
+                    </div>
+
+                    <div class="logo-text">
+
+                        <strong>
+                            CurioPress
+                        </strong>
+
+                        <span>
+                            ADMIN CONTROL
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="nav-label">
+                Overview
+            </div>
+
+
+            <button
+                class="nav-item active"
+                data-page="dashboard"
+            >
+
+                <span class="nav-icon">
+                    ◈
+                </span>
+
+                Dashboard
+
+            </button>
+
+
+            <div class="nav-label">
+                Content
+            </div>
+
+
+            <button
+                class="nav-item"
+                data-page="blog"
+            >
+
+                <span class="nav-icon">
+                    ✦
+                </span>
+
+                Blog Manager
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="drafts"
+            >
+
+                <span class="nav-icon">
+                    ◇
+                </span>
+
+                Draft Manager
+
+            </button>
+
+
+            <div class="nav-label">
+                Repository
+            </div>
+
+
+            <button
+                class="nav-item"
+                data-page="repository"
+            >
+
+                <span class="nav-icon">
+                    ◫
+                </span>
+
+                Files
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="search"
+            >
+
+                <span class="nav-icon">
+                    ⌕
+                </span>
+
+                File Search
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="commits"
+            >
+
+                <span class="nav-icon">
+                    ↻
+                </span>
+
+                Commit History
+
+            </button>
+
+
+            <div class="nav-label">
+                SEO
+            </div>
+
+
+            <button
+                class="nav-item"
+                data-page="seo"
+            >
+
+                <span class="nav-icon">
+                    ◎
+                </span>
+
+                SEO Center
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="keywords"
+            >
+
+                <span class="nav-icon">
+                    #
+                </span>
+
+                Keyword Manager
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="links"
+            >
+
+                <span class="nav-icon">
+                    ↗
+                </span>
+
+                Link Center
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="images"
+            >
+
+                <span class="nav-icon">
+                    ▧
+                </span>
+
+                Image / ALT Audit
+
+            </button>
+
+
+            <div class="nav-label">
+                Technical
+            </div>
+
+
+            <button
+                class="nav-item"
+                data-page="sitemap"
+            >
+
+                <span class="nav-icon">
+                    ⌁
+                </span>
+
+                Sitemap
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="robots"
+            >
+
+                <span class="nav-icon">
+                    #
+                </span>
+
+                Robots.txt
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="redirects"
+            >
+
+                <span class="nav-icon">
+                    ⇄
+                </span>
+
+                Redirect Manager
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="health"
+            >
+
+                <span class="nav-icon">
+                    ♥
+                </span>
+
+                Site Health
+
+            </button>
+
+
+            <div class="nav-label">
+                System
+            </div>
+
+
+            <button
+                class="nav-item"
+                data-page="backups"
+            >
+
+                <span class="nav-icon">
+                    ◴
+                </span>
+
+                Backup & Restore
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="audit"
+            >
+
+                <span class="nav-icon">
+                    ✓
+                </span>
+
+                Audit History
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="gsc"
+            >
+
+                <span class="nav-icon">
+                    G
+                </span>
+
+                Search Console
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="settings"
+            >
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
+                Settings
+
+            </button>
+
+
+            <button
+                class="nav-item logout-button"
+                id="logoutButton"
+            >
+
+                <span class="nav-icon">
+                    ↪
+                </span>
+
+                Logout
+
+            </button>
+
+
+        </aside>
+
+
+
+        <!-- =================================================
+             MAIN
+        ================================================== -->
+
+        <div class="main">
+
+
+            <!-- TOP BAR -->
+
+            <header class="topbar">
+
+
+                <button
+                    class="mobile-menu"
+                    id="mobileMenu"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+
+                <div class="search">
+
+                    <span class="search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        type="search"
+                        placeholder="Search files, pages, blogs, URLs..."
+                        id="globalSearch"
+                    >
+
+                </div>
+
+
+                <div class="topbar-right">
+
+
+                    <div class="online">
+
+                        <span class="online-dot"></span>
+
+                        API Online
+
+                    </div>
+
+
+                    <div class="admin-avatar">
+                        A
+                    </div>
+
+
+                </div>
+
+
+            </header>
+
+
+
+            <!-- CONTENT -->
+
+            <main class="content">
+
+
+                <div class="page-title">
+
+
+                    <div>
+
+                        <h1>
+                            Dashboard
+                        </h1>
+
+                        <p>
+                            Complete overview of your CurioPress website.
+                        </p>
+
+                    </div>
+
+
+                    <div class="status">
+
+                        <span class="online-dot"></span>
+
+                        Website Online
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =========================================
+                     STATISTICS
+                ========================================== -->
+
+                <section class="stats">
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <small>
+                                Total Pages
+                            </small>
+
+                            <div class="stat-icon">
+                                ◫
+                            </div>
+
+                        </div>
+
+                        <strong id="totalPages">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <small>
+                                Blog Posts
+                            </small>
+
+                            <div class="stat-icon">
+                                ✦
+                            </div>
+
+                        </div>
+
+                        <strong id="totalPosts">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <small>
+                                Repository Files
+                            </small>
+
+                            <div class="stat-icon">
+                                ▤
+                            </div>
+
+                        </div>
+
+                        <strong id="totalFiles">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <small>
+                                Images
+                            </small>
+
+                            <div class="stat-icon">
+                                ▧
+                            </div>
+
+                        </div>
+
+                        <strong id="totalImages">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- =========================================
+                     DASHBOARD GRID
+                ========================================== -->
+
+                <section class="dashboard-grid">
+
+
+                    <!-- HEALTH -->
+
+                    <div class="panel">
+
+
+                        <div class="panel-header">
+
+                            <div>
+
+                                <h2>
+                                    Website Health
+                                </h2>
+
+                                <span>
+                                    Latest system check
+                                </span>
+
+                            </div>
+
+
+                            <button
+                                class="button"
+                                id="healthButton"
+                            >
+                                Run Check
+                            </button>
+
+                        </div>
+
+
+                        <div class="health-score">
+
+
+                            <div class="score-circle">
+
+                                <div class="score-number">
+                                    92
+                                </div>
+
+                            </div>
+
+
+                            <div class="health-list">
+
+
+                                <div class="health-row">
+
+                                    <span>
+                                        Website
+                                    </span>
+
+                                    <span class="good">
+                                        Online
+                                    </span>
+
+                                </div>
+
+
+                                <div class="health-row">
+
+                                    <span>
+                                        HTTPS
+                                    </span>
+
+                                    <span class="good">
+                                        Active
+                                    </span>
+
+                                </div>
+
+
+                                <div class="health-row">
+
+                                    <span>
+                                        Sitemap
+                                    </span>
+
+                                    <span class="good">
+                                        Valid
+                                    </span>
+
+                                </div>
+
+
+                                <div class="health-row">
+
+                                    <span>
+                                        Robots.txt
+                                    </span>
+
+                                    <span class="good">
+                                        Valid
+                                    </span>
+
+                                </div>
+
+
+                                <div class="health-row">
+
+                                    <span>
+                                        SEO Issues
+                                    </span>
+
+                                    <span class="warning">
+                                        Review
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- QUICK ACTIONS -->
+
+                    <div class="panel">
+
+
+                        <div class="panel-header">
+
+                            <div>
+
+                                <h2>
+                                    Quick Actions
+                                </h2>
+
+                                <span>
+                                    Common tasks
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quick-grid">
+
+
+                            <button
+                                class="quick"
+                                data-action="repository"
+                            >
+
+                                <div class="quick-icon">
+                                    ◫
+                                </div>
+
+                                <strong>
+                                    Open Repository
+                                </strong>
+
+                                <span>
+                                    Browse and edit files.
+                                </span>
+
+                            </button>
+
+
+                            <button
+                                class="quick"
+                                data-action="blog"
+                            >
+
+                                <div class="quick-icon">
+                                    ✦
+                                </div>
+
+                                <strong>
+                                    New Blog
+                                </strong>
+
+                                <span>
+                                    Create a new article.
+                                </span>
+
+                            </button>
+
+
+                            <button
+                                class="quick"
+                                data-action="seo"
+                            >
+
+                                <div class="quick-icon">
+                                    ◎
+                                </div>
+
+                                <strong>
+                                    SEO Audit
+                                </strong>
+
+                                <span>
+                                    Check website SEO.
+                                </span>
+
+                            </button>
+
+
+                            <button
+                                class="quick"
+                                data-action="health"
+                            >
+
+                                <div class="quick-icon">
+                                    ♥
+                                </div>
+
+                                <strong>
+                                    Health Check
+                                </strong>
+
+                                <span>
+                                    Scan the website.
+                                </span>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- =========================================
+                     RECENT CHANGES
+                ========================================== -->
+
+                <section class="panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h2>
+                                Recent Changes
+                            </h2>
+
+                            <span>
+                                Latest repository activity
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            class="button"
+                            id="refreshButton"
+                        >
+                            Refresh
+                        </button>
+
+                    </div>
+
+
+                    <div id="recentChanges">
+
+
+                        <div class="change">
+
+                            <div class="change-icon">
+                                ✓
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Admin API connected
+                                </strong>
+
+                                <span>
+                                    Cloudflare Worker is online
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="change">
+
+                            <div class="change-icon">
+                                ◈
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Admin Panel initialized
+                                </strong>
+
+                                <span>
+                                    Frontend foundation created
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- =========================================
+                     REPOSITORY
+                ========================================== -->
+
+                <section
+                    class="panel"
+                    style="margin-top:20px;"
+                >
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h2>
+                                Repository
+                            </h2>
+
+                            <span>
+                                CurioPress GitHub repository
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            class="button button-primary"
+                            id="loadRepository"
+                        >
+                            Load Repository
+                        </button>
+
+                    </div>
+
+
+                    <div class="repo-toolbar">
+
+
+                        <div class="repo-path">
+
+                            Repository:
+
+                            <strong>
+                                curiopress/curiopress.github.io
+                            </strong>
+
+                        </div>
+
+
+                        <button
+                            class="button"
+                            id="loadFiles"
+                        >
+                            Refresh Files
+                        </button>
+
+
+                    </div>
+
+
+                    <div
+                        class="file-list"
+                        id="fileList"
+                    >
+
+                        <div
+                            style="
+                                padding:30px 10px;
+                                text-align:center;
+                                color:#8995a8;
+                                font-size:13px;
+                            "
+                        >
+
+                            Click
+                            <strong>
+                                Load Repository
+                            </strong>
+                            to connect to GitHub.
+
+                        </div>
+
+                    </div>
+
+
+                </section>
+
+
+            </main>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         GLOBAL ACTION BAR
+    ========================================== -->
+
+    <div class="global-actions">
+
+
+        <button
+            class="button"
+            id="editButton"
+        >
+            Edit
+        </button>
+
+
+        <button
+            class="button"
+            id="previewButton"
+        >
+            Preview
+        </button>
+
+
+        <button
+            class="button"
+            id="commitButton"
+        >
+            Commit
+        </button>
+
+
+        <button
+            class="button button-primary"
+            id="deployButton"
+        >
+            Deploy
+        </button>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast"
+>
+</div>
+
+
+
+<script>
+
+    /* =====================================================
+       CONFIGURATION
+    ===================================================== */
+
+    const API_URL =
+        "https://curiopress-admin-api.curiopress31.workers.dev";
+
+
+    /*
+        IMPORTANT:
+
+        The ADMIN_KEY is NOT hardcoded here.
+
+        Login value is stored only in sessionStorage
+        after the user enters it.
+
+        It is sent to the Worker through Authorization.
+    */
+
+
+    let currentPath = "";
+    let currentFile = null;
+
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const loginScreen =
+        document.getElementById("loginScreen");
+
+    const app =
+        document.getElementById("app");
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    const adminKeyInput =
+        document.getElementById("adminKey");
+
+    const loginError =
+        document.getElementById("loginError");
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const mobileMenu =
+        document.getElementById("mobileMenu");
+
+    const toast =
+        document.getElementById("toast");
+
+
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    function showToast(message) {
+
+        toast.textContent = message;
+
+        toast.classList.add("show");
+
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 2800);
+
+    }
+
+
+    /* =====================================================
+       AUTH
+    ===================================================== */
+
+    function getAdminKey() {
+
+        return sessionStorage.getItem(
+            "curiopress_admin_key"
+        );
+
+    }
+
+
+    function setAdminKey(key) {
+
+        sessionStorage.setItem(
+            "curiopress_admin_key",
+            key
+        );
+
+    }
+
+
+    function clearAdminKey() {
+
+        sessionStorage.removeItem(
+            "curiopress_admin_key"
+        );
+
+    }
+
+
+    async function apiRequest(
+        endpoint,
+        options = {}
+    ) {
+
+        const key = getAdminKey();
+
+        const headers = {
+
+            "Authorization":
+                `Bearer ${key}`,
+
+            "Content-Type":
+                "application/json",
+
+            ...(options.headers || {})
+
+        };
+
+
+        const response =
+            await fetch(
+                `${API_URL}${endpoint}`,
+                {
+                    ...options,
+                    headers
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error ||
+                "API request failed"
+            );
+
+        }
+
+
+        return data;
+
+    }
+
+
+    async function verifyLogin(key) {
+
+        const response =
+            await fetch(
+                `${API_URL}/api/repository`,
+                {
+                    headers: {
+                        "Authorization":
+                            `Bearer ${key}`
+                    }
+                }
+            );
+
+
+        return response.ok;
+
+    }
+
+
+    loginForm.addEventListener(
+        "submit",
+        async event => {
+
+            event.preventDefault();
+
+
+            const key =
+                adminKeyInput.value.trim();
+
+
+            if (!key) {
+
+                return;
+
+            }
+
+
+            const button =
+                loginForm.querySelector(
+                    "button"
+                );
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Connecting...";
+
+
+            try {
+
+                const valid =
+                    await verifyLogin(key);
+
+
+                if (!valid) {
+
+                    throw new Error(
+                        "Invalid Admin Key"
+                    );
+
+                }
+
+
+                setAdminKey(key);
+
+
+                loginScreen.style.display =
+                    "none";
+
+                app.style.display =
+                    "block";
+
+
+                await loadRepository();
+
+
+                showToast(
+                    "Welcome to CurioPress Admin"
+                );
+
+
+            } catch (error) {
+
+                loginError.style.display =
+                    "block";
+
+                loginError.textContent =
+                    error.message ||
+                    "Invalid Admin Key.";
+
+            } finally {
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Enter Admin Panel";
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       AUTO LOGIN
+    ===================================================== */
+
+    async function restoreSession() {
+
+        const key =
+            getAdminKey();
+
+
+        if (!key) {
+
+            return;
+
+        }
+
+
+        try {
+
+            const valid =
+                await verifyLogin(key);
+
+
+            if (!valid) {
+
+                clearAdminKey();
+
+                return;
+
+            }
+
+
+            loginScreen.style.display =
+                "none";
+
+            app.style.display =
+                "block";
+
+
+            await loadRepository();
+
+        } catch {
+
+            clearAdminKey();
+
+        }
+
+    }
+
+
+    restoreSession();
+
+
+    /* =====================================================
+       LOGOUT
+    ===================================================== */
+
+    document
+        .getElementById("logoutButton")
+        .addEventListener(
+            "click",
+            () => {
+
+                clearAdminKey();
+
+                location.reload();
+
+            }
+        );
+
+
+    /* =====================================================
+       MOBILE SIDEBAR
+    ===================================================== */
+
+    mobileMenu.addEventListener(
+        "click",
+        () => {
+
+            sidebar.classList.toggle(
+                "open"
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+
+    document
+        .querySelectorAll(".nav-item[data-page]")
+        .forEach(item => {
+
+            item.addEventListener(
+                "click",
+                () => {
+
+                    document
+                        .querySelectorAll(
+                            ".nav-item"
+                        )
+                        .forEach(
+                            nav =>
+                                nav.classList.remove(
+                                    "active"
+                                )
+                        );
+
+
+                    item.classList.add(
+                        "active"
+                    );
+
+
+                    sidebar.classList.remove(
+                        "open"
+                    );
+
+
+                    const page =
+                        item.dataset.page;
+
+
+                    if (
+                        page ===
+                        "repository"
+                    ) {
+
+                        loadFiles();
+
+                    } else {
+
+                        showToast(
+                            `${item.textContent.trim()} module will be connected in the next phase.`
+                        );
+
+                    }
+
+                }
+            );
+
+        });
+
+
+    /* =====================================================
+       QUICK ACTIONS
+    ===================================================== */
+
+    document
+        .querySelectorAll(
+            ".quick[data-action]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const action =
+                        button.dataset.action;
+
+
+                    if (
+                        action ===
+                        "repository"
+                    ) {
+
+                        loadFiles();
+
+                    } else {
+
+                        showToast(
+                            `${action} module is ready for the next development phase.`
+                        );
+
+                    }
+
+                }
+            );
+
+        });
+
+
+    /* =====================================================
+       LOAD REPOSITORY
+    ===================================================== */
+
+    async function loadRepository() {
+
+        try {
+
+            const data =
+                await apiRequest(
+                    "/api/repository"
+                );
+
+
+            if (
+                data.success &&
+                data.repository
+            ) {
+
+                showToast(
+                    `Connected to ${data.repository.full_name}`
+                );
+
+            }
+
+
+            await loadFiles();
+
+        } catch (error) {
+
+            showToast(
+                error.message
+            );
+
+        }
+
+    }
+
+
+    document
+        .getElementById(
+            "loadRepository"
+        )
+        .addEventListener(
+            "click",
+            loadRepository
+        );
+
+
+    /* =====================================================
+       LOAD FILES
+    ===================================================== */
+
+    async function loadFiles(
+        path = ""
+    ) {
+
+        const fileList =
+            document.getElementById(
+                "fileList"
+            );
+
+
+        fileList.innerHTML = `
+            <div style="
+                padding:30px;
+                text-align:center;
+                color:#8995a8;
+            ">
+                Loading repository...
+            </div>
+        `;
+
+
+        try {
+
+            const data =
+                await apiRequest(
+                    `/api/files?path=${encodeURIComponent(path)}`
+                );
+
+
+            currentPath =
+                path;
+
+
+            if (
+                !data.files ||
+                !data.files.length
+            ) {
+
+                fileList.innerHTML = `
+                    <div style="
+                        padding:30px;
+                        text-align:center;
+                        color:#8995a8;
+                    ">
+                        No files found.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            fileList.innerHTML =
+                "";
+
+
+            if (path) {
+
+                const parent =
+                    path
+                        .split("/")
+                        .slice(
+                            0,
+                            -1
+                        )
+                        .join("/");
+
+
+                const back =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                back.className =
+                    "file";
+
+
+                back.innerHTML = `
+                    <div class="file-info">
+
+                        <div class="file-icon">
+                            ↑
+                        </div>
+
+                        <div class="file-name">
+
+                            <strong>
+                                ..
+                            </strong>
+
+                            <span>
+                                Parent folder
+                            </span>
+
+                        </div>
+
+                    </div>
+                `;
+
+
+                back.style.cursor =
+                    "pointer";
+
+
+                back.addEventListener(
+                    "click",
+                    () =>
+                        loadFiles(parent)
+                );
+
+
+                fileList.appendChild(
+                    back
+                );
+
+            }
+
+
+            data.files.forEach(
+                item => {
+
+                    const row =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    row.className =
+                        "file";
+
+
+                    const icon =
+                        item.type ===
+                        "dir"
+                            ? "▱"
+                            : "◇";
+
+
+                    row.innerHTML = `
+
+                        <div class="file-info">
+
+                            <div class="file-icon">
+                                ${icon}
+                            </div>
+
+                            <div class="file-name">
+
+                                <strong>
+                                    ${escapeHtml(item.name)}
+                                </strong>
+
+                                <span>
+                                    ${item.type === "dir"
+                                        ? "Folder"
+                                        : `${item.size || 0} bytes`
+                                    }
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="file-actions">
+
+                            <button
+                                class="mini-button"
+                                data-open
+                            >
+                                Open
+                            </button>
+
+                            <button
+                                class="mini-button"
+                                data-edit
+                            >
+                                Edit
+                            </button>
+
+                            <button
+                                class="mini-button"
+                                data-preview
+                            >
+                                Preview
+                            </button>
+
+                            <button
+                                class="mini-button"
+                                data-commit
+                            >
+                                Commit
+                            </button>
+
+                            <button
+                                class="mini-button"
+                                data-deploy
+                            >
+                                Deploy
+                            </button>
+
+                        </div>
+                    `;
+
+
+                    const open =
+                        row.querySelector(
+                            "[data-open]"
+                        );
+
+
+                    const edit =
+                        row.querySelector(
+                            "[data-edit]"
+                        );
+
+
+                    const preview =
+                        row.querySelector(
+                            "[data-preview]"
+                        );
+
+
+                    const commit =
+                        row.querySelector(
+                            "[data-commit]"
+                        );
+
+
+                    const deploy =
+                        row.querySelector(
+                            "[data-deploy]"
+                        );
+
+
+                    if (
+                        item.type ===
+                        "dir"
+                    ) {
+
+                        edit.disabled =
+                            true;
+
+                        preview.disabled =
+                            true;
+
+                        commit.disabled =
+                            true;
+
+                        deploy.disabled =
+                            true;
+
+                        open.addEventListener(
+                            "click",
+                            () =>
+                                loadFiles(
+                                    item.path
+                                )
+                        );
+
+                    } else {
+
+                        open.addEventListener(
+                            "click",
+                            () =>
+                                openFile(
+                                    item.path,
+                                    "open"
+                                )
+                        );
+
+
+                        edit.addEventListener(
+                            "click",
+                            () =>
+                                openFile(
+                                    item.path,
+                                    "edit"
+                                )
+                        );
+
+
+                        preview.addEventListener(
+                            "click",
+                            () =>
+                                previewFile(
+                                    item.path
+                                )
+                        );
+
+
+                        commit.addEventListener(
+                            "click",
+                            () =>
+                                showToast(
+                                    "Commit workflow will open from the editor."
+                                )
+                        );
+
+
+                        deploy.addEventListener(
+                            "click",
+                            () =>
+                                showToast(
+                                    "Deploy workflow will open from the editor."
+                                )
+                        );
+
+                    }
+
+
+                    fileList.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+        } catch (error) {
+
+            fileList.innerHTML = `
+                <div style="
+                    padding:30px;
+                    color:#fb7185;
+                    text-align:center;
+                ">
+                    ${escapeHtml(error.message)}
+                </div>
+            `;
+
+        }
+
+    }
+
+
+    document
+        .getElementById(
+            "loadFiles"
+        )
+        .addEventListener(
+            "click",
+            () =>
+                loadFiles(
+                    currentPath
+                )
+        );
+
+
+    /* =====================================================
+       OPEN FILE
+    ===================================================== */
+
+    async function openFile(
+        path,
+        mode = "open"
+    ) {
+
+        try {
+
+            const data =
+                await apiRequest(
+                    `/api/file?path=${encodeURIComponent(path)}`
+                );
+
+
+            currentFile =
+                data.file;
+
+
+            showFileModal(
+                data.file,
+                mode
+            );
+
+
+        } catch (error) {
+
+            showToast(
+                error.message
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       FILE MODAL
+    ===================================================== */
+
+    function showFileModal(
+        file,
+        mode
+    ) {
+
+        const existing =
+            document.getElementById(
+                "fileModal"
+            );
+
+
+        if (existing) {
+
+            existing.remove();
+
+        }
+
+
+        const modal =
+            document.createElement(
+                "div"
+            );
+
+
+        modal.id =
+            "fileModal";
+
+
+        modal.style.cssText = `
+            position:fixed;
+            inset:0;
+            z-index:500;
+            background:rgba(0,0,0,.78);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+        `;
+
+
+        const editorMode =
+            mode === "edit";
+
+
+        modal.innerHTML = `
+
+            <div style="
+                width:min(1100px,100%);
+                height:min(85vh,850px);
+                display:flex;
+                flex-direction:column;
+                background:#0d1522;
+                border:1px solid rgba(255,255,255,.1);
+                border-radius:20px;
+                overflow:hidden;
+                box-shadow:0 30px 100px rgba(0,0,0,.6);
+            ">
+
+
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    gap:15px;
+                    padding:15px 18px;
+                    border-bottom:1px solid rgba(255,255,255,.08);
+                ">
+
+                    <div>
+
+                        <strong>
+                            ${escapeHtml(file.name)}
+                        </strong>
+
+                        <div style="
+                            margin-top:4px;
+                            color:#8995a8;
+                            font-size:11px;
+                        ">
+                            ${escapeHtml(file.path)}
+                        </div>
+
+                    </div>
+
+
+                    <div style="
+                        display:flex;
+                        gap:7px;
+                        flex-wrap:wrap;
+                        justify-content:flex-end;
+                    ">
+
+                        <button
+                            class="mini-button"
+                            id="modalEdit"
+                        >
+                            Edit
+                        </button>
+
+                        <button
+                            class="mini-button"
+                            id="modalPreview"
+                        >
+                            Preview
+                        </button>
+
+                        <button
+                            class="mini-button"
+                            id="modalCommit"
+                        >
+                            Commit
+                        </button>
+
+                        <button
+                            class="mini-button"
+                            id="modalDeploy"
+                        >
+                            Deploy
+                        </button>
+
+                        <button
+                            class="mini-button"
+                            id="modalClose"
+                        >
+                            Close
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <textarea
+                    id="fileEditor"
+                    spellcheck="false"
+                    style="
+                        flex:1;
+                        width:100%;
+                        resize:none;
+                        border:0;
+                        outline:0;
+                        padding:20px;
+                        background:#080e18;
+                        color:#d9e3f0;
+                        font-family:
+                            ui-monospace,
+                            SFMono-Regular,
+                            Menlo,
+                            Consolas,
+                            monospace;
+                        font-size:13px;
+                        line-height:1.65;
+                    "
+                    ${editorMode ? "" : "readonly"}
+                ></textarea>
+
+
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    gap:10px;
+                    padding:12px 18px;
+                    border-top:1px solid rgba(255,255,255,.08);
+                    color:#8995a8;
+                    font-size:11px;
+                ">
+
+                    <span>
+                        SHA:
+                        ${escapeHtml(file.sha || "—")}
+                    </span>
+
+                    <button
+                        class="button button-primary"
+                        id="saveFileButton"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+
+            </div>
+        `;
+
+
+        document.body.appendChild(
+            modal
+        );
+
+
+        const editor =
+            modal.querySelector(
+                "#fileEditor"
+            );
+
+
+        editor.value =
+            file.content || "";
+
+
+        modal.querySelector(
+            "#modalClose"
+        ).addEventListener(
+            "click",
+            () =>
+                modal.remove()
+        );
+
+
+        modal.querySelector(
+            "#modalEdit"
+        ).addEventListener(
+            "click",
+            () => {
+
+                editor.removeAttribute(
+                    "readonly"
+                );
+
+                editor.focus();
+
+                showToast(
+                    "Edit mode enabled."
+                );
+
+            }
+        );
+
+
+        modal.querySelector(
+            "#modalPreview"
+        ).addEventListener(
+            "click",
+            () => {
+
+                previewContent(
+                    file.name,
+                    editor.value
+                );
+
+            }
+        );
+
+
+        modal.querySelector(
+            "#modalCommit"
+        ).addEventListener(
+            "click",
+            async () => {
+
+                await saveFile(
+                    file,
+                    editor.value,
+                    modal
+                );
+
+            }
+        );
+
+
+        modal.querySelector(
+            "#modalDeploy"
+        ).addEventListener(
+            "click",
+            () => {
+
+                showToast(
+                    "Deploy will be connected to the approved commit workflow."
+                );
+
+            }
+        );
+
+
+        modal.querySelector(
+            "#saveFileButton"
+        ).addEventListener(
+            "click",
+            async () => {
+
+                await saveFile(
+                    file,
+                    editor.value,
+                    modal
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       SAVE / COMMIT FILE
+    ===================================================== */
+
+    async function saveFile(
+        file,
+        content,
+        modal
+    ) {
+
+        const confirmed =
+            confirm(
+                `Commit changes to ${file.path}?`
+            );
+
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+
+        try {
+
+            showToast(
+                "Committing changes..."
+            );
+
+
+            const data =
+                await apiRequest(
+                    "/api/file",
+                    {
+                        method: "PUT",
+
+                        body:
+                            JSON.stringify({
+                                path:
+                                    file.path,
+
+                                content,
+
+                                sha:
+                                    file.sha,
+
+                                message:
+                                    `Update ${file.path}`
+                            })
+                    }
+                );
+
+
+            if (data.success) {
+
+                showToast(
+                    "Changes committed successfully."
+                );
+
+
+                modal.remove();
+
+
+                await loadFiles(
+                    currentPath
+                );
+
+            }
+
+        } catch (error) {
+
+            showToast(
+                `Commit failed: ${error.message}`
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       PREVIEW FILE
+    ===================================================== */
+
+    async function previewFile(
+        path
+    ) {
+
+        try {
+
+            const data =
+                await apiRequest(
+                    `/api/file?path=${encodeURIComponent(path)}`
+                );
+
+
+            previewContent(
+                data.file.name,
+                data.file.content
+            );
+
+        } catch (error) {
+
+            showToast(
+                error.message
+            );
+
+        }
+
+    }
+
+
+    function previewContent(
+        filename,
+        content
+    ) {
+
+        const extension =
+            filename
+                .split(".")
+                .pop()
+                .toLowerCase();
+
+
+        if (
+            extension ===
+                "html" ||
+            extension ===
+                "htm"
+        ) {
+
+            const preview =
+                window.open(
+                    "",
+                    "_blank"
+                );
+
+
+            if (!preview) {
+
+                showToast(
+                    "Allow pop-ups to preview this file."
+                );
+
+                return;
+
+            }
+
+
+            preview.document.open();
+
+            preview.document.write(
+                content
+            );
+
+            preview.document.close();
+
+            return;
+
+        }
+
+
+        showToast(
+            "Visual preview is currently available for HTML files."
+        );
+
+    }
+
+
+    /* =====================================================
+       GLOBAL ACTIONS
+    ===================================================== */
+
+    document
+        .getElementById(
+            "editButton"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                if (currentFile) {
+
+                    openFile(
+                        currentFile.path,
+                        "edit"
+                    );
+
+                } else {
+
+                    showToast(
+                        "Open a file first."
+                    );
+
+                }
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "previewButton"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                if (currentFile) {
+
+                    previewFile(
+                        currentFile.path
+                    );
+
+                } else {
+
+                    showToast(
+                        "Open a file first."
+                    );
+
+                }
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "commitButton"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                showToast(
+                    "Open a file to start the commit workflow."
+                );
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "deployButton"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                showToast(
+                    "Deployment will use the approved GitHub workflow."
+                );
+
+            }
+        );
+
+
+    /* =====================================================
+       HEALTH BUTTON
+    ===================================================== */
+
+    document
+        .getElementById(
+            "healthButton"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                showToast(
+                    "Health scan will be connected in the next module."
+                );
+
+            }
+        );
+
+
+    /* =====================================================
+       REFRESH
+    ===================================================== */
+
+    document
+        .getElementById(
+            "refreshButton"
+        )
+        .addEventListener(
+            "click",
+            async () => {
+
+                await loadRepository();
+
+                showToast(
+                    "Repository refreshed."
+                );
+
+            }
+        );
+
+
+    /* =====================================================
+       GLOBAL SEARCH
+    ===================================================== */
+
+    document
+        .getElementById(
+            "globalSearch"
+        )
+        .addEventListener(
+            "keydown",
+            async event => {
+
+                if (
+                    event.key !==
+                    "Enter"
+                ) {
+
+                    return;
+
+                }
+
+
+                const query =
+                    event.target.value.trim();
+
+
+                if (!query) {
+
+                    return;
+
+                }
+
+
+                try {
+
+                    const data =
+                        await apiRequest(
+                            `/api/search?q=${encodeURIComponent(query)}`
+                        );
+
+
+                    showToast(
+                        `${data.total_count} result(s) found for "${query}".`
+                    );
+
+                } catch (error) {
+
+                    showToast(
+                        error.message
+                    );
+
+                }
+
+            }
+        );
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ===================================================== */
+
+    function escapeHtml(
+        value
+    ) {
+
+        return String(value)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+</script>
+
+
+</body>
+  </html>
