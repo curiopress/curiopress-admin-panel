@@ -322,6 +322,8 @@
             color: #fda4af;
 
             font-size: 13px;
+
+            line-height: 1.5;
         }
 
 
@@ -704,7 +706,7 @@
 
         /* =========================================
            STAT CARDS
-        ========================================= */
+        ========================================== */
 
         .stats {
 
@@ -784,7 +786,7 @@
 
         /* =========================================
            GRID
-        ========================================= */
+        ========================================== */
 
         .dashboard-grid {
 
@@ -850,7 +852,7 @@
 
         /* =========================================
            HEALTH
-        ========================================= */
+        ========================================== */
 
         .health-score {
 
@@ -966,7 +968,7 @@
 
         /* =========================================
            RECENT CHANGES
-        ========================================= */
+        ========================================== */
 
         .change {
 
@@ -1030,7 +1032,7 @@
 
         /* =========================================
            REPOSITORY
-        ========================================= */
+        ========================================== */
 
         .repo-toolbar {
 
@@ -1239,7 +1241,7 @@
 
         /* =========================================
            QUICK ACTIONS
-        ========================================= */
+        ========================================== */
 
         .quick-grid {
 
@@ -1310,7 +1312,7 @@
 
         /* =========================================
            ACTION BAR
-        ========================================= */
+        ========================================== */
 
         .global-actions {
 
@@ -1343,7 +1345,7 @@
 
         /* =========================================
            TOAST
-        ========================================= */
+        ========================================== */
 
         .toast {
 
@@ -1392,7 +1394,7 @@
 
         /* =========================================
            MOBILE
-        ========================================= */
+        ========================================== */
 
         @media (max-width: 1100px) {
 
@@ -2751,17 +2753,62 @@
     }
 
 
+    /*
+        Authentication helper.
+
+        This always sends the exact entered key
+        as:
+
+        Authorization: Bearer YOUR_KEY
+    */
+
+    function buildAuthHeaders(key) {
+
+        const cleanKey =
+            String(key || "").trim();
+
+        return {
+            "Authorization":
+                `Bearer ${cleanKey}`,
+            "Accept":
+                "application/json"
+        };
+
+    }
+
+
+    /*
+        Generic API request.
+
+        cache is disabled so an old response
+        cannot interfere with authentication.
+    */
+
     async function apiRequest(
         endpoint,
         options = {}
     ) {
 
-        const key = getAdminKey();
+        const key =
+            getAdminKey();
+
+
+        if (!key) {
+
+            throw new Error(
+                "Admin session is missing. Please login again."
+            );
+
+        }
+
 
         const headers = {
 
             "Authorization":
                 `Bearer ${key}`,
+
+            "Accept":
+                "application/json",
 
             "Content-Type":
                 "application/json",
@@ -2771,25 +2818,77 @@
         };
 
 
-        const response =
-            await fetch(
-                `${API_URL}${endpoint}`,
-                {
-                    ...options,
-                    headers
-                }
+        let response;
+
+
+        try {
+
+            response =
+                await fetch(
+                    `${API_URL}${endpoint}`,
+                    {
+                        ...options,
+
+                        headers,
+
+                        cache:
+                            "no-store"
+                    }
+                );
+
+        } catch (networkError) {
+
+            throw new Error(
+                "Unable to connect to Admin API. Check Worker URL, CORS or internet connection."
             );
 
+        }
 
-        const data =
-            await response.json();
+
+        const responseText =
+            await response.text();
+
+
+        let data;
+
+
+        try {
+
+            data =
+                responseText
+                    ? JSON.parse(responseText)
+                    : {};
+
+        } catch {
+
+            data = {
+                error:
+                    responseText ||
+                    `API returned HTTP ${response.status}`
+            };
+
+        }
 
 
         if (!response.ok) {
 
-            throw new Error(
+            const workerError =
                 data.error ||
-                "API request failed"
+                data.message ||
+                `HTTP ${response.status}`;
+
+
+            if (response.status === 401) {
+
+                throw new Error(
+                    `Unauthorized: ${workerError}`
+                );
+
+            }
+
+
+            throw new Error(
+                workerError
             );
 
         }
@@ -2800,21 +2899,131 @@
     }
 
 
+    /*
+        Login verification.
+
+        Unlike the old version, this does NOT simply
+        return true or false.
+
+        It reads the actual Worker response so that
+        the login screen can tell us what failed.
+    */
+
     async function verifyLogin(key) {
 
-        const response =
-            await fetch(
-                `${API_URL}/api/repository`,
-                {
-                    headers: {
-                        "Authorization":
-                            `Bearer ${key}`
-                    }
-                }
+        const cleanKey =
+            String(key || "").trim();
+
+
+        if (!cleanKey) {
+
+            throw new Error(
+                "Please enter your Admin Key."
             );
 
+        }
 
-        return response.ok;
+
+        let response;
+
+
+        try {
+
+            response =
+                await fetch(
+                    `${API_URL}/api/repository`,
+                    {
+                        method:
+                            "GET",
+
+                        headers:
+                            buildAuthHeaders(
+                                cleanKey
+                            ),
+
+                        cache:
+                            "no-store"
+                    }
+                );
+
+        } catch (error) {
+
+            throw new Error(
+                "Could not connect to the Admin API. Check the Worker URL or CORS configuration."
+            );
+
+        }
+
+
+        const responseText =
+            await response.text();
+
+
+        let data;
+
+
+        try {
+
+            data =
+                responseText
+                    ? JSON.parse(responseText)
+                    : {};
+
+        } catch {
+
+            data = {
+                error:
+                    responseText ||
+                    `HTTP ${response.status}`
+            };
+
+        }
+
+
+        if (!response.ok) {
+
+            if (response.status === 401) {
+
+                throw new Error(
+                    data.error ||
+                    "Unauthorized. The Admin Key does not match the Worker ADMIN_KEY secret."
+                );
+
+            }
+
+
+            if (response.status === 403) {
+
+                throw new Error(
+                    data.error ||
+                    "Forbidden. The Worker rejected the request."
+                );
+
+            }
+
+
+            throw new Error(
+                data.error ||
+                data.message ||
+                `Admin API returned HTTP ${response.status}`
+            );
+
+        }
+
+
+        if (
+            data.success === false
+        ) {
+
+            throw new Error(
+                data.error ||
+                "Admin API rejected the login."
+            );
+
+        }
+
+
+        return true;
 
     }
 
@@ -2826,11 +3035,25 @@
             event.preventDefault();
 
 
+            loginError.style.display =
+                "none";
+
+
+            loginError.textContent =
+                "";
+
+
             const key =
                 adminKeyInput.value.trim();
 
 
             if (!key) {
+
+                loginError.style.display =
+                    "block";
+
+                loginError.textContent =
+                    "Please enter your Admin Key.";
 
                 return;
 
@@ -2843,7 +3066,8 @@
                 );
 
 
-            button.disabled = true;
+            button.disabled =
+                true;
 
             button.textContent =
                 "Connecting...";
@@ -2851,20 +3075,32 @@
 
             try {
 
-                const valid =
-                    await verifyLogin(key);
+                /*
+                    Remove any previously saved key
+                    before testing the new one.
+                */
+
+                clearAdminKey();
 
 
-                if (!valid) {
+                /*
+                    Verify the EXACT key entered
+                    against the Worker.
+                */
 
-                    throw new Error(
-                        "Invalid Admin Key"
-                    );
-
-                }
+                await verifyLogin(
+                    key
+                );
 
 
-                setAdminKey(key);
+                /*
+                    Only save the key AFTER
+                    successful verification.
+                */
+
+                setAdminKey(
+                    key
+                );
 
 
                 loginScreen.style.display =
@@ -2884,8 +3120,12 @@
 
             } catch (error) {
 
+                clearAdminKey();
+
+
                 loginError.style.display =
                     "block";
+
 
                 loginError.textContent =
                     error.message ||
@@ -2893,7 +3133,8 @@
 
             } finally {
 
-                button.disabled = false;
+                button.disabled =
+                    false;
 
                 button.textContent =
                     "Enter Admin Panel";
@@ -2923,17 +3164,9 @@
 
         try {
 
-            const valid =
-                await verifyLogin(key);
-
-
-            if (!valid) {
-
-                clearAdminKey();
-
-                return;
-
-            }
+            await verifyLogin(
+                key
+            );
 
 
             loginScreen.style.display =
@@ -2962,7 +3195,9 @@
     ===================================================== */
 
     document
-        .getElementById("logoutButton")
+        .getElementById(
+            "logoutButton"
+        )
         .addEventListener(
             "click",
             () => {
@@ -4221,4 +4456,4 @@
 
 
 </body>
-  </html>
+    </html>
