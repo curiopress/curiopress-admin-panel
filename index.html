@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -17,9 +18,11 @@
         CurioPress Admin
     </title>
 
+
     <style>
 
         :root {
+
             --bg: #070b13;
             --bg-soft: #0b111d;
             --panel: #101827;
@@ -37,35 +40,44 @@
             --red: #fb7185;
 
             --radius: 18px;
+
         }
 
 
         * {
+
             box-sizing: border-box;
+
         }
 
 
         html {
+
             scroll-behavior: smooth;
+
         }
 
 
         body {
+
             margin: 0;
 
             min-height: 100vh;
 
             background:
+
                 radial-gradient(
                     circle at top right,
                     rgba(56,189,248,.08),
                     transparent 32%
                 ),
+
                 radial-gradient(
                     circle at bottom left,
                     rgba(94,234,212,.06),
                     transparent 30%
                 ),
+
                 var(--bg);
 
             color: var(--text);
@@ -78,29 +90,49 @@
                 BlinkMacSystemFont,
                 "Segoe UI",
                 sans-serif;
+
         }
 
 
         button,
-        input {
+        input,
+        textarea,
+        select {
+
             font: inherit;
+
         }
 
 
         button {
+
             cursor: pointer;
+
+        }
+
+
+        button:disabled {
+
+            opacity: .45;
+
+            cursor: not-allowed;
+
         }
 
 
         a {
+
             color: inherit;
+
             text-decoration: none;
+
         }
 
 
         /* =========================================
            LOGIN
         ========================================= */
+
 
         #loginScreen {
 
@@ -113,6 +145,7 @@
             justify-content: center;
 
             padding: 24px;
+
         }
 
 
@@ -125,6 +158,7 @@
             padding: 34px;
 
             background:
+
                 linear-gradient(
                     145deg,
                     rgba(255,255,255,.055),
@@ -139,6 +173,7 @@
                 0 30px 80px rgba(0,0,0,.45);
 
             backdrop-filter: blur(20px);
+
         }
 
 
@@ -151,6 +186,7 @@
             gap: 12px;
 
             margin-bottom: 30px;
+
         }
 
 
@@ -167,6 +203,7 @@
             border-radius: 14px;
 
             background:
+
                 linear-gradient(
                     135deg,
                     var(--accent),
@@ -178,6 +215,7 @@
             font-weight: 900;
 
             font-size: 20px;
+
         }
 
 
@@ -186,6 +224,7 @@
             display: block;
 
             font-size: 18px;
+
         }
 
 
@@ -198,6 +237,7 @@
             color: var(--muted);
 
             font-size: 12px;
+
         }
 
 
@@ -208,6 +248,7 @@
             font-size: 30px;
 
             letter-spacing: -.8px;
+
         }
 
 
@@ -218,12 +259,14 @@
             color: var(--muted);
 
             line-height: 1.6;
+
         }
 
 
         .field {
 
             margin-bottom: 18px;
+
         }
 
 
@@ -238,6 +281,7 @@
             font-size: 13px;
 
             font-weight: 700;
+
         }
 
 
@@ -258,6 +302,7 @@
             background: #080e19;
 
             color: var(--text);
+
         }
 
 
@@ -267,6 +312,7 @@
 
             box-shadow:
                 0 0 0 3px rgba(94,234,212,.08);
+
         }
 
 
@@ -281,6 +327,7 @@
             border-radius: 13px;
 
             background:
+
                 linear-gradient(
                     135deg,
                     var(--accent),
@@ -294,6 +341,7 @@
             transition:
                 transform .2s ease,
                 opacity .2s ease;
+
         }
 
 
@@ -302,6 +350,7 @@
             transform: translateY(-2px);
 
             opacity: .94;
+
         }
 
 
@@ -324,6 +373,7 @@
             font-size: 13px;
 
             line-height: 1.5;
+
         }
 
 
@@ -331,11 +381,13 @@
            APP
         ========================================= */
 
+
         #app {
 
             display: none;
 
             min-height: 100vh;
+
         }
 
 
@@ -344,12 +396,14 @@
             display: flex;
 
             min-height: 100vh;
+
         }
 
 
         /* =========================================
            SIDEBAR
         ========================================= */
+
 
         .sidebar {
 
@@ -373,12 +427,14 @@
             overflow-y: auto;
 
             z-index: 100;
+
         }
 
 
         .sidebar-logo {
 
             padding: 4px 10px 25px;
+
         }
 
 
@@ -395,6 +451,7 @@
             letter-spacing: 1.2px;
 
             text-transform: uppercase;
+
         }
 
 
@@ -425,6 +482,7 @@
             transition:
                 background .2s ease,
                 color .2s ease;
+
         }
 
 
@@ -433,12 +491,14 @@
             background: rgba(255,255,255,.045);
 
             color: white;
+
         }
 
 
         .nav-item.active {
 
             background:
+
                 linear-gradient(
                     90deg,
                     rgba(94,234,212,.13),
@@ -449,6 +509,7 @@
 
             box-shadow:
                 inset 2px 0 0 var(--accent);
+
         }
 
 
@@ -459,6 +520,7 @@
             text-align: center;
 
             font-size: 16px;
+
         }
 
 
@@ -467,12 +529,14 @@
             margin-top: 18px;
 
             color: #fb7185;
+
         }
 
 
         /* =========================================
            MAIN
         ========================================= */
+
 
         .main {
 
@@ -481,6 +545,7 @@
             margin-left: 260px;
 
             min-width: 0;
+
         }
 
 
@@ -510,6 +575,7 @@
             border-bottom: 1px solid var(--border);
 
             backdrop-filter: blur(18px);
+
         }
 
 
@@ -528,6 +594,7 @@
             background: var(--panel);
 
             color: white;
+
         }
 
 
@@ -536,6 +603,7 @@
             width: min(500px, 100%);
 
             position: relative;
+
         }
 
 
@@ -556,6 +624,7 @@
             color: white;
 
             outline: none;
+
         }
 
 
@@ -570,6 +639,7 @@
             transform: translateY(-50%);
 
             color: var(--muted);
+
         }
 
 
@@ -580,6 +650,7 @@
             align-items: center;
 
             gap: 14px;
+
         }
 
 
@@ -596,6 +667,7 @@
             font-size: 12px;
 
             font-weight: 700;
+
         }
 
 
@@ -611,6 +683,7 @@
 
             box-shadow:
                 0 0 12px var(--green);
+
         }
 
 
@@ -631,12 +704,14 @@
             color: var(--accent);
 
             font-weight: 900;
+
         }
 
 
         /* =========================================
            CONTENT
         ========================================= */
+
 
         .content {
 
@@ -645,6 +720,7 @@
             max-width: 1600px;
 
             margin: 0 auto;
+
         }
 
 
@@ -659,6 +735,7 @@
             gap: 20px;
 
             margin-bottom: 28px;
+
         }
 
 
@@ -669,6 +746,7 @@
             font-size: clamp(26px, 4vw, 36px);
 
             letter-spacing: -1px;
+
         }
 
 
@@ -677,6 +755,7 @@
             margin: 8px 0 0;
 
             color: var(--muted);
+
         }
 
 
@@ -701,12 +780,14 @@
             font-size: 12px;
 
             font-weight: 800;
+
         }
 
 
         /* =========================================
            STAT CARDS
-        ========================================== */
+        ========================================= */
+
 
         .stats {
 
@@ -718,6 +799,7 @@
             gap: 16px;
 
             margin-bottom: 22px;
+
         }
 
 
@@ -730,11 +812,13 @@
             border-radius: var(--radius);
 
             background:
+
                 linear-gradient(
                     145deg,
                     rgba(255,255,255,.045),
                     rgba(255,255,255,.018)
                 );
+
         }
 
 
@@ -745,6 +829,7 @@
             align-items: center;
 
             justify-content: space-between;
+
         }
 
 
@@ -763,6 +848,7 @@
             background: rgba(94,234,212,.08);
 
             color: var(--accent);
+
         }
 
 
@@ -771,6 +857,7 @@
             color: var(--muted);
 
             font-size: 12px;
+
         }
 
 
@@ -781,12 +868,14 @@
             margin-top: 14px;
 
             font-size: 27px;
+
         }
 
 
         /* =========================================
            GRID
-        ========================================== */
+        ========================================= */
+
 
         .dashboard-grid {
 
@@ -798,6 +887,7 @@
             gap: 20px;
 
             margin-bottom: 22px;
+
         }
 
 
@@ -812,11 +902,13 @@
             border-radius: var(--radius);
 
             background:
+
                 linear-gradient(
                     145deg,
                     rgba(255,255,255,.04),
                     rgba(255,255,255,.015)
                 );
+
         }
 
 
@@ -831,6 +923,7 @@
             gap: 15px;
 
             margin-bottom: 20px;
+
         }
 
 
@@ -839,6 +932,7 @@
             margin: 0;
 
             font-size: 17px;
+
         }
 
 
@@ -847,12 +941,14 @@
             color: var(--muted);
 
             font-size: 12px;
+
         }
 
 
         /* =========================================
            HEALTH
-        ========================================== */
+        ========================================= */
+
 
         .health-score {
 
@@ -861,6 +957,7 @@
             align-items: center;
 
             gap: 24px;
+
         }
 
 
@@ -879,12 +976,14 @@
             border-radius: 50%;
 
             background:
+
                 conic-gradient(
                     var(--accent) 0deg 331deg,
                     #1a2535 331deg 360deg
                 );
 
             position: relative;
+
         }
 
 
@@ -899,6 +998,7 @@
             border-radius: 50%;
 
             background: var(--panel);
+
         }
 
 
@@ -911,12 +1011,14 @@
             font-size: 25px;
 
             font-weight: 900;
+
         }
 
 
         .health-list {
 
             flex: 1;
+
         }
 
 
@@ -933,12 +1035,14 @@
             border-bottom: 1px solid rgba(255,255,255,.05);
 
             font-size: 13px;
+
         }
 
 
         .health-row:last-child {
 
             border-bottom: 0;
+
         }
 
 
@@ -947,6 +1051,7 @@
             color: var(--green);
 
             font-weight: 800;
+
         }
 
 
@@ -955,6 +1060,7 @@
             color: var(--yellow);
 
             font-weight: 800;
+
         }
 
 
@@ -963,12 +1069,14 @@
             color: var(--red);
 
             font-weight: 800;
+
         }
 
 
         /* =========================================
            RECENT CHANGES
-        ========================================== */
+        ========================================= */
+
 
         .change {
 
@@ -981,12 +1089,14 @@
             padding: 12px 0;
 
             border-bottom: 1px solid rgba(255,255,255,.05);
+
         }
 
 
         .change:last-child {
 
             border-bottom: 0;
+
         }
 
 
@@ -1007,6 +1117,7 @@
             background: #162133;
 
             color: var(--accent);
+
         }
 
 
@@ -1015,6 +1126,7 @@
             display: block;
 
             font-size: 13px;
+
         }
 
 
@@ -1027,12 +1139,14 @@
             color: var(--muted);
 
             font-size: 11px;
+
         }
 
 
         /* =========================================
            REPOSITORY
-        ========================================== */
+        ========================================= */
+
 
         .repo-toolbar {
 
@@ -1047,6 +1161,7 @@
             margin-bottom: 16px;
 
             flex-wrap: wrap;
+
         }
 
 
@@ -1055,12 +1170,14 @@
             color: var(--muted);
 
             font-size: 13px;
+
         }
 
 
         .repo-path strong {
 
             color: var(--text);
+
         }
 
 
@@ -1081,6 +1198,7 @@
             font-size: 12px;
 
             font-weight: 800;
+
         }
 
 
@@ -1089,6 +1207,7 @@
             border-color: rgba(94,234,212,.4);
 
             background: #152235;
+
         }
 
 
@@ -1097,6 +1216,7 @@
             border: 0;
 
             background:
+
                 linear-gradient(
                     135deg,
                     var(--accent),
@@ -1104,6 +1224,25 @@
                 );
 
             color: #061018;
+
+        }
+
+
+        .button-danger {
+
+            border-color: rgba(251,113,133,.25);
+
+            color: #fda4af;
+
+        }
+
+
+        .button-success {
+
+            border-color: rgba(52,211,153,.25);
+
+            color: #86efac;
+
         }
 
 
@@ -1112,6 +1251,7 @@
             display: flex;
 
             flex-direction: column;
+
         }
 
 
@@ -1130,12 +1270,14 @@
             border-bottom: 1px solid rgba(255,255,255,.05);
 
             transition: background .2s ease;
+
         }
 
 
         .file:hover {
 
             background: rgba(255,255,255,.025);
+
         }
 
 
@@ -1148,6 +1290,7 @@
             gap: 12px;
 
             min-width: 0;
+
         }
 
 
@@ -1168,12 +1311,14 @@
             background: #172235;
 
             color: var(--accent-2);
+
         }
 
 
         .file-name {
 
             min-width: 0;
+
         }
 
 
@@ -1188,6 +1333,7 @@
             white-space: nowrap;
 
             font-size: 13px;
+
         }
 
 
@@ -1200,6 +1346,7 @@
             color: var(--muted);
 
             font-size: 10px;
+
         }
 
 
@@ -1208,6 +1355,7 @@
             display: flex;
 
             gap: 6px;
+
         }
 
 
@@ -1228,6 +1376,7 @@
             font-size: 10px;
 
             font-weight: 800;
+
         }
 
 
@@ -1236,12 +1385,14 @@
             color: white;
 
             border-color: rgba(94,234,212,.35);
+
         }
 
 
         /* =========================================
            QUICK ACTIONS
-        ========================================== */
+        ========================================= */
+
 
         .quick-grid {
 
@@ -1251,6 +1402,7 @@
                 repeat(2, minmax(0, 1fr));
 
             gap: 10px;
+
         }
 
 
@@ -1267,6 +1419,7 @@
             color: white;
 
             text-align: left;
+
         }
 
 
@@ -1275,6 +1428,7 @@
             border-color: rgba(94,234,212,.3);
 
             transform: translateY(-1px);
+
         }
 
 
@@ -1283,6 +1437,7 @@
             color: var(--accent);
 
             font-size: 18px;
+
         }
 
 
@@ -1293,6 +1448,7 @@
             margin-top: 10px;
 
             font-size: 12px;
+
         }
 
 
@@ -1307,12 +1463,764 @@
             font-size: 10px;
 
             line-height: 1.5;
+
+        }
+
+
+        /* =========================================
+           SITEMAP MANAGER
+        ========================================= */
+
+
+        #sitemapPage {
+
+            display: none;
+
+        }
+
+
+        .sitemap-header-card {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 22px;
+
+            margin-bottom: 20px;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(94,234,212,.055),
+                    rgba(56,189,248,.018)
+                );
+
+        }
+
+
+        .sitemap-title-row {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+
+        .sitemap-big-icon {
+
+            width: 52px;
+
+            height: 52px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 15px;
+
+            background: rgba(94,234,212,.1);
+
+            color: var(--accent);
+
+            font-size: 24px;
+
+        }
+
+
+        .sitemap-title-row h2 {
+
+            margin: 0;
+
+            font-size: 21px;
+
+        }
+
+
+        .sitemap-title-row p {
+
+            margin: 5px 0 0;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+        }
+
+
+        .sitemap-status {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 9px 13px;
+
+            border-radius: 999px;
+
+            background: rgba(52,211,153,.08);
+
+            border: 1px solid rgba(52,211,153,.16);
+
+            color: #86efac;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+        }
+
+
+        .sitemap-status.error-status {
+
+            background: rgba(251,113,133,.08);
+
+            border-color: rgba(251,113,133,.18);
+
+            color: #fda4af;
+
+        }
+
+
+        .sitemap-status.warning-status {
+
+            background: rgba(251,191,36,.08);
+
+            border-color: rgba(251,191,36,.18);
+
+            color: #fcd34d;
+
+        }
+
+
+        .sitemap-url-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 20px;
+
+            padding: 14px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            background: #0b1320;
+
+        }
+
+
+        .sitemap-url-box input {
+
+            flex: 1;
+
+            min-width: 0;
+
+            height: 42px;
+
+            padding: 0 13px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            outline: none;
+
+            background: #080e18;
+
+            color: #d9e3f0;
+
+            font-size: 12px;
+
+        }
+
+
+        .sitemap-url-box input:focus {
+
+            border-color: rgba(94,234,212,.5);
+
+        }
+
+
+        .sitemap-stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 14px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .sitemap-stat {
+
+            padding: 17px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            background: #0d1522;
+
+        }
+
+
+        .sitemap-stat-label {
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+        }
+
+
+        .sitemap-stat-value {
+
+            display: block;
+
+            margin-top: 8px;
+
+            font-size: 23px;
+
+            font-weight: 900;
+
+        }
+
+
+        .sitemap-stat-value.good-text {
+
+            color: var(--green);
+
+        }
+
+
+        .sitemap-toolbar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            margin-bottom: 14px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .sitemap-toolbar-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .sitemap-toolbar-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .sitemap-search {
+
+            width: 280px;
+
+            height: 40px;
+
+            padding: 0 13px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            outline: none;
+
+            background: #0b1320;
+
+            color: white;
+
+        }
+
+
+        .sitemap-search:focus {
+
+            border-color: rgba(94,234,212,.45);
+
+        }
+
+
+        .sitemap-table-wrap {
+
+            overflow-x: auto;
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+        }
+
+
+        .sitemap-table {
+
+            width: 100%;
+
+            min-width: 720px;
+
+            border-collapse: collapse;
+
+        }
+
+
+        .sitemap-table th {
+
+            padding: 13px 14px;
+
+            background: #0d1522;
+
+            border-bottom: 1px solid var(--border);
+
+            color: #8e9bad;
+
+            text-align: left;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .8px;
+
+        }
+
+
+        .sitemap-table td {
+
+            padding: 13px 14px;
+
+            border-bottom: 1px solid rgba(255,255,255,.05);
+
+            font-size: 12px;
+
+            vertical-align: middle;
+
+        }
+
+
+        .sitemap-table tr:last-child td {
+
+            border-bottom: 0;
+
+        }
+
+
+        .sitemap-table tr:hover td {
+
+            background: rgba(255,255,255,.018);
+
+        }
+
+
+        .sitemap-url-cell {
+
+            max-width: 440px;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+            color: #d9e3f0;
+
+        }
+
+
+        .priority-badge {
+
+            display: inline-flex;
+
+            padding: 5px 8px;
+
+            border-radius: 7px;
+
+            background: rgba(94,234,212,.08);
+
+            color: var(--accent);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+        }
+
+
+        .changefreq-badge {
+
+            display: inline-flex;
+
+            padding: 5px 8px;
+
+            border-radius: 7px;
+
+            background: rgba(56,189,248,.08);
+
+            color: #7dd3fc;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+        }
+
+
+        .sitemap-empty {
+
+            padding: 45px 20px;
+
+            text-align: center;
+
+            color: var(--muted);
+
+        }
+
+
+        .sitemap-empty-icon {
+
+            font-size: 35px;
+
+            margin-bottom: 10px;
+
+            color: #526075;
+
+        }
+
+
+        .sitemap-editor-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1.35fr .65fr;
+
+            gap: 20px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 14px;
+
+        }
+
+
+        .form-group {
+
+            min-width: 0;
+
+        }
+
+
+        .form-group.full {
+
+            grid-column: 1 / -1;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #aeb8c8;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+        }
+
+
+        .form-group input,
+
+        .form-group select {
+
+            width: 100%;
+
+            height: 42px;
+
+            padding: 0 12px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            outline: none;
+
+            background: #080e18;
+
+            color: white;
+
+        }
+
+
+        .form-group input:focus,
+
+        .form-group select:focus {
+
+            border-color: rgba(94,234,212,.5);
+
+        }
+
+
+        .sitemap-info-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 0;
+
+        }
+
+
+        .sitemap-info-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid rgba(255,255,255,.05);
+
+            font-size: 12px;
+
+        }
+
+
+        .sitemap-info-row:last-child {
+
+            border-bottom: 0;
+
+        }
+
+
+        .sitemap-info-row span:first-child {
+
+            color: var(--muted);
+
+        }
+
+
+        .sitemap-info-row strong {
+
+            text-align: right;
+
+            word-break: break-word;
+
+        }
+
+
+        .xml-preview {
+
+            width: 100%;
+
+            min-height: 380px;
+
+            resize: vertical;
+
+            padding: 16px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 13px;
+
+            outline: none;
+
+            background: #070d17;
+
+            color: #b9d8e8;
+
+            font-family:
+                ui-monospace,
+                SFMono-Regular,
+                Menlo,
+                Consolas,
+                monospace;
+
+            font-size: 12px;
+
+            line-height: 1.65;
+
+        }
+
+
+        .sitemap-action-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: 8px;
+
+            margin-top: 14px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        /* =========================================
+           MODAL
+        ========================================= */
+
+
+        .modal-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 500;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background: rgba(0,0,0,.78);
+
+        }
+
+
+        .modal-box {
+
+            width: min(760px,100%);
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            background: #0d1522;
+
+            border: 1px solid rgba(255,255,255,.1);
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 30px 100px rgba(0,0,0,.6);
+
+        }
+
+
+        .modal-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 17px 20px;
+
+            border-bottom: 1px solid rgba(255,255,255,.08);
+
+        }
+
+
+        .modal-header h3 {
+
+            margin: 0;
+
+            font-size: 17px;
+
+        }
+
+
+        .modal-body {
+
+            padding: 20px;
+
+        }
+
+
+        .modal-footer {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 8px;
+
+            padding: 14px 20px;
+
+            border-top: 1px solid rgba(255,255,255,.08);
+
         }
 
 
         /* =========================================
            ACTION BAR
-        ========================================== */
+        ========================================= */
+
 
         .global-actions {
 
@@ -1340,12 +2248,14 @@
             border-top: 1px solid var(--border);
 
             backdrop-filter: blur(15px);
+
         }
 
 
         /* =========================================
            TOAST
-        ========================================== */
+        ========================================= */
+
 
         .toast {
 
@@ -1355,9 +2265,9 @@
 
             bottom: 78px;
 
-            z-index: 300;
+            z-index: 600;
 
-            max-width: 350px;
+            max-width: 380px;
 
             padding: 13px 16px;
 
@@ -1381,6 +2291,7 @@
             transform: translateY(10px);
 
             transition: .25s ease;
+
         }
 
 
@@ -1389,12 +2300,14 @@
             opacity: 1;
 
             transform: translateY(0);
+
         }
 
 
         /* =========================================
            MOBILE
-        ========================================== */
+        ========================================= */
+
 
         @media (max-width: 1100px) {
 
@@ -1405,7 +2318,23 @@
 
             }
 
+
             .dashboard-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .sitemap-stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .sitemap-editor-grid {
 
                 grid-template-columns: 1fr;
 
@@ -1420,13 +2349,16 @@
 
                 transform: translateX(-100%);
 
-                transition: transform .25s ease;
+                transition:
+                    transform .25s ease;
+
             }
 
 
             .sidebar.open {
 
                 transform: translateX(0);
+
             }
 
 
@@ -1435,30 +2367,36 @@
                 width: 100%;
 
                 margin-left: 0;
+
             }
 
 
             .mobile-menu {
 
                 display: block;
+
             }
 
 
             .topbar {
 
                 padding: 12px 16px;
+
             }
 
 
             .search {
 
                 display: none;
+
             }
 
 
             .content {
 
-                padding: 20px 16px 90px;
+                padding:
+                    20px 16px 90px;
+
             }
 
 
@@ -1471,12 +2409,64 @@
                 overflow-x: auto;
 
                 justify-content: flex-start;
+
             }
 
 
             .global-actions .button {
 
                 flex: 0 0 auto;
+
+            }
+
+
+            .sitemap-header-card {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+            }
+
+
+            .sitemap-url-box {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+            }
+
+
+            .sitemap-url-box .button {
+
+                width: 100%;
+
+            }
+
+
+            .sitemap-toolbar {
+
+                align-items: stretch;
+
+                flex-direction: column;
+
+            }
+
+
+            .sitemap-toolbar-left,
+
+            .sitemap-toolbar-right {
+
+                width: 100%;
+
+            }
+
+
+            .sitemap-search {
+
+                width: 100%;
+
             }
 
         }
@@ -1496,6 +2486,7 @@
                 align-items: flex-start;
 
                 flex-direction: column;
+
             }
 
 
@@ -1504,6 +2495,7 @@
                 align-items: flex-start;
 
                 flex-direction: column;
+
             }
 
 
@@ -1512,6 +2504,7 @@
                 padding: 0 8px;
 
                 font-size: 9px;
+
             }
 
 
@@ -1520,6 +2513,7 @@
                 align-items: flex-start;
 
                 flex-direction: column;
+
             }
 
 
@@ -1536,6 +2530,34 @@
 
             }
 
+
+            .sitemap-stats {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .form-group.full {
+
+                grid-column: auto;
+
+            }
+
+
+            .sitemap-title-row {
+
+                align-items: flex-start;
+
+            }
+
         }
 
     </style>
@@ -1547,14 +2569,13 @@
 
 
 <!-- =====================================================
-     LOGIN SCREEN
+     LOGIN
 ===================================================== -->
+
 
 <section id="loginScreen">
 
-
     <div class="login-box">
-
 
         <div class="logo">
 
@@ -1590,7 +2611,6 @@
 
         <form id="loginForm">
 
-
             <div class="field">
 
                 <label for="adminKey">
@@ -1615,7 +2635,6 @@
                 Enter Admin Panel
             </button>
 
-
         </form>
 
 
@@ -1626,7 +2645,6 @@
             Invalid Admin Key.
         </div>
 
-
     </div>
 
 </section>
@@ -1634,11 +2652,11 @@
 
 
 <!-- =====================================================
-     ADMIN APPLICATION
+     APP
 ===================================================== -->
 
-<section id="app">
 
+<section id="app">
 
     <div class="app-layout">
 
@@ -1646,6 +2664,7 @@
         <!-- =================================================
              SIDEBAR
         ================================================== -->
+
 
         <aside
             class="sidebar"
@@ -1852,7 +2871,7 @@
                     ⌁
                 </span>
 
-                Sitemap
+                Sitemap Manager
 
             </button>
 
@@ -1982,13 +3001,11 @@
              MAIN
         ================================================== -->
 
+
         <div class="main">
 
 
-            <!-- TOP BAR -->
-
             <header class="topbar">
-
 
                 <button
                     class="mobile-menu"
@@ -2016,7 +3033,6 @@
 
                 <div class="topbar-right">
 
-
                     <div class="online">
 
                         <span class="online-dot"></span>
@@ -2030,21 +3046,24 @@
                         A
                     </div>
 
-
                 </div>
-
 
             </header>
 
 
 
-            <!-- CONTENT -->
+            <!-- =================================================
+                 NORMAL DASHBOARD
+            ================================================== -->
 
-            <main class="content">
+
+            <main
+                class="content"
+                id="dashboardPage"
+            >
 
 
                 <div class="page-title">
-
 
                     <div>
 
@@ -2067,14 +3086,8 @@
 
                     </div>
 
-
                 </div>
 
-
-
-                <!-- =========================================
-                     STATISTICS
-                ========================================== -->
 
                 <section class="stats">
 
@@ -2166,18 +3179,10 @@
                 </section>
 
 
-
-                <!-- =========================================
-                     DASHBOARD GRID
-                ========================================== -->
-
                 <section class="dashboard-grid">
 
 
-                    <!-- HEALTH -->
-
                     <div class="panel">
-
 
                         <div class="panel-header">
 
@@ -2206,7 +3211,6 @@
 
                         <div class="health-score">
 
-
                             <div class="score-circle">
 
                                 <div class="score-number">
@@ -2217,7 +3221,6 @@
 
 
                             <div class="health-list">
-
 
                                 <div class="health-row">
 
@@ -2251,7 +3254,10 @@
                                         Sitemap
                                     </span>
 
-                                    <span class="good">
+                                    <span
+                                        class="good"
+                                        id="dashboardSitemapStatus"
+                                    >
                                         Valid
                                     </span>
 
@@ -2283,21 +3289,15 @@
 
                                 </div>
 
-
                             </div>
 
-
                         </div>
-
 
                     </div>
 
 
 
-                    <!-- QUICK ACTIONS -->
-
                     <div class="panel">
-
 
                         <div class="panel-header">
 
@@ -2381,19 +3381,19 @@
 
                             <button
                                 class="quick"
-                                data-action="health"
+                                data-action="sitemap"
                             >
 
                                 <div class="quick-icon">
-                                    ♥
+                                    ⌁
                                 </div>
 
                                 <strong>
-                                    Health Check
+                                    Sitemap Manager
                                 </strong>
 
                                 <span>
-                                    Scan the website.
+                                    Manage sitemap URLs.
                                 </span>
 
                             </button>
@@ -2401,20 +3401,12 @@
 
                         </div>
 
-
                     </div>
-
 
                 </section>
 
 
-
-                <!-- =========================================
-                     RECENT CHANGES
-                ========================================== -->
-
                 <section class="panel">
-
 
                     <div class="panel-header">
 
@@ -2442,7 +3434,6 @@
 
 
                     <div id="recentChanges">
-
 
                         <div class="change">
 
@@ -2485,23 +3476,15 @@
 
                         </div>
 
-
                     </div>
-
 
                 </section>
 
-
-
-                <!-- =========================================
-                     REPOSITORY
-                ========================================== -->
 
                 <section
                     class="panel"
                     style="margin-top:20px;"
                 >
-
 
                     <div class="panel-header">
 
@@ -2530,7 +3513,6 @@
 
                     <div class="repo-toolbar">
 
-
                         <div class="repo-path">
 
                             Repository:
@@ -2548,7 +3530,6 @@
                         >
                             Refresh Files
                         </button>
-
 
                     </div>
 
@@ -2577,6 +3558,696 @@
 
                     </div>
 
+                </section>
+
+
+            </main>
+
+
+
+            <!-- =================================================
+                 SITEMAP MANAGER PAGE
+            ================================================== -->
+
+
+            <main
+                class="content"
+                id="sitemapPage"
+            >
+
+
+                <div class="page-title">
+
+                    <div>
+
+                        <h1>
+                            Sitemap Manager
+                        </h1>
+
+                        <p>
+                            Manage, validate and update your XML sitemap.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="sitemap-status"
+                        id="sitemapStatusBadge"
+                    >
+
+                        <span class="online-dot"></span>
+
+                        Sitemap Ready
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- HEADER -->
+
+                <section class="sitemap-header-card">
+
+
+                    <div class="sitemap-title-row">
+
+                        <div class="sitemap-big-icon">
+                            ⌁
+                        </div>
+
+
+                        <div>
+
+                            <h2>
+                                XML Sitemap
+                            </h2>
+
+                            <p>
+                                Control which URLs are included in search engine discovery.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        style="
+                            display:flex;
+                            gap:8px;
+                            flex-wrap:wrap;
+                        "
+                    >
+
+                        <button
+                            class="button"
+                            id="sitemapRefreshButton"
+                        >
+                            Refresh
+                        </button>
+
+
+                        <button
+                            class="button button-primary"
+                            id="generateSitemapButton"
+                        >
+                            Generate Sitemap
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- SITEMAP URL -->
+
+                <section class="panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h2>
+                                Sitemap Location
+                            </h2>
+
+                            <span>
+                                Public sitemap URL
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="sitemap-url-box">
+
+                        <input
+                            id="sitemapUrl"
+                            type="text"
+                            value="https://curiopress.github.io/sitemap.xml"
+                            readonly
+                        >
+
+
+                        <button
+                            class="button"
+                            id="copySitemapUrl"
+                        >
+                            Copy URL
+                        </button>
+
+
+                        <button
+                            class="button"
+                            id="openSitemapUrl"
+                        >
+                            Open
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- STATS -->
+
+                <section class="sitemap-stats">
+
+
+                    <div class="sitemap-stat">
+
+                        <span class="sitemap-stat-label">
+                            Total URLs
+                        </span>
+
+                        <strong
+                            class="sitemap-stat-value"
+                            id="sitemapTotalUrls"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="sitemap-stat">
+
+                        <span class="sitemap-stat-label">
+                            Indexed Candidates
+                        </span>
+
+                        <strong
+                            class="sitemap-stat-value good-text"
+                            id="sitemapIndexableUrls"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="sitemap-stat">
+
+                        <span class="sitemap-stat-label">
+                            Last Modified
+                        </span>
+
+                        <strong
+                            class="sitemap-stat-value"
+                            id="sitemapLastModified"
+                            style="font-size:15px;"
+                        >
+                            Never
+                        </strong>
+
+                    </div>
+
+
+                    <div class="sitemap-stat">
+
+                        <span class="sitemap-stat-label">
+                            Validation
+                        </span>
+
+                        <strong
+                            class="sitemap-stat-value good-text"
+                            id="sitemapValidation"
+                            style="font-size:15px;"
+                        >
+                            Ready
+                        </strong>
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- ADD URL -->
+
+                <div class="sitemap-editor-grid">
+
+
+                    <section class="panel">
+
+
+                        <div class="panel-header">
+
+                            <div>
+
+                                <h2>
+                                    Add URL
+                                </h2>
+
+                                <span>
+                                    Add a page to your sitemap.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group full">
+
+                                <label for="newSitemapUrl">
+                                    Page URL
+                                </label>
+
+                                <input
+                                    id="newSitemapUrl"
+                                    type="url"
+                                    placeholder="https://curiopress.github.io/example-page.html"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="newSitemapPriority">
+                                    Priority
+                                </label>
+
+                                <select id="newSitemapPriority">
+
+                                    <option value="1.0">
+                                        1.0
+                                    </option>
+
+                                    <option value="0.9">
+                                        0.9
+                                    </option>
+
+                                    <option
+                                        value="0.8"
+                                        selected
+                                    >
+                                        0.8
+                                    </option>
+
+                                    <option value="0.7">
+                                        0.7
+                                    </option>
+
+                                    <option value="0.6">
+                                        0.6
+                                    </option>
+
+                                    <option value="0.5">
+                                        0.5
+                                    </option>
+
+                                    <option value="0.4">
+                                        0.4
+                                    </option>
+
+                                    <option value="0.3">
+                                        0.3
+                                    </option>
+
+                                    <option value="0.2">
+                                        0.2
+                                    </option>
+
+                                    <option value="0.1">
+                                        0.1
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="newSitemapChangefreq">
+                                    Change Frequency
+                                </label>
+
+                                <select id="newSitemapChangefreq">
+
+                                    <option value="always">
+                                        Always
+                                    </option>
+
+                                    <option value="hourly">
+                                        Hourly
+                                    </option>
+
+                                    <option value="daily" selected>
+                                        Daily
+                                    </option>
+
+                                    <option value="weekly">
+                                        Weekly
+                                    </option>
+
+                                    <option value="monthly">
+                                        Monthly
+                                    </option>
+
+                                    <option value="yearly">
+                                        Yearly
+                                    </option>
+
+                                    <option value="never">
+                                        Never
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="sitemap-action-row">
+
+                            <button
+                                class="button button-primary"
+                                id="addSitemapUrlButton"
+                            >
+                                Add URL
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <!-- INFO -->
+
+                    <section class="panel">
+
+
+                        <div class="panel-header">
+
+                            <div>
+
+                                <h2>
+                                    Sitemap Details
+                                </h2>
+
+                                <span>
+                                    Current configuration
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="sitemap-info-list">
+
+
+                            <div class="sitemap-info-row">
+
+                                <span>
+                                    File
+                                </span>
+
+                                <strong>
+                                    sitemap.xml
+                                </strong>
+
+                            </div>
+
+
+                            <div class="sitemap-info-row">
+
+                                <span>
+                                    Format
+                                </span>
+
+                                <strong>
+                                    XML Sitemap
+                                </strong>
+
+                            </div>
+
+
+                            <div class="sitemap-info-row">
+
+                                <span>
+                                    Protocol
+                                </span>
+
+                                <strong>
+                                    HTTPS
+                                </strong>
+
+                            </div>
+
+
+                            <div class="sitemap-info-row">
+
+                                <span>
+                                    Search Engines
+                                </span>
+
+                                <strong>
+                                    Google / Bing
+                                </strong>
+
+                            </div>
+
+
+                            <div class="sitemap-info-row">
+
+                                <span>
+                                    Robots Reference
+                                </span>
+
+                                <strong>
+                                    Enabled
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+
+
+                <!-- URL LIST -->
+
+                <section class="panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h2>
+                                Sitemap URLs
+                            </h2>
+
+                            <span>
+                                URLs currently included in sitemap.xml
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="sitemap-toolbar">
+
+
+                        <div class="sitemap-toolbar-left">
+
+                            <button
+                                class="button"
+                                id="selectAllSitemap"
+                            >
+                                Select All
+                            </button>
+
+
+                            <button
+                                class="button button-danger"
+                                id="deleteSelectedSitemap"
+                            >
+                                Delete Selected
+                            </button>
+
+                        </div>
+
+
+                        <div class="sitemap-toolbar-right">
+
+                            <input
+                                class="sitemap-search"
+                                id="sitemapSearch"
+                                type="search"
+                                placeholder="Search sitemap URLs..."
+                            >
+
+
+                            <button
+                                class="button"
+                                id="sortSitemapUrls"
+                            >
+                                Sort
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="sitemap-table-wrap">
+
+                        <table class="sitemap-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        <input
+                                            type="checkbox"
+                                            id="selectAllCheckbox"
+                                        >
+                                    </th>
+
+                                    <th>
+                                        URL
+                                    </th>
+
+                                    <th>
+                                        Priority
+                                    </th>
+
+                                    <th>
+                                        Frequency
+                                    </th>
+
+                                    <th>
+                                        Last Modified
+                                    </th>
+
+                                    <th>
+                                        Action
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody
+                                id="sitemapTableBody"
+                            >
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- XML PREVIEW -->
+
+                <section
+                    class="panel"
+                    style="margin-top:20px;"
+                >
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h2>
+                                XML Preview
+                            </h2>
+
+                            <span>
+                                Generated sitemap.xml content
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            style="
+                                display:flex;
+                                gap:8px;
+                                flex-wrap:wrap;
+                            "
+                        >
+
+                            <button
+                                class="button"
+                                id="copyXmlButton"
+                            >
+                                Copy XML
+                            </button>
+
+
+                            <button
+                                class="button"
+                                id="downloadXmlButton"
+                            >
+                                Download XML
+                            </button>
+
+
+                            <button
+                                class="button button-primary"
+                                id="saveSitemapButton"
+                            >
+                                Save Sitemap
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <textarea
+                        id="xmlPreview"
+                        class="xml-preview"
+                        spellcheck="false"
+                        readonly
+                    ></textarea>
+
+
+                    <div class="sitemap-action-row">
+
+                        <span
+                            id="sitemapSaveMessage"
+                            style="
+                                margin-right:auto;
+                                color:#8995a8;
+                                font-size:11px;
+                            "
+                        >
+                            Changes are currently local to this admin session until saved.
+                        </span>
+
+                    </div>
 
                 </section>
 
@@ -2586,14 +4257,14 @@
 
         </div>
 
-
     </div>
 
 
 
-    <!-- =========================================
+    <!-- =================================================
          GLOBAL ACTION BAR
-    ========================================== -->
+    ================================================== -->
+
 
     <div class="global-actions">
 
@@ -2637,7 +4308,10 @@
 
 
 
-<!-- TOAST -->
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
 
 <div
     class="toast"
@@ -2649,522 +4323,492 @@
 
 <script>
 
-    /* =====================================================
-       CONFIGURATION
-    ===================================================== */
 
-    const API_URL =
-        "https://curiopress-admin-api.curiopress31.workers.dev";
+/* =====================================================
+   CONFIGURATION
+===================================================== */
 
 
-    /*
-        IMPORTANT:
-
-        The ADMIN_KEY is NOT hardcoded here.
-
-        Login value is stored only in sessionStorage
-        after the user enters it.
-
-        It is sent to the Worker through Authorization.
-    */
+const API_URL =
+    "https://curiopress-admin-api.curiopress31.workers.dev";
 
 
-    let currentPath = "";
-    let currentFile = null;
+const DEFAULT_SITEMAP_URL =
+    "https://curiopress.github.io/sitemap.xml";
 
 
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
+let currentPath = "";
 
-    const loginScreen =
-        document.getElementById("loginScreen");
-
-    const app =
-        document.getElementById("app");
-
-    const loginForm =
-        document.getElementById("loginForm");
-
-    const adminKeyInput =
-        document.getElementById("adminKey");
-
-    const loginError =
-        document.getElementById("loginError");
-
-    const sidebar =
-        document.getElementById("sidebar");
-
-    const mobileMenu =
-        document.getElementById("mobileMenu");
-
-    const toast =
-        document.getElementById("toast");
+let currentFile = null;
 
 
-    /* =====================================================
-       TOAST
-    ===================================================== */
-
-    function showToast(message) {
-
-        toast.textContent = message;
-
-        toast.classList.add("show");
-
-        setTimeout(() => {
-
-            toast.classList.remove("show");
-
-        }, 2800);
-
-    }
+/*
+    Sitemap data is maintained separately
+    so the manager can work even before the
+    Worker sitemap endpoint is connected.
+*/
 
 
-    /* =====================================================
-       AUTH
-    ===================================================== */
+let sitemapUrls = [];
 
-    function getAdminKey() {
+let sitemapSortAscending = true;
 
-        return sessionStorage.getItem(
-            "curiopress_admin_key"
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+
+const loginScreen =
+    document.getElementById("loginScreen");
+
+
+const app =
+    document.getElementById("app");
+
+
+const loginForm =
+    document.getElementById("loginForm");
+
+
+const adminKeyInput =
+    document.getElementById("adminKey");
+
+
+const loginError =
+    document.getElementById("loginError");
+
+
+const sidebar =
+    document.getElementById("sidebar");
+
+
+const mobileMenu =
+    document.getElementById("mobileMenu");
+
+
+const toast =
+    document.getElementById("toast");
+
+
+const dashboardPage =
+    document.getElementById("dashboardPage");
+
+
+const sitemapPage =
+    document.getElementById("sitemapPage");
+
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+
+function showToast(message) {
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        2800
+    );
+
+}
+
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+
+function getAdminKey() {
+
+    return sessionStorage.getItem(
+        "curiopress_admin_key"
+    );
+
+}
+
+
+function setAdminKey(key) {
+
+    sessionStorage.setItem(
+        "curiopress_admin_key",
+        key
+    );
+
+}
+
+
+function clearAdminKey() {
+
+    sessionStorage.removeItem(
+        "curiopress_admin_key"
+    );
+
+}
+
+
+function buildAuthHeaders(key) {
+
+    const cleanKey =
+        String(key || "").trim();
+
+    return {
+
+        "Authorization":
+            `Bearer ${cleanKey}`,
+
+        "Accept":
+            "application/json"
+
+    };
+
+}
+
+
+
+/* =====================================================
+   GENERIC API REQUEST
+===================================================== */
+
+
+async function apiRequest(
+    endpoint,
+    options = {}
+) {
+
+
+    const key =
+        getAdminKey();
+
+
+    if (!key) {
+
+        throw new Error(
+            "Admin session is missing. Please login again."
         );
 
     }
 
 
-    function setAdminKey(key) {
+    const headers = {
 
-        sessionStorage.setItem(
-            "curiopress_admin_key",
-            key
+        "Authorization":
+            `Bearer ${key}`,
+
+        "Accept":
+            "application/json",
+
+        "Content-Type":
+            "application/json",
+
+        ...(options.headers || {})
+
+    };
+
+
+    let response;
+
+
+    try {
+
+        response =
+            await fetch(
+                `${API_URL}${endpoint}`,
+                {
+
+                    ...options,
+
+                    headers,
+
+                    cache:
+                        "no-store"
+
+                }
+            );
+
+    } catch {
+
+        throw new Error(
+            "Unable to connect to Admin API. Check Worker URL, CORS or internet connection."
         );
 
     }
 
 
-    function clearAdminKey() {
-
-        sessionStorage.removeItem(
-            "curiopress_admin_key"
-        );
-
-    }
+    const responseText =
+        await response.text();
 
 
-    /*
-        Authentication helper.
+    let data;
 
-        This always sends the exact entered key
-        as:
 
-        Authorization: Bearer YOUR_KEY
-    */
+    try {
 
-    function buildAuthHeaders(key) {
+        data =
+            responseText
+                ? JSON.parse(responseText)
+                : {};
 
-        const cleanKey =
-            String(key || "").trim();
+    } catch {
 
-        return {
-            "Authorization":
-                `Bearer ${cleanKey}`,
-            "Accept":
-                "application/json"
+        data = {
+
+            error:
+                responseText ||
+                `API returned HTTP ${response.status}`
+
         };
 
     }
 
 
-    /*
-        Generic API request.
+    if (!response.ok) {
 
-        cache is disabled so an old response
-        cannot interfere with authentication.
-    */
-
-    async function apiRequest(
-        endpoint,
-        options = {}
-    ) {
-
-        const key =
-            getAdminKey();
+        const workerError =
+            data.error ||
+            data.message ||
+            `HTTP ${response.status}`;
 
 
-        if (!key) {
+        if (
+            response.status ===
+            401
+        ) {
 
             throw new Error(
-                "Admin session is missing. Please login again."
+                `Unauthorized: ${workerError}`
             );
 
         }
 
 
-        const headers = {
-
-            "Authorization":
-                `Bearer ${key}`,
-
-            "Accept":
-                "application/json",
-
-            "Content-Type":
-                "application/json",
-
-            ...(options.headers || {})
-
-        };
-
-
-        let response;
-
-
-        try {
-
-            response =
-                await fetch(
-                    `${API_URL}${endpoint}`,
-                    {
-                        ...options,
-
-                        headers,
-
-                        cache:
-                            "no-store"
-                    }
-                );
-
-        } catch (networkError) {
-
-            throw new Error(
-                "Unable to connect to Admin API. Check Worker URL, CORS or internet connection."
-            );
-
-        }
-
-
-        const responseText =
-            await response.text();
-
-
-        let data;
-
-
-        try {
-
-            data =
-                responseText
-                    ? JSON.parse(responseText)
-                    : {};
-
-        } catch {
-
-            data = {
-                error:
-                    responseText ||
-                    `API returned HTTP ${response.status}`
-            };
-
-        }
-
-
-        if (!response.ok) {
-
-            const workerError =
-                data.error ||
-                data.message ||
-                `HTTP ${response.status}`;
-
-
-            if (response.status === 401) {
-
-                throw new Error(
-                    `Unauthorized: ${workerError}`
-                );
-
-            }
-
-
-            throw new Error(
-                workerError
-            );
-
-        }
-
-
-        return data;
+        throw new Error(
+            workerError
+        );
 
     }
 
 
-    /*
-        Login verification.
+    return data;
 
-        Unlike the old version, this does NOT simply
-        return true or false.
-
-        It reads the actual Worker response so that
-        the login screen can tell us what failed.
-    */
-
-    async function verifyLogin(key) {
-
-        const cleanKey =
-            String(key || "").trim();
+}
 
 
-        if (!cleanKey) {
 
-            throw new Error(
-                "Please enter your Admin Key."
+/* =====================================================
+   LOGIN VERIFICATION
+===================================================== */
+
+
+async function verifyLogin(key) {
+
+
+    const cleanKey =
+        String(key || "").trim();
+
+
+    if (!cleanKey) {
+
+        throw new Error(
+            "Please enter your Admin Key."
+        );
+
+    }
+
+
+    let response;
+
+
+    try {
+
+        response =
+            await fetch(
+                `${API_URL}/api/repository`,
+                {
+
+                    method:
+                        "GET",
+
+                    headers:
+                        buildAuthHeaders(
+                            cleanKey
+                        ),
+
+                    cache:
+                        "no-store"
+
+                }
             );
 
-        }
+    } catch {
+
+        throw new Error(
+            "Could not connect to the Admin API. Check the Worker URL or CORS configuration."
+        );
+
+    }
 
 
-        let response;
+    const responseText =
+        await response.text();
 
 
-        try {
-
-            response =
-                await fetch(
-                    `${API_URL}/api/repository`,
-                    {
-                        method:
-                            "GET",
-
-                        headers:
-                            buildAuthHeaders(
-                                cleanKey
-                            ),
-
-                        cache:
-                            "no-store"
-                    }
-                );
-
-        } catch (error) {
-
-            throw new Error(
-                "Could not connect to the Admin API. Check the Worker URL or CORS configuration."
-            );
-
-        }
+    let data;
 
 
-        const responseText =
-            await response.text();
+    try {
+
+        data =
+            responseText
+                ? JSON.parse(responseText)
+                : {};
+
+    } catch {
+
+        data = {
+
+            error:
+                responseText ||
+                `HTTP ${response.status}`
+
+        };
+
+    }
 
 
-        let data;
+    if (!response.ok) {
 
-
-        try {
-
-            data =
-                responseText
-                    ? JSON.parse(responseText)
-                    : {};
-
-        } catch {
-
-            data = {
-                error:
-                    responseText ||
-                    `HTTP ${response.status}`
-            };
-
-        }
-
-
-        if (!response.ok) {
-
-            if (response.status === 401) {
-
-                throw new Error(
-                    data.error ||
-                    "Unauthorized. The Admin Key does not match the Worker ADMIN_KEY secret."
-                );
-
-            }
-
-
-            if (response.status === 403) {
-
-                throw new Error(
-                    data.error ||
-                    "Forbidden. The Worker rejected the request."
-                );
-
-            }
-
+        if (
+            response.status ===
+            401
+        ) {
 
             throw new Error(
                 data.error ||
-                data.message ||
-                `Admin API returned HTTP ${response.status}`
+                "Unauthorized. The Admin Key does not match the Worker ADMIN_KEY secret."
             );
 
         }
 
 
         if (
-            data.success === false
+            response.status ===
+            403
         ) {
 
             throw new Error(
                 data.error ||
-                "Admin API rejected the login."
+                "Forbidden. The Worker rejected the request."
             );
 
         }
 
 
-        return true;
+        throw new Error(
+            data.error ||
+            data.message ||
+            `Admin API returned HTTP ${response.status}`
+        );
 
     }
 
 
-    loginForm.addEventListener(
-        "submit",
-        async event => {
+    if (
+        data.success === false
+    ) {
 
-            event.preventDefault();
+        throw new Error(
+            data.error ||
+            "Admin API rejected the login."
+        );
 
-
-            loginError.style.display =
-                "none";
-
-
-            loginError.textContent =
-                "";
+    }
 
 
-            const key =
-                adminKeyInput.value.trim();
+    return true;
+
+}
 
 
-            if (!key) {
 
-                loginError.style.display =
-                    "block";
-
-                loginError.textContent =
-                    "Please enter your Admin Key.";
-
-                return;
-
-            }
+/* =====================================================
+   LOGIN
+===================================================== */
 
 
-            const button =
-                loginForm.querySelector(
-                    "button"
-                );
+loginForm.addEventListener(
+    "submit",
+    async event => {
 
 
-            button.disabled =
-                true;
-
-            button.textContent =
-                "Connecting...";
+        event.preventDefault();
 
 
-            try {
-
-                /*
-                    Remove any previously saved key
-                    before testing the new one.
-                */
-
-                clearAdminKey();
+        loginError.style.display =
+            "none";
 
 
-                /*
-                    Verify the EXACT key entered
-                    against the Worker.
-                */
+        loginError.textContent =
+            "";
 
-                await verifyLogin(
-                    key
-                );
-
-
-                /*
-                    Only save the key AFTER
-                    successful verification.
-                */
-
-                setAdminKey(
-                    key
-                );
-
-
-                loginScreen.style.display =
-                    "none";
-
-                app.style.display =
-                    "block";
-
-
-                await loadRepository();
-
-
-                showToast(
-                    "Welcome to CurioPress Admin"
-                );
-
-
-            } catch (error) {
-
-                clearAdminKey();
-
-
-                loginError.style.display =
-                    "block";
-
-
-                loginError.textContent =
-                    error.message ||
-                    "Invalid Admin Key.";
-
-            } finally {
-
-                button.disabled =
-                    false;
-
-                button.textContent =
-                    "Enter Admin Panel";
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       AUTO LOGIN
-    ===================================================== */
-
-    async function restoreSession() {
 
         const key =
-            getAdminKey();
+            adminKeyInput.value.trim();
 
 
         if (!key) {
+
+            loginError.style.display =
+                "block";
+
+            loginError.textContent =
+                "Please enter your Admin Key.";
 
             return;
 
         }
 
 
+        const button =
+            loginForm.querySelector(
+                "button"
+            );
+
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            "Connecting...";
+
+
         try {
 
+            clearAdminKey();
+
+
             await verifyLogin(
+                key
+            );
+
+
+            setAdminKey(
                 key
             );
 
@@ -3178,65 +4822,183 @@
 
             await loadRepository();
 
-        } catch {
+
+            initializeSitemap();
+
+
+            showToast(
+                "Welcome to CurioPress Admin"
+            );
+
+        } catch (error) {
 
             clearAdminKey();
+
+
+            loginError.style.display =
+                "block";
+
+
+            loginError.textContent =
+                error.message ||
+                "Invalid Admin Key.";
+
+        } finally {
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Enter Admin Panel";
 
         }
 
     }
+);
 
 
-    restoreSession();
+
+/* =====================================================
+   AUTO LOGIN
+===================================================== */
 
 
-    /* =====================================================
-       LOGOUT
-    ===================================================== */
+async function restoreSession() {
 
-    document
-        .getElementById(
-            "logoutButton"
-        )
-        .addEventListener(
-            "click",
-            () => {
 
-                clearAdminKey();
+    const key =
+        getAdminKey();
 
-                location.reload();
 
-            }
+    if (!key) {
+
+        return;
+
+    }
+
+
+    try {
+
+        await verifyLogin(
+            key
         );
 
 
-    /* =====================================================
-       MOBILE SIDEBAR
-    ===================================================== */
+        loginScreen.style.display =
+            "none";
 
-    mobileMenu.addEventListener(
+        app.style.display =
+            "block";
+
+
+        await loadRepository();
+
+
+        initializeSitemap();
+
+    } catch {
+
+        clearAdminKey();
+
+    }
+
+}
+
+
+restoreSession();
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+
+document
+    .getElementById(
+        "logoutButton"
+    )
+    .addEventListener(
         "click",
         () => {
 
-            sidebar.classList.toggle(
-                "open"
-            );
+            clearAdminKey();
+
+            location.reload();
 
         }
     );
 
 
-    /* =====================================================
-       NAVIGATION
-    ===================================================== */
 
-    document
-        .querySelectorAll(".nav-item[data-page]")
-        .forEach(item => {
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+
+mobileMenu.addEventListener(
+    "click",
+    () => {
+
+        sidebar.classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+
+function showPage(
+    page
+) {
+
+
+    dashboardPage.style.display =
+        "none";
+
+    sitemapPage.style.display =
+        "none";
+
+
+    if (
+        page ===
+        "sitemap"
+    ) {
+
+        sitemapPage.style.display =
+            "block";
+
+        initializeSitemap();
+
+    } else {
+
+        dashboardPage.style.display =
+            "block";
+
+    }
+
+}
+
+
+
+document
+    .querySelectorAll(
+        ".nav-item[data-page]"
+    )
+    .forEach(
+        item => {
+
 
             item.addEventListener(
                 "click",
                 () => {
+
 
                     document
                         .querySelectorAll(
@@ -3266,6 +5028,25 @@
 
                     if (
                         page ===
+                        "sitemap"
+                    ) {
+
+                        showPage(
+                            "sitemap"
+                        );
+
+                        return;
+
+                    }
+
+
+                    showPage(
+                        "dashboard"
+                    );
+
+
+                    if (
+                        page ===
                         "repository"
                     ) {
 
@@ -3282,22 +5063,28 @@
                 }
             );
 
-        });
+        }
+    );
 
 
-    /* =====================================================
-       QUICK ACTIONS
-    ===================================================== */
 
-    document
-        .querySelectorAll(
-            ".quick[data-action]"
-        )
-        .forEach(button => {
+/* =====================================================
+   QUICK ACTIONS
+===================================================== */
+
+
+document
+    .querySelectorAll(
+        ".quick[data-action]"
+    )
+    .forEach(
+        button => {
+
 
             button.addEventListener(
                 "click",
                 () => {
+
 
                     const action =
                         button.dataset.action;
@@ -3310,679 +5097,780 @@
 
                         loadFiles();
 
-                    } else {
-
-                        showToast(
-                            `${action} module is ready for the next development phase.`
-                        );
+                        return;
 
                     }
+
+
+                    if (
+                        action ===
+                        "sitemap"
+                    ) {
+
+                        document
+                            .querySelectorAll(
+                                ".nav-item"
+                            )
+                            .forEach(
+                                nav =>
+                                    nav.classList.remove(
+                                        "active"
+                                    )
+                            );
+
+
+                        const sitemapNav =
+                            document.querySelector(
+                                '.nav-item[data-page="sitemap"]'
+                            );
+
+
+                        if (sitemapNav) {
+
+                            sitemapNav.classList.add(
+                                "active"
+                            );
+
+                        }
+
+
+                        showPage(
+                            "sitemap"
+                        );
+
+                        return;
+
+                    }
+
+
+                    showToast(
+                        `${action} module is ready for the next development phase.`
+                    );
 
                 }
             );
 
-        });
+        }
+    );
 
 
-    /* =====================================================
-       LOAD REPOSITORY
-    ===================================================== */
 
-    async function loadRepository() {
-
-        try {
-
-            const data =
-                await apiRequest(
-                    "/api/repository"
-                );
+/* =====================================================
+   LOAD REPOSITORY
+===================================================== */
 
 
-            if (
-                data.success &&
-                data.repository
-            ) {
-
-                showToast(
-                    `Connected to ${data.repository.full_name}`
-                );
-
-            }
+async function loadRepository() {
 
 
-            await loadFiles();
+    try {
 
-        } catch (error) {
+        const data =
+            await apiRequest(
+                "/api/repository"
+            );
+
+
+        if (
+            data.success &&
+            data.repository
+        ) {
 
             showToast(
-                error.message
+                `Connected to ${data.repository.full_name}`
             );
 
         }
 
+
+        await loadFiles();
+
+    } catch (error) {
+
+        showToast(
+            error.message
+        );
+
     }
 
+}
 
-    document
-        .getElementById(
-            "loadRepository"
-        )
-        .addEventListener(
-            "click",
-            loadRepository
+
+document
+    .getElementById(
+        "loadRepository"
+    )
+    .addEventListener(
+        "click",
+        loadRepository
+    );
+
+
+
+/* =====================================================
+   LOAD FILES
+===================================================== */
+
+
+async function loadFiles(
+    path = ""
+) {
+
+
+    const fileList =
+        document.getElementById(
+            "fileList"
         );
 
 
-    /* =====================================================
-       LOAD FILES
-    ===================================================== */
+    fileList.innerHTML = `
 
-    async function loadFiles(
-        path = ""
-    ) {
+        <div style="
+            padding:30px;
+            text-align:center;
+            color:#8995a8;
+        ">
 
-        const fileList =
-            document.getElementById(
-                "fileList"
+            Loading repository...
+
+        </div>
+
+    `;
+
+
+    try {
+
+
+        const data =
+            await apiRequest(
+                `/api/files?path=${encodeURIComponent(path)}`
             );
 
 
-        fileList.innerHTML = `
-            <div style="
-                padding:30px;
-                text-align:center;
-                color:#8995a8;
-            ">
-                Loading repository...
-            </div>
-        `;
+        currentPath =
+            path;
 
 
-        try {
+        if (
+            !data.files ||
+            !data.files.length
+        ) {
 
-            const data =
-                await apiRequest(
-                    `/api/files?path=${encodeURIComponent(path)}`
+            fileList.innerHTML = `
+
+                <div style="
+                    padding:30px;
+                    text-align:center;
+                    color:#8995a8;
+                ">
+
+                    No files found.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        fileList.innerHTML =
+            "";
+
+
+        if (path) {
+
+
+            const parent =
+                path
+                    .split("/")
+                    .slice(
+                        0,
+                        -1
+                    )
+                    .join("/");
+
+
+            const back =
+                document.createElement(
+                    "div"
                 );
 
 
-            currentPath =
-                path;
+            back.className =
+                "file";
 
 
-            if (
-                !data.files ||
-                !data.files.length
-            ) {
+            back.innerHTML = `
 
-                fileList.innerHTML = `
-                    <div style="
-                        padding:30px;
-                        text-align:center;
-                        color:#8995a8;
-                    ">
-                        No files found.
+                <div class="file-info">
+
+                    <div class="file-icon">
+                        ↑
                     </div>
-                `;
 
-                return;
+                    <div class="file-name">
 
-            }
+                        <strong>
+                            ..
+                        </strong>
 
+                        <span>
+                            Parent folder
+                        </span>
 
-            fileList.innerHTML =
-                "";
+                    </div>
 
+                </div>
 
-            if (path) {
-
-                const parent =
-                    path
-                        .split("/")
-                        .slice(
-                            0,
-                            -1
-                        )
-                        .join("/");
+            `;
 
 
-                const back =
+            back.style.cursor =
+                "pointer";
+
+
+            back.addEventListener(
+                "click",
+                () =>
+                    loadFiles(parent)
+            );
+
+
+            fileList.appendChild(
+                back
+            );
+
+        }
+
+
+        data.files.forEach(
+            item => {
+
+
+                const row =
                     document.createElement(
                         "div"
                     );
 
 
-                back.className =
+                row.className =
                     "file";
 
 
-                back.innerHTML = `
+                const icon =
+                    item.type ===
+                    "dir"
+                        ? "▱"
+                        : "◇";
+
+
+                row.innerHTML = `
+
                     <div class="file-info">
 
                         <div class="file-icon">
-                            ↑
+                            ${icon}
                         </div>
 
                         <div class="file-name">
 
                             <strong>
-                                ..
+                                ${escapeHtml(item.name)}
                             </strong>
 
                             <span>
-                                Parent folder
+
+                                ${
+                                    item.type ===
+                                    "dir"
+
+                                    ?
+
+                                    "Folder"
+
+                                    :
+
+                                    `${item.size || 0} bytes`
+
+                                }
+
                             </span>
 
                         </div>
 
                     </div>
-                `;
 
 
-                back.style.cursor =
-                    "pointer";
-
-
-                back.addEventListener(
-                    "click",
-                    () =>
-                        loadFiles(parent)
-                );
-
-
-                fileList.appendChild(
-                    back
-                );
-
-            }
-
-
-            data.files.forEach(
-                item => {
-
-                    const row =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    row.className =
-                        "file";
-
-
-                    const icon =
-                        item.type ===
-                        "dir"
-                            ? "▱"
-                            : "◇";
-
-
-                    row.innerHTML = `
-
-                        <div class="file-info">
-
-                            <div class="file-icon">
-                                ${icon}
-                            </div>
-
-                            <div class="file-name">
-
-                                <strong>
-                                    ${escapeHtml(item.name)}
-                                </strong>
-
-                                <span>
-                                    ${item.type === "dir"
-                                        ? "Folder"
-                                        : `${item.size || 0} bytes`
-                                    }
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="file-actions">
-
-                            <button
-                                class="mini-button"
-                                data-open
-                            >
-                                Open
-                            </button>
-
-                            <button
-                                class="mini-button"
-                                data-edit
-                            >
-                                Edit
-                            </button>
-
-                            <button
-                                class="mini-button"
-                                data-preview
-                            >
-                                Preview
-                            </button>
-
-                            <button
-                                class="mini-button"
-                                data-commit
-                            >
-                                Commit
-                            </button>
-
-                            <button
-                                class="mini-button"
-                                data-deploy
-                            >
-                                Deploy
-                            </button>
-
-                        </div>
-                    `;
-
-
-                    const open =
-                        row.querySelector(
-                            "[data-open]"
-                        );
-
-
-                    const edit =
-                        row.querySelector(
-                            "[data-edit]"
-                        );
-
-
-                    const preview =
-                        row.querySelector(
-                            "[data-preview]"
-                        );
-
-
-                    const commit =
-                        row.querySelector(
-                            "[data-commit]"
-                        );
-
-
-                    const deploy =
-                        row.querySelector(
-                            "[data-deploy]"
-                        );
-
-
-                    if (
-                        item.type ===
-                        "dir"
-                    ) {
-
-                        edit.disabled =
-                            true;
-
-                        preview.disabled =
-                            true;
-
-                        commit.disabled =
-                            true;
-
-                        deploy.disabled =
-                            true;
-
-                        open.addEventListener(
-                            "click",
-                            () =>
-                                loadFiles(
-                                    item.path
-                                )
-                        );
-
-                    } else {
-
-                        open.addEventListener(
-                            "click",
-                            () =>
-                                openFile(
-                                    item.path,
-                                    "open"
-                                )
-                        );
-
-
-                        edit.addEventListener(
-                            "click",
-                            () =>
-                                openFile(
-                                    item.path,
-                                    "edit"
-                                )
-                        );
-
-
-                        preview.addEventListener(
-                            "click",
-                            () =>
-                                previewFile(
-                                    item.path
-                                )
-                        );
-
-
-                        commit.addEventListener(
-                            "click",
-                            () =>
-                                showToast(
-                                    "Commit workflow will open from the editor."
-                                )
-                        );
-
-
-                        deploy.addEventListener(
-                            "click",
-                            () =>
-                                showToast(
-                                    "Deploy workflow will open from the editor."
-                                )
-                        );
-
-                    }
-
-
-                    fileList.appendChild(
-                        row
-                    );
-
-                }
-            );
-
-        } catch (error) {
-
-            fileList.innerHTML = `
-                <div style="
-                    padding:30px;
-                    color:#fb7185;
-                    text-align:center;
-                ">
-                    ${escapeHtml(error.message)}
-                </div>
-            `;
-
-        }
-
-    }
-
-
-    document
-        .getElementById(
-            "loadFiles"
-        )
-        .addEventListener(
-            "click",
-            () =>
-                loadFiles(
-                    currentPath
-                )
-        );
-
-
-    /* =====================================================
-       OPEN FILE
-    ===================================================== */
-
-    async function openFile(
-        path,
-        mode = "open"
-    ) {
-
-        try {
-
-            const data =
-                await apiRequest(
-                    `/api/file?path=${encodeURIComponent(path)}`
-                );
-
-
-            currentFile =
-                data.file;
-
-
-            showFileModal(
-                data.file,
-                mode
-            );
-
-
-        } catch (error) {
-
-            showToast(
-                error.message
-            );
-
-        }
-
-    }
-
-
-    /* =====================================================
-       FILE MODAL
-    ===================================================== */
-
-    function showFileModal(
-        file,
-        mode
-    ) {
-
-        const existing =
-            document.getElementById(
-                "fileModal"
-            );
-
-
-        if (existing) {
-
-            existing.remove();
-
-        }
-
-
-        const modal =
-            document.createElement(
-                "div"
-            );
-
-
-        modal.id =
-            "fileModal";
-
-
-        modal.style.cssText = `
-            position:fixed;
-            inset:0;
-            z-index:500;
-            background:rgba(0,0,0,.78);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:20px;
-        `;
-
-
-        const editorMode =
-            mode === "edit";
-
-
-        modal.innerHTML = `
-
-            <div style="
-                width:min(1100px,100%);
-                height:min(85vh,850px);
-                display:flex;
-                flex-direction:column;
-                background:#0d1522;
-                border:1px solid rgba(255,255,255,.1);
-                border-radius:20px;
-                overflow:hidden;
-                box-shadow:0 30px 100px rgba(0,0,0,.6);
-            ">
-
-
-                <div style="
-                    display:flex;
-                    align-items:center;
-                    justify-content:space-between;
-                    gap:15px;
-                    padding:15px 18px;
-                    border-bottom:1px solid rgba(255,255,255,.08);
-                ">
-
-                    <div>
-
-                        <strong>
-                            ${escapeHtml(file.name)}
-                        </strong>
-
-                        <div style="
-                            margin-top:4px;
-                            color:#8995a8;
-                            font-size:11px;
-                        ">
-                            ${escapeHtml(file.path)}
-                        </div>
-
-                    </div>
-
-
-                    <div style="
-                        display:flex;
-                        gap:7px;
-                        flex-wrap:wrap;
-                        justify-content:flex-end;
-                    ">
+                    <div class="file-actions">
 
                         <button
                             class="mini-button"
-                            id="modalEdit"
+                            data-open
+                        >
+                            Open
+                        </button>
+
+                        <button
+                            class="mini-button"
+                            data-edit
                         >
                             Edit
                         </button>
 
                         <button
                             class="mini-button"
-                            id="modalPreview"
+                            data-preview
                         >
                             Preview
                         </button>
 
                         <button
                             class="mini-button"
-                            id="modalCommit"
+                            data-commit
                         >
                             Commit
                         </button>
 
                         <button
                             class="mini-button"
-                            id="modalDeploy"
+                            data-deploy
                         >
                             Deploy
                         </button>
 
-                        <button
-                            class="mini-button"
-                            id="modalClose"
-                        >
-                            Close
-                        </button>
+                    </div>
+
+                `;
+
+
+                const open =
+                    row.querySelector(
+                        "[data-open]"
+                    );
+
+
+                const edit =
+                    row.querySelector(
+                        "[data-edit]"
+                    );
+
+
+                const preview =
+                    row.querySelector(
+                        "[data-preview]"
+                    );
+
+
+                const commit =
+                    row.querySelector(
+                        "[data-commit]"
+                    );
+
+
+                const deploy =
+                    row.querySelector(
+                        "[data-deploy]"
+                    );
+
+
+                if (
+                    item.type ===
+                    "dir"
+                ) {
+
+
+                    edit.disabled =
+                        true;
+
+                    preview.disabled =
+                        true;
+
+                    commit.disabled =
+                        true;
+
+                    deploy.disabled =
+                        true;
+
+
+                    open.addEventListener(
+                        "click",
+                        () =>
+                            loadFiles(
+                                item.path
+                            )
+                    );
+
+
+                } else {
+
+
+                    open.addEventListener(
+                        "click",
+                        () =>
+                            openFile(
+                                item.path,
+                                "open"
+                            )
+                    );
+
+
+                    edit.addEventListener(
+                        "click",
+                        () =>
+                            openFile(
+                                item.path,
+                                "edit"
+                            )
+                    );
+
+
+                    preview.addEventListener(
+                        "click",
+                        () =>
+                            previewFile(
+                                item.path
+                            )
+                    );
+
+
+                    commit.addEventListener(
+                        "click",
+                        () =>
+                            showToast(
+                                "Commit workflow will open from the editor."
+                            )
+                    );
+
+
+                    deploy.addEventListener(
+                        "click",
+                        () =>
+                            showToast(
+                                "Deploy workflow will open from the editor."
+                            )
+                    );
+
+                }
+
+
+                fileList.appendChild(
+                    row
+                );
+
+            }
+        );
+
+
+    } catch (error) {
+
+
+        fileList.innerHTML = `
+
+            <div style="
+                padding:30px;
+                color:#fb7185;
+                text-align:center;
+            ">
+
+                ${escapeHtml(error.message)}
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+document
+    .getElementById(
+        "loadFiles"
+    )
+    .addEventListener(
+        "click",
+        () =>
+            loadFiles(
+                currentPath
+            )
+    );
+
+
+
+/* =====================================================
+   OPEN FILE
+===================================================== */
+
+
+async function openFile(
+    path,
+    mode = "open"
+) {
+
+
+    try {
+
+
+        const data =
+            await apiRequest(
+                `/api/file?path=${encodeURIComponent(path)}`
+            );
+
+
+        currentFile =
+            data.file;
+
+
+        showFileModal(
+            data.file,
+            mode
+        );
+
+
+    } catch (error) {
+
+        showToast(
+            error.message
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   FILE MODAL
+===================================================== */
+
+
+function showFileModal(
+    file,
+    mode
+) {
+
+
+    const existing =
+        document.getElementById(
+            "fileModal"
+        );
+
+
+    if (existing) {
+
+        existing.remove();
+
+    }
+
+
+    const modal =
+        document.createElement(
+            "div"
+        );
+
+
+    modal.id =
+        "fileModal";
+
+
+    modal.className =
+        "modal-overlay";
+
+
+    const editorMode =
+        mode ===
+        "edit";
+
+
+    modal.innerHTML = `
+
+        <div style="
+            width:min(1100px,100%);
+            height:min(85vh,850px);
+            display:flex;
+            flex-direction:column;
+            background:#0d1522;
+            border:1px solid rgba(255,255,255,.1);
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 30px 100px rgba(0,0,0,.6);
+        ">
+
+
+            <div style="
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:15px;
+                padding:15px 18px;
+                border-bottom:1px solid rgba(255,255,255,.08);
+            ">
+
+                <div>
+
+                    <strong>
+                        ${escapeHtml(file.name)}
+                    </strong>
+
+                    <div style="
+                        margin-top:4px;
+                        color:#8995a8;
+                        font-size:11px;
+                    ">
+
+                        ${escapeHtml(file.path)}
 
                     </div>
 
                 </div>
 
 
-                <textarea
-                    id="fileEditor"
-                    spellcheck="false"
-                    style="
-                        flex:1;
-                        width:100%;
-                        resize:none;
-                        border:0;
-                        outline:0;
-                        padding:20px;
-                        background:#080e18;
-                        color:#d9e3f0;
-                        font-family:
-                            ui-monospace,
-                            SFMono-Regular,
-                            Menlo,
-                            Consolas,
-                            monospace;
-                        font-size:13px;
-                        line-height:1.65;
-                    "
-                    ${editorMode ? "" : "readonly"}
-                ></textarea>
-
-
                 <div style="
                     display:flex;
-                    align-items:center;
-                    justify-content:space-between;
-                    gap:10px;
-                    padding:12px 18px;
-                    border-top:1px solid rgba(255,255,255,.08);
-                    color:#8995a8;
-                    font-size:11px;
+                    gap:7px;
+                    flex-wrap:wrap;
+                    justify-content:flex-end;
                 ">
 
-                    <span>
-                        SHA:
-                        ${escapeHtml(file.sha || "—")}
-                    </span>
 
                     <button
-                        class="button button-primary"
-                        id="saveFileButton"
+                        class="mini-button"
+                        id="modalEdit"
                     >
-                        Save Changes
+                        Edit
                     </button>
+
+
+                    <button
+                        class="mini-button"
+                        id="modalPreview"
+                    >
+                        Preview
+                    </button>
+
+
+                    <button
+                        class="mini-button"
+                        id="modalCommit"
+                    >
+                        Commit
+                    </button>
+
+
+                    <button
+                        class="mini-button"
+                        id="modalDeploy"
+                    >
+                        Deploy
+                    </button>
+
+
+                    <button
+                        class="mini-button"
+                        id="modalClose"
+                    >
+                        Close
+                    </button>
+
 
                 </div>
 
+            </div>
+
+
+            <textarea
+                id="fileEditor"
+                spellcheck="false"
+                style="
+                    flex:1;
+                    width:100%;
+                    resize:none;
+                    border:0;
+                    outline:0;
+                    padding:20px;
+                    background:#080e18;
+                    color:#d9e3f0;
+                    font-family:
+                        ui-monospace,
+                        SFMono-Regular,
+                        Menlo,
+                        Consolas,
+                        monospace;
+                    font-size:13px;
+                    line-height:1.65;
+                "
+                ${editorMode ? "" : "readonly"}
+            ></textarea>
+
+
+            <div style="
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:10px;
+                padding:12px 18px;
+                border-top:1px solid rgba(255,255,255,.08);
+                color:#8995a8;
+                font-size:11px;
+            ">
+
+                <span>
+
+                    SHA:
+                    ${escapeHtml(file.sha || "—")}
+
+                </span>
+
+
+                <button
+                    class="button button-primary"
+                    id="saveFileButton"
+                >
+                    Save Changes
+                </button>
 
             </div>
-        `;
 
 
-        document.body.appendChild(
-            modal
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        modal
+    );
+
+
+    const editor =
+        modal.querySelector(
+            "#fileEditor"
         );
 
 
-        const editor =
-            modal.querySelector(
-                "#fileEditor"
-            );
+    editor.value =
+        file.content || "";
 
 
-        editor.value =
-            file.content || "";
-
-
-        modal.querySelector(
+    modal
+        .querySelector(
             "#modalClose"
-        ).addEventListener(
+        )
+        .addEventListener(
             "click",
             () =>
                 modal.remove()
         );
 
 
-        modal.querySelector(
+    modal
+        .querySelector(
             "#modalEdit"
-        ).addEventListener(
+        )
+        .addEventListener(
             "click",
             () => {
 
@@ -4000,9 +5888,11 @@
         );
 
 
-        modal.querySelector(
+    modal
+        .querySelector(
             "#modalPreview"
-        ).addEventListener(
+        )
+        .addEventListener(
             "click",
             () => {
 
@@ -4015,9 +5905,11 @@
         );
 
 
-        modal.querySelector(
+    modal
+        .querySelector(
             "#modalCommit"
-        ).addEventListener(
+        )
+        .addEventListener(
             "click",
             async () => {
 
@@ -4031,9 +5923,11 @@
         );
 
 
-        modal.querySelector(
+    modal
+        .querySelector(
             "#modalDeploy"
-        ).addEventListener(
+        )
+        .addEventListener(
             "click",
             () => {
 
@@ -4045,9 +5939,11 @@
         );
 
 
-        modal.querySelector(
+    modal
+        .querySelector(
             "#saveFileButton"
-        ).addEventListener(
+        )
+        .addEventListener(
             "click",
             async () => {
 
@@ -4060,151 +5956,1017 @@
             }
         );
 
+}
+
+
+
+/* =====================================================
+   SAVE FILE
+===================================================== */
+
+
+async function saveFile(
+    file,
+    content,
+    modal
+) {
+
+
+    const confirmed =
+        confirm(
+            `Commit changes to ${file.path}?`
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
     }
 
 
-    /* =====================================================
-       SAVE / COMMIT FILE
-    ===================================================== */
+    try {
 
-    async function saveFile(
-        file,
-        content,
-        modal
-    ) {
 
-        const confirmed =
-            confirm(
-                `Commit changes to ${file.path}?`
+        showToast(
+            "Committing changes..."
+        );
+
+
+        const data =
+            await apiRequest(
+                "/api/file",
+                {
+
+                    method:
+                        "PUT",
+
+                    body:
+                        JSON.stringify({
+
+                            path:
+                                file.path,
+
+                            content,
+
+                            sha:
+                                file.sha,
+
+                            message:
+                                `Update ${file.path}`
+
+                        })
+
+                }
             );
 
 
-        if (!confirmed) {
+        if (
+            data.success
+        ) {
+
+
+            showToast(
+                "Changes committed successfully."
+            );
+
+
+            modal.remove();
+
+
+            await loadFiles(
+                currentPath
+            );
+
+        }
+
+
+    } catch (error) {
+
+
+        showToast(
+            `Commit failed: ${error.message}`
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   PREVIEW FILE
+===================================================== */
+
+
+async function previewFile(
+    path
+) {
+
+
+    try {
+
+
+        const data =
+            await apiRequest(
+                `/api/file?path=${encodeURIComponent(path)}`
+            );
+
+
+        previewContent(
+            data.file.name,
+            data.file.content
+        );
+
+
+    } catch (error) {
+
+        showToast(
+            error.message
+        );
+
+    }
+
+}
+
+
+
+function previewContent(
+    filename,
+    content
+) {
+
+
+    const extension =
+        filename
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+    if (
+        extension ===
+        "html" ||
+        extension ===
+        "htm"
+    ) {
+
+
+        const preview =
+            window.open(
+                "",
+                "_blank"
+            );
+
+
+        if (!preview) {
+
+            showToast(
+                "Allow pop-ups to preview this file."
+            );
 
             return;
 
         }
 
 
-        try {
+        preview.document.open();
 
-            showToast(
-                "Committing changes..."
+        preview.document.write(
+            content
+        );
+
+        preview.document.close();
+
+        return;
+
+    }
+
+
+    showToast(
+        "Visual preview is currently available for HTML files."
+    );
+
+}
+
+
+
+/* =====================================================
+   SITEMAP
+   LOCAL DATA HELPERS
+===================================================== */
+
+
+function getLocalSitemap() {
+
+
+    try {
+
+
+        const saved =
+            localStorage.getItem(
+                "curiopress_sitemap_urls"
             );
 
 
-            const data =
-                await apiRequest(
-                    "/api/file",
-                    {
-                        method: "PUT",
+        if (!saved) {
 
-                        body:
-                            JSON.stringify({
-                                path:
-                                    file.path,
+            return [];
 
-                                content,
-
-                                sha:
-                                    file.sha,
-
-                                message:
-                                    `Update ${file.path}`
-                            })
-                    }
-                );
+        }
 
 
-            if (data.success) {
-
-                showToast(
-                    "Changes committed successfully."
-                );
-
-
-                modal.remove();
+        const parsed =
+            JSON.parse(
+                saved
+            );
 
 
-                await loadFiles(
-                    currentPath
+        return Array.isArray(parsed)
+            ? parsed
+            : [];
+
+
+    } catch {
+
+        return [];
+
+    }
+
+}
+
+
+
+function saveLocalSitemap() {
+
+
+    localStorage.setItem(
+        "curiopress_sitemap_urls",
+        JSON.stringify(
+            sitemapUrls
+        )
+    );
+
+}
+
+
+
+/* =====================================================
+   SITEMAP INITIALIZATION
+===================================================== */
+
+
+function initializeSitemap() {
+
+
+    document
+        .getElementById(
+            "sitemapUrl"
+        )
+        .value =
+            DEFAULT_SITEMAP_URL;
+
+
+    sitemapUrls =
+        getLocalSitemap();
+
+
+    if (
+        sitemapUrls.length ===
+        0
+    ) {
+
+        sitemapUrls =
+            createDefaultSitemapUrls();
+
+        saveLocalSitemap();
+
+    }
+
+
+    renderSitemap();
+
+}
+
+
+
+/* =====================================================
+   DEFAULT SITEMAP URLS
+===================================================== */
+
+
+function createDefaultSitemapUrls() {
+
+
+    const now =
+        new Date()
+            .toISOString()
+            .split("T")[0];
+
+
+    return [
+
+        {
+
+            id:
+                createId(),
+
+            url:
+                "https://curiopress.github.io/",
+
+            priority:
+                "1.0",
+
+            changefreq:
+                "weekly",
+
+            lastmod:
+                now
+
+        },
+
+        {
+
+            id:
+                createId(),
+
+            url:
+                "https://curiopress.github.io/about.html",
+
+            priority:
+                "0.8",
+
+            changefreq:
+                "monthly",
+
+            lastmod:
+                now
+
+        },
+
+        {
+
+            id:
+                createId(),
+
+            url:
+                "https://curiopress.github.io/contact.html",
+
+            priority:
+                "0.6",
+
+            changefreq:
+                "monthly",
+
+            lastmod:
+                now
+
+        }
+
+    ];
+
+}
+
+
+
+/* =====================================================
+   CREATE ID
+===================================================== */
+
+
+function createId() {
+
+
+    return (
+        Date.now().toString(36) +
+        Math.random()
+            .toString(36)
+            .substring(2,8)
+    );
+
+}
+
+
+
+/* =====================================================
+   VALIDATE URL
+===================================================== */
+
+
+function isValidSitemapUrl(
+    value
+) {
+
+
+    try {
+
+
+        const url =
+            new URL(
+                value
+            );
+
+
+        return (
+            url.protocol ===
+                "https:" ||
+            url.protocol ===
+                "http:"
+        );
+
+
+    } catch {
+
+        return false;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   RENDER SITEMAP
+===================================================== */
+
+
+function renderSitemap() {
+
+
+    const body =
+        document.getElementById(
+            "sitemapTableBody"
+        );
+
+
+    const search =
+        document
+            .getElementById(
+                "sitemapSearch"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    let filtered =
+        sitemapUrls.filter(
+            item =>
+                item.url
+                    .toLowerCase()
+                    .includes(
+                        search
+                    )
+        );
+
+
+    if (
+        sitemapSortAscending
+    ) {
+
+        filtered.sort(
+            (a,b) =>
+                a.url.localeCompare(
+                    b.url
+                )
+        );
+
+    } else {
+
+        filtered.sort(
+            (a,b) =>
+                b.url.localeCompare(
+                    a.url
+                )
+        );
+
+    }
+
+
+    body.innerHTML =
+        "";
+
+
+    if (
+        filtered.length ===
+        0
+    ) {
+
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td colspan="6">
+
+                    <div class="sitemap-empty">
+
+                        <div class="sitemap-empty-icon">
+                            ⌁
+                        </div>
+
+                        No sitemap URLs found.
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    } else {
+
+
+        filtered.forEach(
+            item => {
+
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                row.innerHTML = `
+
+                    <td>
+
+                        <input
+                            type="checkbox"
+                            class="sitemap-checkbox"
+                            data-id="${escapeHtml(item.id)}"
+                        >
+
+                    </td>
+
+
+                    <td>
+
+                        <div
+                            class="sitemap-url-cell"
+                            title="${escapeHtml(item.url)}"
+                        >
+                            ${escapeHtml(item.url)}
+                        </div>
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="priority-badge">
+                            ${escapeHtml(item.priority || "0.5")}
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="changefreq-badge">
+                            ${escapeHtml(item.changefreq || "weekly")}
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHtml(item.lastmod || "—")}
+
+                    </td>
+
+
+                    <td>
+
+                        <button
+                            class="mini-button"
+                            data-edit-sitemap="${escapeHtml(item.id)}"
+                        >
+                            Edit
+                        </button>
+
+
+                        <button
+                            class="mini-button"
+                            data-delete-sitemap="${escapeHtml(item.id)}"
+                        >
+                            Delete
+                        </button>
+
+                    </td>
+
+                `;
+
+
+                body.appendChild(
+                    row
                 );
 
             }
-
-        } catch (error) {
-
-            showToast(
-                `Commit failed: ${error.message}`
-            );
-
-        }
+        );
 
     }
 
 
-    /* =====================================================
-       PREVIEW FILE
-    ===================================================== */
+    updateSitemapStats();
 
-    async function previewFile(
-        path
-    ) {
+    updateXmlPreview();
 
-        try {
-
-            const data =
-                await apiRequest(
-                    `/api/file?path=${encodeURIComponent(path)}`
-                );
+}
 
 
-            previewContent(
-                data.file.name,
-                data.file.content
-            );
 
-        } catch (error) {
-
-            showToast(
-                error.message
-            );
-
-        }
-
-    }
+/* =====================================================
+   UPDATE STATS
+===================================================== */
 
 
-    function previewContent(
-        filename,
-        content
-    ) {
+function updateSitemapStats() {
 
-        const extension =
-            filename
-                .split(".")
+
+    const total =
+        sitemapUrls.length;
+
+
+    const indexable =
+        sitemapUrls.filter(
+            item =>
+                isValidSitemapUrl(
+                    item.url
+                )
+        ).length;
+
+
+    const lastModified =
+        sitemapUrls.length
+            ? sitemapUrls
+                .map(
+                    item =>
+                        item.lastmod || ""
+                )
+                .sort()
                 .pop()
-                .toLowerCase();
+            : "";
+
+
+    document
+        .getElementById(
+            "sitemapTotalUrls"
+        )
+        .textContent =
+            total;
+
+
+    document
+        .getElementById(
+            "sitemapIndexableUrls"
+        )
+        .textContent =
+            indexable;
+
+
+    document
+        .getElementById(
+            "sitemapLastModified"
+        )
+        .textContent =
+            lastModified ||
+            "Never";
+
+
+    const validation =
+        document
+            .getElementById(
+                "sitemapValidation"
+            );
+
+
+    if (
+        total ===
+        0
+    ) {
+
+        validation.textContent =
+            "Empty";
+
+        validation.className =
+            "sitemap-stat-value";
+
+    } else if (
+        indexable ===
+        total
+    ) {
+
+        validation.textContent =
+            "Valid";
+
+        validation.className =
+            "sitemap-stat-value good-text";
+
+    } else {
+
+        validation.textContent =
+            "Review";
+
+        validation.className =
+            "sitemap-stat-value warning";
+
+    }
+
+
+    const dashboardStatus =
+        document.getElementById(
+            "dashboardSitemapStatus"
+        );
+
+
+    if (
+        dashboardStatus
+    ) {
 
 
         if (
-            extension ===
-                "html" ||
-            extension ===
-                "htm"
+            total > 0 &&
+            indexable === total
         ) {
 
-            const preview =
-                window.open(
-                    "",
-                    "_blank"
+            dashboardStatus.textContent =
+                "Valid";
+
+            dashboardStatus.className =
+                "good";
+
+        } else if (
+            total === 0
+        ) {
+
+            dashboardStatus.textContent =
+                "Empty";
+
+            dashboardStatus.className =
+                "warning";
+
+        } else {
+
+            dashboardStatus.textContent =
+                "Review";
+
+            dashboardStatus.className =
+                "warning";
+
+        }
+
+    }
+
+
+    const badge =
+        document.getElementById(
+            "sitemapStatusBadge"
+        );
+
+
+    if (
+        total > 0 &&
+        indexable === total
+    ) {
+
+
+        badge.className =
+            "sitemap-status";
+
+
+        badge.innerHTML = `
+
+            <span class="online-dot"></span>
+
+            Sitemap Valid
+
+        `;
+
+
+    } else if (
+        total === 0
+    ) {
+
+
+        badge.className =
+            "sitemap-status warning-status";
+
+
+        badge.innerHTML = `
+
+            <span class="online-dot"></span>
+
+            Sitemap Empty
+
+        `;
+
+
+    } else {
+
+
+        badge.className =
+            "sitemap-status warning-status";
+
+
+        badge.innerHTML = `
+
+            <span class="online-dot"></span>
+
+            Review Sitemap
+
+        `;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   XML ESCAPE
+===================================================== */
+
+
+function escapeXml(
+    value
+) {
+
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&apos;"
+        );
+
+}
+
+
+
+/* =====================================================
+   GENERATE XML
+===================================================== */
+
+
+function generateSitemapXml() {
+
+
+    const sorted =
+        [...sitemapUrls]
+            .sort(
+                (a,b) =>
+                    a.url.localeCompare(
+                        b.url
+                    )
+            );
+
+
+    const urls =
+        sorted
+            .map(
+                item => `
+
+    <url>
+
+        <loc>${escapeXml(item.url)}</loc>
+
+        ${
+            item.lastmod
+                ? `<lastmod>${escapeXml(item.lastmod)}</lastmod>`
+                : ""
+        }
+
+        ${
+            item.changefreq
+                ? `<changefreq>${escapeXml(item.changefreq)}</changefreq>`
+                : ""
+        }
+
+        ${
+            item.priority
+                ? `<priority>${escapeXml(item.priority)}</priority>`
+                : ""
+        }
+
+    </url>`
+            )
+            .join("");
+
+
+    return `<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+>
+${urls}
+
+</urlset>
+`;
+
+}
+
+
+
+/* =====================================================
+   UPDATE XML PREVIEW
+===================================================== */
+
+
+function updateXmlPreview() {
+
+
+    const preview =
+        document.getElementById(
+            "xmlPreview"
+        );
+
+
+    if (!preview) {
+
+        return;
+
+    }
+
+
+    preview.value =
+        generateSitemapXml();
+
+
+    const message =
+        document.getElementById(
+            "sitemapSaveMessage"
+        );
+
+
+    if (message) {
+
+        message.textContent =
+            `${sitemapUrls.length} URL(s) currently configured. Save Sitemap to persist the changes.`;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   ADD SITEMAP URL
+===================================================== */
+
+
+document
+    .getElementById(
+        "addSitemapUrlButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+
+            const urlInput =
+                document.getElementById(
+                    "newSitemapUrl"
                 );
 
 
-            if (!preview) {
+            const priority =
+                document.getElementById(
+                    "newSitemapPriority"
+                ).value;
+
+
+            const changefreq =
+                document.getElementById(
+                    "newSitemapChangefreq"
+                ).value;
+
+
+            const url =
+                urlInput.value.trim();
+
+
+            if (!url) {
 
                 showToast(
-                    "Allow pop-ups to preview this file."
+                    "Enter a page URL first."
                 );
 
                 return;
@@ -4212,248 +6974,1451 @@
             }
 
 
-            preview.document.open();
+            if (
+                !isValidSitemapUrl(
+                    url
+                )
+            ) {
 
-            preview.document.write(
-                content
+                showToast(
+                    "Enter a valid HTTP or HTTPS URL."
+                );
+
+                return;
+
+            }
+
+
+            const duplicate =
+                sitemapUrls.some(
+                    item =>
+                        item.url
+                            .toLowerCase() ===
+                        url.toLowerCase()
+                );
+
+
+            if (duplicate) {
+
+                showToast(
+                    "This URL is already in the sitemap."
+                );
+
+                return;
+
+            }
+
+
+            sitemapUrls.push({
+
+                id:
+                    createId(),
+
+                url,
+
+                priority,
+
+                changefreq,
+
+                lastmod:
+                    new Date()
+                        .toISOString()
+                        .split("T")[0]
+
+            });
+
+
+            saveLocalSitemap();
+
+            urlInput.value =
+                "";
+
+
+            renderSitemap();
+
+
+            showToast(
+                "URL added to sitemap."
             );
 
-            preview.document.close();
+        }
+    );
 
-            return;
+
+
+/* =====================================================
+   SITEMAP SEARCH
+===================================================== */
+
+
+document
+    .getElementById(
+        "sitemapSearch"
+    )
+    .addEventListener(
+        "input",
+        renderSitemap
+    );
+
+
+
+/* =====================================================
+   SORT
+===================================================== */
+
+
+document
+    .getElementById(
+        "sortSitemapUrls"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+
+            sitemapSortAscending =
+                !sitemapSortAscending;
+
+
+            renderSitemap();
+
+
+            showToast(
+                sitemapSortAscending
+                    ? "Sitemap sorted A to Z."
+                    : "Sitemap sorted Z to A."
+            );
 
         }
+    );
 
 
-        showToast(
-            "Visual preview is currently available for HTML files."
+
+/* =====================================================
+   DELETE SINGLE URL
+===================================================== */
+
+
+document
+    .getElementById(
+        "sitemapTableBody"
+    )
+    .addEventListener(
+        "click",
+        event => {
+
+
+            const deleteButton =
+                event.target.closest(
+                    "[data-delete-sitemap]"
+                );
+
+
+            if (
+                deleteButton
+            ) {
+
+
+                const id =
+                    deleteButton.dataset
+                        .deleteSitemap;
+
+
+                const item =
+                    sitemapUrls.find(
+                        entry =>
+                            entry.id ===
+                            id
+                    );
+
+
+                if (!item) {
+
+                    return;
+
+                }
+
+
+                const confirmed =
+                    confirm(
+                        `Remove this URL from the sitemap?\n\n${item.url}`
+                    );
+
+
+                if (!confirmed) {
+
+                    return;
+
+                }
+
+
+                sitemapUrls =
+                    sitemapUrls.filter(
+                        entry =>
+                            entry.id !==
+                            id
+                    );
+
+
+                saveLocalSitemap();
+
+                renderSitemap();
+
+
+                showToast(
+                    "URL removed from sitemap."
+                );
+
+            }
+
+
+            const editButton =
+                event.target.closest(
+                    "[data-edit-sitemap]"
+                );
+
+
+            if (
+                editButton
+            ) {
+
+
+                const id =
+                    editButton.dataset
+                        .editSitemap;
+
+
+                editSitemapUrl(
+                    id
+                );
+
+            }
+
+        }
+    );
+
+
+
+/* =====================================================
+   EDIT SITEMAP URL
+===================================================== */
+
+
+function editSitemapUrl(
+    id
+) {
+
+
+    const item =
+        sitemapUrls.find(
+            entry =>
+                entry.id ===
+                id
         );
+
+
+    if (!item) {
+
+        return;
 
     }
 
 
-    /* =====================================================
-       GLOBAL ACTIONS
-    ===================================================== */
-
-    document
-        .getElementById(
-            "editButton"
-        )
-        .addEventListener(
-            "click",
-            () => {
-
-                if (currentFile) {
-
-                    openFile(
-                        currentFile.path,
-                        "edit"
-                    );
-
-                } else {
-
-                    showToast(
-                        "Open a file first."
-                    );
-
-                }
-
-            }
+    const newUrl =
+        prompt(
+            "Edit URL:",
+            item.url
         );
 
 
-    document
-        .getElementById(
-            "previewButton"
+    if (
+        newUrl ===
+        null
+    ) {
+
+        return;
+
+    }
+
+
+    const cleanUrl =
+        newUrl.trim();
+
+
+    if (
+        !isValidSitemapUrl(
+            cleanUrl
         )
-        .addEventListener(
-            "click",
-            () => {
+    ) {
 
-                if (currentFile) {
+        showToast(
+            "Invalid URL."
+        );
 
-                    previewFile(
-                        currentFile.path
-                    );
+        return;
 
-                } else {
+    }
 
-                    showToast(
-                        "Open a file first."
-                    );
 
-                }
+    item.url =
+        cleanUrl;
 
-            }
+
+    const newPriority =
+        prompt(
+            "Priority:",
+            item.priority || "0.8"
         );
 
 
-    document
-        .getElementById(
-            "commitButton"
-        )
-        .addEventListener(
-            "click",
-            () => {
+    if (
+        newPriority !==
+        null
+    ) {
+
+        const priorityValue =
+            Number(
+                newPriority
+            );
+
+
+        if (
+            priorityValue >= 0 &&
+            priorityValue <= 1
+        ) {
+
+            item.priority =
+                priorityValue
+                    .toFixed(1);
+
+        }
+
+    }
+
+
+    const newFrequency =
+        prompt(
+            "Change frequency:",
+            item.changefreq || "weekly"
+        );
+
+
+    if (
+        newFrequency !==
+        null
+    ) {
+
+        const allowed = [
+
+            "always",
+            "hourly",
+            "daily",
+            "weekly",
+            "monthly",
+            "yearly",
+            "never"
+
+        ];
+
+
+        if (
+            allowed.includes(
+                newFrequency
+                    .trim()
+                    .toLowerCase()
+            )
+        ) {
+
+            item.changefreq =
+                newFrequency
+                    .trim()
+                    .toLowerCase();
+
+        }
+
+    }
+
+
+    item.lastmod =
+        new Date()
+            .toISOString()
+            .split("T")[0];
+
+
+    saveLocalSitemap();
+
+    renderSitemap();
+
+
+    showToast(
+        "Sitemap URL updated."
+    );
+
+}
+
+
+
+/* =====================================================
+   SELECT ALL
+===================================================== */
+
+
+document
+    .getElementById(
+        "selectAllCheckbox"
+    )
+    .addEventListener(
+        "change",
+        event => {
+
+
+            document
+                .querySelectorAll(
+                    ".sitemap-checkbox"
+                )
+                .forEach(
+                    checkbox => {
+
+                        checkbox.checked =
+                            event.target.checked;
+
+                    }
+                );
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "selectAllSitemap"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+
+            const checkboxes =
+                document.querySelectorAll(
+                    ".sitemap-checkbox"
+                );
+
+
+            checkboxes.forEach(
+                checkbox => {
+
+                    checkbox.checked =
+                        true;
+
+                }
+            );
+
+
+            document
+                .getElementById(
+                    "selectAllCheckbox"
+                )
+                .checked =
+                    checkboxes.length > 0;
+
+
+        }
+    );
+
+
+
+/* =====================================================
+   DELETE SELECTED
+===================================================== */
+
+
+document
+    .getElementById(
+        "deleteSelectedSitemap"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+
+            const selected =
+                Array.from(
+                    document.querySelectorAll(
+                        ".sitemap-checkbox:checked"
+                    )
+                )
+                .map(
+                    checkbox =>
+                        checkbox.dataset.id
+                );
+
+
+            if (
+                selected.length ===
+                0
+            ) {
 
                 showToast(
-                    "Open a file to start the commit workflow."
+                    "Select at least one URL."
+                );
+
+                return;
+
+            }
+
+
+            const confirmed =
+                confirm(
+                    `Delete ${selected.length} selected URL(s) from the sitemap?`
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+            sitemapUrls =
+                sitemapUrls.filter(
+                    item =>
+                        !selected.includes(
+                            item.id
+                        )
+                );
+
+
+            saveLocalSitemap();
+
+            document
+                .getElementById(
+                    "selectAllCheckbox"
+                )
+                .checked =
+                    false;
+
+
+            renderSitemap();
+
+
+            showToast(
+                `${selected.length} URL(s) removed.`
+            );
+
+        }
+    );
+
+
+
+/* =====================================================
+   COPY SITEMAP URL
+===================================================== */
+
+
+document
+    .getElementById(
+        "copySitemapUrl"
+    )
+    .addEventListener(
+        "click",
+        async () => {
+
+
+            const value =
+                document
+                    .getElementById(
+                        "sitemapUrl"
+                    )
+                    .value;
+
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    value
+                );
+
+                showToast(
+                    "Sitemap URL copied."
+                );
+
+            } catch {
+
+                showToast(
+                    "Could not copy sitemap URL."
                 );
 
             }
-        );
+
+        }
+    );
 
 
-    document
-        .getElementById(
-            "deployButton"
-        )
-        .addEventListener(
-            "click",
-            () => {
+
+/* =====================================================
+   OPEN SITEMAP URL
+===================================================== */
+
+
+document
+    .getElementById(
+        "openSitemapUrl"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+
+            const value =
+                document
+                    .getElementById(
+                        "sitemapUrl"
+                    )
+                    .value;
+
+
+            window.open(
+                value,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+        }
+    );
+
+
+
+/* =====================================================
+   COPY XML
+===================================================== */
+
+
+document
+    .getElementById(
+        "copyXmlButton"
+    )
+    .addEventListener(
+        "click",
+        async () => {
+
+
+            const xml =
+                generateSitemapXml();
+
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    xml
+                );
 
                 showToast(
-                    "Deployment will use the approved GitHub workflow."
+                    "Sitemap XML copied."
+                );
+
+            } catch {
+
+                showToast(
+                    "Could not copy XML."
                 );
 
             }
-        );
+
+        }
+    );
 
 
-    /* =====================================================
-       HEALTH BUTTON
-    ===================================================== */
 
-    document
-        .getElementById(
-            "healthButton"
-        )
-        .addEventListener(
-            "click",
-            () => {
+/* =====================================================
+   DOWNLOAD XML
+===================================================== */
 
-                showToast(
-                    "Health scan will be connected in the next module."
+
+document
+    .getElementById(
+        "downloadXmlButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+
+            const xml =
+                generateSitemapXml();
+
+
+            const blob =
+                new Blob(
+                    [
+                        xml
+                    ],
+                    {
+                        type:
+                            "application/xml;charset=utf-8"
+                    }
                 );
 
-            }
-        );
 
-
-    /* =====================================================
-       REFRESH
-    ===================================================== */
-
-    document
-        .getElementById(
-            "refreshButton"
-        )
-        .addEventListener(
-            "click",
-            async () => {
-
-                await loadRepository();
-
-                showToast(
-                    "Repository refreshed."
+            const url =
+                URL.createObjectURL(
+                    blob
                 );
 
-            }
-        );
+
+            const link =
+                document.createElement(
+                    "a"
+                );
 
 
-    /* =====================================================
-       GLOBAL SEARCH
-    ===================================================== */
-
-    document
-        .getElementById(
-            "globalSearch"
-        )
-        .addEventListener(
-            "keydown",
-            async event => {
-
-                if (
-                    event.key !==
-                    "Enter"
-                ) {
-
-                    return;
-
-                }
+            link.href =
+                url;
 
 
-                const query =
-                    event.target.value.trim();
+            link.download =
+                "sitemap.xml";
 
 
-                if (!query) {
+            document.body.appendChild(
+                link
+            );
 
-                    return;
 
-                }
+            link.click();
+
+
+            link.remove();
+
+
+            URL.revokeObjectURL(
+                url
+            );
+
+
+            showToast(
+                "sitemap.xml downloaded."
+            );
+
+        }
+    );
+
+
+
+/* =====================================================
+   GENERATE SITEMAP
+===================================================== */
+
+
+document
+    .getElementById(
+        "generateSitemapButton"
+    )
+    .addEventListener(
+        "click",
+        async () => {
+
+
+            const button =
+                document.getElementById(
+                    "generateSitemapButton"
+                );
+
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                "Generating...";
+
+
+            try {
+
+
+                /*
+                    First try the Worker endpoint.
+
+                    If the Worker does not yet expose
+                    a sitemap endpoint, the local
+                    generator still works.
+                */
 
 
                 try {
 
                     const data =
                         await apiRequest(
-                            `/api/search?q=${encodeURIComponent(query)}`
+                            "/api/sitemap"
                         );
 
 
-                    showToast(
-                        `${data.total_count} result(s) found for "${query}".`
+                    if (
+                        data &&
+                        Array.isArray(
+                            data.urls
+                        )
+                    ) {
+
+                        sitemapUrls =
+                            normalizeSitemapUrls(
+                                data.urls
+                            );
+
+                    }
+
+                } catch {
+
+                    /*
+                        Local generation remains
+                        available when the endpoint
+                        is not implemented yet.
+                    */
+
+                }
+
+
+                sitemapUrls =
+                    sitemapUrls.map(
+                        item => ({
+
+                            ...item,
+
+                            lastmod:
+                                new Date()
+                                    .toISOString()
+                                    .split("T")[0]
+
+                        })
                     );
+
+
+                saveLocalSitemap();
+
+                renderSitemap();
+
+
+                showToast(
+                    "Sitemap generated successfully."
+                );
+
+
+            } finally {
+
+
+                button.disabled =
+                    false;
+
+
+                button.textContent =
+                    "Generate Sitemap";
+
+            }
+
+        }
+    );
+
+
+
+/* =====================================================
+   NORMALIZE SITEMAP DATA
+===================================================== */
+
+
+function normalizeSitemapUrls(
+    urls
+) {
+
+
+    return urls
+        .map(
+            item => {
+
+
+                if (
+                    typeof item ===
+                    "string"
+                ) {
+
+                    return {
+
+                        id:
+                            createId(),
+
+                        url:
+                            item,
+
+                        priority:
+                            "0.8",
+
+                        changefreq:
+                            "weekly",
+
+                        lastmod:
+                            new Date()
+                                .toISOString()
+                                .split("T")[0]
+
+                    };
+
+                }
+
+
+                return {
+
+                    id:
+                        item.id ||
+                        createId(),
+
+                    url:
+                        item.url ||
+                        item.loc ||
+                        "",
+
+                    priority:
+                        String(
+                            item.priority ||
+                            "0.8"
+                        ),
+
+                    changefreq:
+                        item.changefreq ||
+                        "weekly",
+
+                    lastmod:
+                        item.lastmod ||
+                        new Date()
+                            .toISOString()
+                            .split("T")[0]
+
+                };
+
+            }
+        )
+        .filter(
+            item =>
+                isValidSitemapUrl(
+                    item.url
+                )
+        );
+
+}
+
+
+
+/* =====================================================
+   REFRESH SITEMAP
+===================================================== */
+
+
+document
+    .getElementById(
+        "sitemapRefreshButton"
+    )
+    .addEventListener(
+        "click",
+        async () => {
+
+
+            const button =
+                document.getElementById(
+                    "sitemapRefreshButton"
+                );
+
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                "Loading...";
+
+
+            try {
+
+
+                try {
+
+
+                    const data =
+                        await apiRequest(
+                            "/api/sitemap"
+                        );
+
+
+                    if (
+                        data &&
+                        Array.isArray(
+                            data.urls
+                        )
+                    ) {
+
+                        sitemapUrls =
+                            normalizeSitemapUrls(
+                                data.urls
+                            );
+
+                        saveLocalSitemap();
+
+                    }
+
+
+                } catch {
+
+
+                    /*
+                        Use locally stored sitemap
+                        if Worker endpoint is unavailable.
+                    */
+
+                    sitemapUrls =
+                        getLocalSitemap();
+
+                }
+
+
+                renderSitemap();
+
+
+                showToast(
+                    "Sitemap refreshed."
+                );
+
+
+            } finally {
+
+
+                button.disabled =
+                    false;
+
+
+                button.textContent =
+                    "Refresh";
+
+            }
+
+        }
+    );
+
+
+
+/* =====================================================
+   SAVE SITEMAP
+===================================================== */
+
+
+document
+    .getElementById(
+        "saveSitemapButton"
+    )
+    .addEventListener(
+        "click",
+        async () => {
+
+
+            const button =
+                document.getElementById(
+                    "saveSitemapButton"
+                );
+
+
+            const xml =
+                generateSitemapXml();
+
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                "Saving...";
+
+
+            try {
+
+
+                /*
+                    Persist locally first.
+                */
+
+                saveLocalSitemap();
+
+
+                /*
+                    Try the Worker endpoint.
+
+                    This allows the same frontend
+                    to work immediately with a
+                    Worker that implements PUT
+                    /api/sitemap.
+                */
+
+                try {
+
+
+                    await apiRequest(
+                        "/api/sitemap",
+                        {
+
+                            method:
+                                "PUT",
+
+                            body:
+                                JSON.stringify({
+
+                                    urls:
+                                        sitemapUrls,
+
+                                    xml,
+
+                                    path:
+                                        "sitemap.xml",
+
+                                    message:
+                                        "Update sitemap.xml"
+
+                                })
+
+                        }
+                    );
+
+
+                    document
+                        .getElementById(
+                            "sitemapSaveMessage"
+                        )
+                        .textContent =
+                            "Sitemap saved to the Admin API successfully.";
+
+
+                    showToast(
+                        "Sitemap saved successfully."
+                    );
+
 
                 } catch (error) {
 
+
+                    /*
+                        If Worker does not yet have
+                        /api/sitemap, the local copy
+                        is still preserved.
+                    */
+
+
+                    document
+                        .getElementById(
+                            "sitemapSaveMessage"
+                        )
+                        .textContent =
+                            "Sitemap saved locally. Connect /api/sitemap in the Worker to commit sitemap.xml to GitHub.";
+
+
                     showToast(
-                        error.message
+                        "Sitemap saved locally. Worker sitemap endpoint is not connected yet."
                     );
 
                 }
 
+
+            } finally {
+
+
+                button.disabled =
+                    false;
+
+
+                button.textContent =
+                    "Save Sitemap";
+
             }
-        );
+
+        }
+    );
 
 
-    /* =====================================================
-       ESCAPE HTML
-    ===================================================== */
 
-    function escapeHtml(
-        value
-    ) {
+/* =====================================================
+   GLOBAL EDIT
+===================================================== */
 
-        return String(value)
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-            .replace(
-                /</g,
-                "&lt;"
-            )
-            .replace(
-                />/g,
-                "&gt;"
-            )
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-            .replace(
-                /'/g,
-                "&#039;"
+
+document
+    .getElementById(
+        "editButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+
+            if (
+                currentFile
+            ) {
+
+
+                openFile(
+                    currentFile.path,
+                    "edit"
+                );
+
+
+            } else {
+
+
+                showToast(
+                    "Open a file first."
+                );
+
+            }
+
+        }
+    );
+
+
+
+/* =====================================================
+   GLOBAL PREVIEW
+===================================================== */
+
+
+document
+    .getElementById(
+        "previewButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+
+            if (
+                currentFile
+            ) {
+
+
+                previewFile(
+                    currentFile.path
+                );
+
+
+            } else {
+
+
+                showToast(
+                    "Open a file first."
+                );
+
+            }
+
+        }
+    );
+
+
+
+/* =====================================================
+   GLOBAL COMMIT
+===================================================== */
+
+
+document
+    .getElementById(
+        "commitButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            showToast(
+                "Open a file to start the commit workflow."
             );
 
-    }
+        }
+    );
+
+
+
+/* =====================================================
+   GLOBAL DEPLOY
+===================================================== */
+
+
+document
+    .getElementById(
+        "deployButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            showToast(
+                "Deployment will use the approved GitHub workflow."
+            );
+
+        }
+    );
+
+
+
+/* =====================================================
+   HEALTH BUTTON
+===================================================== */
+
+
+document
+    .getElementById(
+        "healthButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            showToast(
+                "Health scan will be connected in the next module."
+            );
+
+        }
+    );
+
+
+
+/* =====================================================
+   REFRESH DASHBOARD
+===================================================== */
+
+
+document
+    .getElementById(
+        "refreshButton"
+    )
+    .addEventListener(
+        "click",
+        async () => {
+
+
+            await loadRepository();
+
+
+            initializeSitemap();
+
+
+            showToast(
+                "Repository and sitemap refreshed."
+            );
+
+        }
+    );
+
+
+
+/* =====================================================
+   GLOBAL SEARCH
+===================================================== */
+
+
+document
+    .getElementById(
+        "globalSearch"
+    )
+    .addEventListener(
+        "keydown",
+        async event => {
+
+
+            if (
+                event.key !==
+                "Enter"
+            ) {
+
+                return;
+
+            }
+
+
+            const query =
+                event.target.value.trim();
+
+
+            if (!query) {
+
+                return;
+
+            }
+
+
+            try {
+
+
+                const data =
+                    await apiRequest(
+                        `/api/search?q=${encodeURIComponent(query)}`
+                    );
+
+
+                showToast(
+                    `${data.total_count || 0} result(s) found for "${query}".`
+                );
+
+
+            } catch (error) {
+
+
+                showToast(
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+
+function escapeHtml(
+    value
+) {
+
+
+    return String(
+        value
+    )
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
 
 </script>
 
 
 </body>
+
     </html>
